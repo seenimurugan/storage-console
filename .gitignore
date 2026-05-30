@@ -24,3 +24,7 @@ yarn-error.log*
 .vscode/
 *.iml
 *.swp
+.code-review-graph/
+graphify-out/cache/
+graphify-out/manifest.json
+graphify-out/cost.json
