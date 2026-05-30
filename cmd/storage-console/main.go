@@ -7,8 +7,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/nila/storage-console/internal/handlers"
-	"github.com/nila/storage-console/web"
+	"github.com/seenimurugan/storage-console/internal/handlers"
+	"github.com/seenimurugan/storage-console/web"
 )
 
 func main() {

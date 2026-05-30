@@ -1,3 +1,3 @@
-module github.com/nila/storage-console
+module github.com/seenimurugan/storage-console
 
 go 1.23

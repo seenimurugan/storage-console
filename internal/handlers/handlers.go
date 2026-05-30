@@ -6,13 +6,19 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"os/exec"
 	"regexp"
 	"strings"
 	"time"
 )
 
-const namespace = "homelab"
+var namespace = func() string {
+	if v := os.Getenv("NAMESPACE"); v != "" {
+		return v
+	}
+	return "homelab"
+}()
 
 // actionToCronJob maps the URL action param to the CronJob name in-cluster.
 var actionToCronJob = map[string]string{
