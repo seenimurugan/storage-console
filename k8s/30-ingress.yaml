@@ -1,6 +1,6 @@
 # Tailscale ingress at tier.stoat-perch.ts.net.
 #   /api/*       and /actuator/*   → backend  (port 8080)
-#   everything else                → frontend (port 3000)
+#   everything else                → frontend (port 80, targetPort 3000)
 #
 # Note: this file is processed by envsubst in deploy.sh.
 ---
@@ -35,7 +35,7 @@ spec:
               service:
                 name: storage-console-frontend
                 port:
-                  number: 3000
+                  number: 80
   tls:
     - hosts:
         - tier

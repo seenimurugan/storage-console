@@ -59,6 +59,6 @@ spec:
   selector:
     app: storage-console-frontend
   ports:
-    - port: 3000
+    - port: 80
       targetPort: http
       name: http
