@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: storage-console
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/storage_console}
+    username: ${SPRING_DATASOURCE_USERNAME:storage_console}
+    password: ${SPRING_DATASOURCE_PASSWORD:storage_console}
+    hikari:
+      initialization-fail-timeout: 60000
+      connection-timeout: 10000
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc.time_zone: UTC
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+server:
+  port: 8080
+  forward-headers-strategy: framework
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: never
+
+storage-console:
+  jwt:
+    # 256-bit base64 secret. Override via STORAGE_CONSOLE_JWT_SECRET. Default for local dev only.
+    secret: ${STORAGE_CONSOLE_JWT_SECRET:VGhpcy1pcy1hLWxvY2FsLWRldi1zZWNyZXQtcGxlYXNlLW92ZXJyaWRlLWluLXByb2Q=}
+    ttl-hours: 720
+  admin:
+    username: ${STORAGE_CONSOLE_ADMIN_USERNAME:admin}
+    password: ${STORAGE_CONSOLE_ADMIN_PASSWORD:changeme}
+    display-name: ${STORAGE_CONSOLE_ADMIN_DISPLAY_NAME:Admin}
+  k8s:
+    namespace: ${HOMELAB_NAMESPACE:homelab}
+  hdd:
+    # Path on the Mac host (mounted into the backend pod for probing).
+    # The CronJob pods also mount this path independently; see k8s/40-cronjobs.yaml.
+    host-path: ${HOMELAB_TIER_HDD_PATH:/Volumes/homelab-hdd}
+    # Path inside the backend pod where host-path is mounted (see k8s/10-backend.yaml).
+    probe-path: /hdd-probe
+
+logging:
+  level:
+    org.springframework.security: INFO
+    com.nila.storageconsole: INFO
+    io.fabric8.kubernetes.client: WARN

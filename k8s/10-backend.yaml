@@ -1,0 +1,153 @@
+# Storage Console backend (Spring Boot + fabric8 K8s client)
+# Note: this file is processed by envsubst in deploy.sh — ${VAR} placeholders
+# are filled from .env before being piped to kubectl apply.
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: storage-console
+  namespace: ${HOMELAB_NAMESPACE}
+---
+# Namespace-scoped Role: list/patch CronJobs (for mode toggle), create/list Jobs
+# (for manual trigger + history), read pods + pod logs (for log viewer).
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: storage-console
+  namespace: ${HOMELAB_NAMESPACE}
+rules:
+  - apiGroups: ["batch"]
+    resources: ["cronjobs"]
+    verbs: ["get", "list", "watch", "patch", "update"]
+  - apiGroups: ["batch"]
+    resources: ["jobs"]
+    verbs: ["get", "list", "watch", "create", "delete"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list"]
+  - apiGroups: [""]
+    resources: ["pods/log"]
+    verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: storage-console
+  namespace: ${HOMELAB_NAMESPACE}
+subjects:
+  - kind: ServiceAccount
+    name: storage-console
+    namespace: ${HOMELAB_NAMESPACE}
+roleRef:
+  kind: Role
+  name: storage-console
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: storage-console-backend-secret
+  namespace: ${HOMELAB_NAMESPACE}
+type: Opaque
+stringData:
+  STORAGE_CONSOLE_JWT_SECRET: "${STORAGE_CONSOLE_JWT_SECRET}"
+  STORAGE_CONSOLE_ADMIN_USERNAME: "${STORAGE_CONSOLE_ADMIN_USERNAME}"
+  STORAGE_CONSOLE_ADMIN_PASSWORD: "${STORAGE_CONSOLE_ADMIN_PASSWORD}"
+  STORAGE_CONSOLE_ADMIN_DISPLAY_NAME: "${STORAGE_CONSOLE_ADMIN_DISPLAY_NAME}"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: storage-console-backend
+  namespace: ${HOMELAB_NAMESPACE}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: storage-console-backend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: storage-console-backend
+    spec:
+      serviceAccountName: storage-console
+      # hostPath mount for HDD probe.  type: "" — see memory note
+      # "OrbStack HDD mount fd limit" (DirectoryOrCreate can ENFILE on first mount).
+      volumes:
+        - name: hdd-probe
+          hostPath:
+            path: ${HOMELAB_TIER_HDD_PATH}
+            type: ""
+      containers:
+        - name: backend
+          image: ${BACKEND_IMAGE}:${BACKEND_TAG}
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+              name: http
+          env:
+            - name: DB_HOST
+              value: shared-postgres.${HOMELAB_NAMESPACE}.svc.cluster.local
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef: { name: shared-postgres-secret, key: STORAGE_CONSOLE_DB }
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                secretKeyRef: { name: shared-postgres-secret, key: STORAGE_CONSOLE_USER }
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef: { name: shared-postgres-secret, key: STORAGE_CONSOLE_PASSWORD }
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://$(DB_HOST):$(DB_PORT)/$(DB_NAME)
+            - name: HOMELAB_NAMESPACE
+              value: "${HOMELAB_NAMESPACE}"
+            - name: HOMELAB_TIER_HDD_PATH
+              value: "${HOMELAB_TIER_HDD_PATH}"
+          envFrom:
+            - secretRef:
+                name: storage-console-backend-secret
+          volumeMounts:
+            - name: hdd-probe
+              mountPath: /hdd-probe
+              readOnly: true
+          startupProbe:
+            httpGet: { path: /actuator/health/liveness, port: 8080 }
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 30
+          readinessProbe:
+            httpGet: { path: /actuator/health/readiness, port: 8080 }
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 5
+          livenessProbe:
+            httpGet: { path: /actuator/health/liveness, port: 8080 }
+            periodSeconds: 60
+            timeoutSeconds: 5
+            failureThreshold: 5
+          resources:
+            requests:
+              memory: "384Mi"
+              cpu: "100m"
+            limits:
+              memory: "1Gi"
+              cpu: "1500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: storage-console-backend
+  namespace: ${HOMELAB_NAMESPACE}
+spec:
+  type: ClusterIP
+  selector:
+    app: storage-console-backend
+  ports:
+    - port: 8080
+      targetPort: http
+      name: http

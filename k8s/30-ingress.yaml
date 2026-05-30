@@ -1,0 +1,41 @@
+# Tailscale ingress at tier.stoat-perch.ts.net.
+#   /api/*       and /actuator/*   → backend  (port 8080)
+#   everything else                → frontend (port 3000)
+#
+# Note: this file is processed by envsubst in deploy.sh.
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: storage-console
+  namespace: ${HOMELAB_NAMESPACE}
+spec:
+  ingressClassName: tailscale
+  rules:
+    - host: tier
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: storage-console-backend
+                port:
+                  number: 8080
+          - path: /actuator
+            pathType: Prefix
+            backend:
+              service:
+                name: storage-console-backend
+                port:
+                  number: 8080
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: storage-console-frontend
+                port:
+                  number: 3000
+  tls:
+    - hosts:
+        - tier
