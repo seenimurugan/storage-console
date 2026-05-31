@@ -1,5 +1,7 @@
 # Architecture
 
+**On this page:** [Deployment diagram](#deployment-diagram) · [Overview](#overview) · [Tech stack](#tech-stack) · [REST API](#rest-api) · [Data model](#data-model) · [Mode persistence](#mode-persistence) · [HDD-connected detection](#hdd-connected-detection) · [CronJob HDD guard](#cronjob-hdd-guard) · [Why fabric8 over kubectl?](#why-fabric8-over-kubectl) · [Container images](#container-images) · [Ingress](#ingress) · [Security posture](#security-posture) · [v1 → v2 changes](#v1--v2-changes)
+
 ## Deployment diagram
 
 ```mermaid

@@ -1,5 +1,7 @@
 # Maintenance
 
+**On this page:** [Rebuilding after a code change](#rebuilding-after-a-code-change) · [Rotate admin password](#rotate-admin-password) · [Tearing down](#tearing-down) · [RBAC — what the ServiceAccount can do](#rbac--what-the-serviceaccount-can-do) · [DB access](#db-access) · [Troubleshooting](#troubleshooting)
+
 ## Rebuilding after a code change
 
 ```bash

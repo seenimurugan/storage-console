@@ -1,5 +1,7 @@
 # Usage
 
+**On this page:** [Logging in](#logging-in) · [The dashboard](#the-dashboard) · [Setting Auto mode](#setting-auto-mode) · [Triggering a manual run](#triggering-a-manual-run) · [Two concurrent runs](#two-concurrent-runs) · [Checking from the CLI](#checking-from-the-cli) · [Fallback: the `tier-now.sh` script](#fallback-the-`tier-nowsh`-script)
+
 ## Logging in
 
 1. Open https://tier.stoat-perch.ts.net (Tailnet required).
