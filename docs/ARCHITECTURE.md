@@ -1,5 +1,17 @@
 # Architecture
 
+## Deployment diagram
+
+```mermaid
+graph TD
+    A[Browser on Tailnet] -->|HTTPS| B[Tailscale Ingress\ntier.stoat-perch.ts.net]
+    B -->|/api/* /actuator/*| C[storage-console-backend\nSpring Boot port 8080]
+    B -->|everything else| D[storage-console-frontend\nNext.js port 3000]
+    C -->|fabric8 K8s client in-cluster SA| E[Kubernetes API]
+    E -->|patch suspend / create Job| F[CronJobs\ntier-mover-immich\ntier-mover-jellyfin\nimmich-backup]
+    C -->|JDBC| G[shared-postgres\ndb: storage_console]
+```
+
 ## Overview
 
 storage-console v2 is a two-container app (Spring Boot backend + Next.js frontend) that wraps three Kubernetes CronJobs in a friendly UI. The CronJobs themselves are also owned by this app (defined in `k8s/40-cronjobs.yaml`).
