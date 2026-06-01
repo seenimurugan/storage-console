@@ -94,13 +94,13 @@ spec:
               value: "5432"
             - name: DB_NAME
               valueFrom:
-                secretKeyRef: { name: shared-postgres-secret, key: STORAGE_CONSOLE_DB }
+                secretKeyRef: { name: storage-console-postgres-secret, key: STORAGE_CONSOLE_DB }
             - name: SPRING_DATASOURCE_USERNAME
               valueFrom:
-                secretKeyRef: { name: shared-postgres-secret, key: STORAGE_CONSOLE_USER }
+                secretKeyRef: { name: storage-console-postgres-secret, key: STORAGE_CONSOLE_USER }
             - name: SPRING_DATASOURCE_PASSWORD
               valueFrom:
-                secretKeyRef: { name: shared-postgres-secret, key: STORAGE_CONSOLE_PASSWORD }
+                secretKeyRef: { name: storage-console-postgres-secret, key: STORAGE_CONSOLE_PASSWORD }
             - name: SPRING_DATASOURCE_URL
               value: jdbc:postgresql://$(DB_HOST):$(DB_PORT)/$(DB_NAME)
             - name: HOMELAB_NAMESPACE

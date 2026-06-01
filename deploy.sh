@@ -65,20 +65,23 @@ docker build --platform linux/arm64 -t "$BACKEND_IMAGE:$BACKEND_TAG"   "$SCRIPT_
 echo "  → $FRONTEND_IMAGE:$FRONTEND_TAG"
 docker build --platform linux/arm64 -t "$FRONTEND_IMAGE:$FRONTEND_TAG" "$SCRIPT_DIR/frontend"
 
-# ── 5. Ensure shared-postgres-secret has STORAGE_CONSOLE_* keys ──────────────
+# ── 5. Ensure storage-console-postgres-secret has STORAGE_CONSOLE_* keys ─────
+# Dedicated per-app secret (split from shared-postgres-secret on 2026-06-01).
+# JSON Patch (RFC 6902) on existing secrets so re-runs never stomp other keys.
 echo ""
-echo "[deploy] (2/8) Ensuring shared-postgres-secret has STORAGE_CONSOLE_* keys"
-# Preserve other apps' keys by re-applying only the storage-console ones.
-EXISTING_SECRET_YAML="$(kubectl -n "$HOMELAB_NAMESPACE" get secret shared-postgres-secret -o yaml 2>/dev/null || true)"
-if [[ -n "$EXISTING_SECRET_YAML" ]]; then
-  kubectl -n "$HOMELAB_NAMESPACE" patch secret shared-postgres-secret \
-    --type=merge \
-    -p "$(cat <<EOF
-{"stringData":{"STORAGE_CONSOLE_DB":"${STORAGE_CONSOLE_DB}","STORAGE_CONSOLE_USER":"${STORAGE_CONSOLE_USER}","STORAGE_CONSOLE_PASSWORD":"${STORAGE_CONSOLE_PASSWORD}"}}
-EOF
-)"
+echo "[deploy] (2/8) Ensuring storage-console-postgres-secret has STORAGE_CONSOLE_* keys (JSON Patch, no stomp)"
+_SC_DB_B64=$(printf '%s' "${STORAGE_CONSOLE_DB}" | base64 | tr -d '\n')
+_SC_USER_B64=$(printf '%s' "${STORAGE_CONSOLE_USER}" | base64 | tr -d '\n')
+_SC_PASS_B64=$(printf '%s' "${STORAGE_CONSOLE_PASSWORD}" | base64 | tr -d '\n')
+
+if kubectl -n "$HOMELAB_NAMESPACE" get secret storage-console-postgres-secret &>/dev/null; then
+  kubectl patch secret -n "$HOMELAB_NAMESPACE" storage-console-postgres-secret --type=json -p="[
+    {\"op\":\"add\",\"path\":\"/data/STORAGE_CONSOLE_DB\",\"value\":\"${_SC_DB_B64}\"},
+    {\"op\":\"add\",\"path\":\"/data/STORAGE_CONSOLE_USER\",\"value\":\"${_SC_USER_B64}\"},
+    {\"op\":\"add\",\"path\":\"/data/STORAGE_CONSOLE_PASSWORD\",\"value\":\"${_SC_PASS_B64}\"}
+  ]"
 else
-  kubectl -n "$HOMELAB_NAMESPACE" create secret generic shared-postgres-secret \
+  kubectl -n "$HOMELAB_NAMESPACE" create secret generic storage-console-postgres-secret \
     --from-literal=STORAGE_CONSOLE_DB="${STORAGE_CONSOLE_DB}" \
     --from-literal=STORAGE_CONSOLE_USER="${STORAGE_CONSOLE_USER}" \
     --from-literal=STORAGE_CONSOLE_PASSWORD="${STORAGE_CONSOLE_PASSWORD}"
