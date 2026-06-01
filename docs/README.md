@@ -67,7 +67,7 @@ This app does not own its database — it uses the cluster's [Shared Postgres](.
 | Server | `shared-postgres.homelab.svc.cluster.local:5432` |
 | Database | `storage_console` |
 | User | `storage_console` |
-| Password | `STORAGE_CONSOLE_PASSWORD` in `.env` (also in `shared-postgres-secret`) |
+| Password | `STORAGE_CONSOLE_PASSWORD` in `.env` (also in `storage-console-postgres-secret`) |
 
 Backend and frontend pods are stateless — no PVCs in this app's manifests.
 
