@@ -46,7 +46,7 @@ kubectl -n homelab exec shared-postgres-0 -- \
 ```bash
 ./undeploy.sh
 # Removes:   Deployments, Services, Ingress, Secret, RBAC
-# Preserves: CronJobs (and their Auto/Manual state), DB data, shared-postgres-secret
+# Preserves: CronJobs (and their Auto/Manual state), DB data, storage-console-postgres-secret
 ```
 
 To also wipe the database:
