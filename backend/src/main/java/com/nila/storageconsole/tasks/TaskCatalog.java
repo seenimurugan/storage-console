@@ -29,7 +29,7 @@ public final class TaskCatalog {
     public static final TaskDef JELLYFIN_TIER = new TaskDef(
             "jellyfin-tier",
             "Jellyfin Tier",
-            "Move Jellyfin media larger than 3 GiB from SSD to HDD",
+            "Move Jellyfin media larger than 1 GiB from SSD to HDD",
             "tier-mover-jellyfin"
     );
 
