@@ -1,16 +1,16 @@
 # Graph Report - storage-console  (2026-06-03)
 
 ## Corpus Check
-- 64 files · ~17,052 words
+- 65 files · ~18,151 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 435 nodes · 525 edges · 52 communities (39 shown, 13 thin omitted)
-- Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 38 edges (avg confidence: 0.8)
+- 458 nodes · 577 edges · 51 communities (38 shown, 13 thin omitted)
+- Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 42 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `73c93ad8`
+- Built from commit: `f9565d5d`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -33,7 +33,6 @@
 - [[_COMMUNITY_Community 15|Community 15]]
 - [[_COMMUNITY_Community 16|Community 16]]
 - [[_COMMUNITY_Community 17|Community 17]]
-- [[_COMMUNITY_Community 18|Community 18]]
 - [[_COMMUNITY_Community 19|Community 19]]
 - [[_COMMUNITY_Community 20|Community 20]]
 - [[_COMMUNITY_Community 21|Community 21]]
@@ -67,16 +66,16 @@
 - [[_COMMUNITY_Community 51|Community 51]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `compilerOptions` - 17 edges
-2. `Architecture` - 14 edges
-3. `KubernetesService` - 12 edges
-4. `Storage Console` - 12 edges
-5. `User` - 11 edges
-6. `Immich restic Backup` - 10 edges
+1. `KubernetesService` - 17 edges
+2. `compilerOptions` - 17 edges
+3. `String` - 14 edges
+4. `Architecture` - 14 edges
+5. `Storage Console` - 12 edges
+6. `User` - 11 edges
 7. `TaskController` - 10 edges
-8. `String` - 10 edges
+8. `Immich restic Backup` - 10 edges
 9. `storage-console` - 9 edges
-10. `Maintenance` - 8 edges
+10. `Job` - 8 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `TaskCard()` --calls--> `relativeTime()`  [EXTRACTED]
@@ -84,19 +83,19 @@
 - `TaskCard()` --calls--> `timeOfDay()`  [EXTRACTED]
   frontend/src/components/TaskCard.tsx → frontend/src/lib/format.ts
 
-## Communities (52 total, 13 thin omitted)
+## Communities (51 total, 13 thin omitted)
 
 ### Community 0 - "Community 0"
-Cohesion: 0.07
-Nodes (32): AuditEventRepository, Instant, KubernetesClient, List, Optional, RunSummary, String, Optional (+24 more)
+Cohesion: 0.06
+Nodes (41): ActiveJobs, AuditEventRepository, AuthUser, String, Optional, String, TaskDef, AuthUser (+33 more)
 
 ### Community 1 - "Community 1"
-Cohesion: 0.09
-Nodes (20): ApplicationRunner, Bean, PasswordEncoder, String, UserRepository, AuthUser, GetMapping, PostMapping (+12 more)
+Cohesion: 0.08
+Nodes (24): ApplicationRunner, Bean, PasswordEncoder, String, UserRepository, AuthUser, GetMapping, JwtService (+16 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.17
-Nodes (14): ModeToggle(), HddBadge(), StatusBadge(), TaskCard(), api, HddStatus, Me, req() (+6 more)
+Cohesion: 0.13
+Nodes (18): ModeToggle(), HddBadge(), StatusBadge(), TaskCard(), THRESHOLD_GIB_KEY, TIERING_TASK_IDS, api, HddStatus (+10 more)
 
 ### Community 3 - "Community 3"
 Cohesion: 0.09
@@ -119,7 +118,7 @@ Cohesion: 0.24
 Nodes (4): AuditEvent, Instant, Long, String
 
 ### Community 8 - "Community 8"
-Cohesion: 0.17
+Cohesion: 0.16
 Nodes (11): JwtService, String, User, Claims, FilterChain, HttpServletRequest, HttpServletResponse, OncePerRequestFilter (+3 more)
 
 ### Community 9 - "Community 9"
@@ -139,7 +138,7 @@ Cohesion: 0.25
 Nodes (7): args, command, cwd, env, type, mcpServers, code-review-graph
 
 ### Community 13 - "Community 13"
-Cohesion: 0.33
+Cohesion: 0.40
 Nodes (3): Status, String, HddProbeService
 
 ### Community 14 - "Community 14"
@@ -157,10 +156,6 @@ Nodes (4): Bean, KubernetesClient, String, KubernetesConfig
 ### Community 17 - "Community 17"
 Cohesion: 0.40
 Nodes (4): Optional, String, User, UserRepository
-
-### Community 18 - "Community 18"
-Cohesion: 0.47
-Nodes (4): JwtService, PasswordEncoder, UserRepository, AuthController
 
 ### Community 19 - "Community 19"
 Cohesion: 0.40
@@ -235,24 +230,24 @@ Cohesion: 0.14
 Nodes (13): Concurrency model, Immich restic Backup, Manual run, Manual + scheduled overlap (safe but slower), Mount guard, Password (3 places), Repo location, Restore runbook (+5 more)
 
 ## Knowledge Gaps
-- **198 isolated node(s):** `What it backs up`, `Repo location`, `Password (3 places)`, `Retention`, `Mount guard` (+193 more)
+- **205 isolated node(s):** `ActiveJobs`, `RunSummary`, `ThresholdsView`, `ThresholdRequest`, `ThresholdView` (+200 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **13 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
+- **Why does `Instant` connect `Community 0` to `Community 8`?**
+  _High betweenness centrality (0.058) - this node is a cross-community bridge._
 - **Why does `JwtService` connect `Community 8` to `Community 1`?**
-  _High betweenness centrality (0.004) - this node is a cross-community bridge._
-- **Why does `AuthController` connect `Community 18` to `Community 1`?**
-  _High betweenness centrality (0.003) - this node is a cross-community bridge._
-- **What connects `What it backs up`, `Repo location`, `Password (3 places)` to the rest of the system?**
-  _198 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _High betweenness centrality (0.029) - this node is a cross-community bridge._
+- **Why does `User` connect `Community 8` to `Community 1`?**
+  _High betweenness centrality (0.018) - this node is a cross-community bridge._
+- **What connects `ActiveJobs`, `RunSummary`, `ThresholdsView` to the rest of the system?**
+  _205 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
-  _Cohesion score 0.07393483709273183 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05639097744360902 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.09103840682788052 - nodes in this community are weakly interconnected._
-- **Should `Community 3` be split into smaller, more focused modules?**
-  _Cohesion score 0.09090909090909091 - nodes in this community are weakly interconnected._
-- **Should `Community 4` be split into smaller, more focused modules?**
-  _Cohesion score 0.09523809523809523 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07973421926910298 - nodes in this community are weakly interconnected._
+- **Should `Community 2` be split into smaller, more focused modules?**
+  _Cohesion score 0.1339031339031339 - nodes in this community are weakly interconnected._

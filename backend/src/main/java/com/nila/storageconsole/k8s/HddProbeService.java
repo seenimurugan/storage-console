@@ -35,6 +35,7 @@ public class HddProbeService {
                            @Value("${storage-console.hdd.probe-path}") String probePath) {
         this.hostPath = hostPath;
         this.probePath = Path.of(probePath);
+        log.info("event=hdd.probe.init hostPath={} probePath={}", hostPath, probePath);
     }
 
     public Status status() {
@@ -44,6 +45,13 @@ public class HddProbeService {
             return new Status(hostPath, c.connected, Instant.ofEpochMilli(c.checkedAtMs));
         }
         boolean connected = probe();
+        boolean previouslyConnected = (c != null) ? c.connected : !connected; // treat first check as a transition
+        if (c == null || connected != previouslyConnected) {
+            log.info("event=hdd.probe.state hostPath={} probePath={} old={} new={}",
+                    hostPath, probePath,
+                    c == null ? "unknown" : previouslyConnected,
+                    connected);
+        }
         cached = new CachedResult(connected, now);
         return new Status(hostPath, connected, Instant.ofEpochMilli(now));
     }
@@ -56,7 +64,7 @@ public class HddProbeService {
                 return stream.findAny().isPresent();
             }
         } catch (Exception e) {
-            log.debug("HDD probe failed on {}: {}", probePath, e.getMessage());
+            log.warn("event=hdd.probe.error probePath={} outcome=false reason={}", probePath, e.getMessage());
             return false;
         }
     }

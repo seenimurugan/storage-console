@@ -77,13 +77,15 @@ spec:
         app: storage-console-backend
     spec:
       serviceAccountName: storage-console
-      # hostPath mount for HDD probe.  type: "" — see memory note
-      # "OrbStack HDD mount fd limit" (DirectoryOrCreate can ENFILE on first mount).
+      # Mount the always-present /Volumes parent instead of the HDD subdir directly.
+      # type: Directory guarantees /Volumes exists on Mac hosts at all times.
+      # HostToContainer propagation means a later-plugged disk appears in the
+      # running pod within the 30s probe cache TTL — no restart needed.
       volumes:
-        - name: hdd-probe
+        - name: hdd-root
           hostPath:
-            path: ${HOMELAB_TIER_HDD_PATH}
-            type: ""
+            path: /Volumes
+            type: Directory
       containers:
         - name: backend
           image: ${BACKEND_IMAGE}:${BACKEND_TAG}
@@ -111,13 +113,16 @@ spec:
               value: "${HOMELAB_NAMESPACE}"
             - name: HOMELAB_TIER_HDD_PATH
               value: "${HOMELAB_TIER_HDD_PATH}"
+            - name: STORAGE_CONSOLE_HDD_PROBE_PATH
+              value: "/hdd-root/homelab-hdd"
           envFrom:
             - secretRef:
                 name: storage-console-backend-secret
           volumeMounts:
-            - name: hdd-probe
-              mountPath: /hdd-probe
+            - name: hdd-root
+              mountPath: /hdd-root
               readOnly: true
+              mountPropagation: HostToContainer
           startupProbe:
             httpGet: { path: /actuator/health/liveness, port: 8080 }
             initialDelaySeconds: 20

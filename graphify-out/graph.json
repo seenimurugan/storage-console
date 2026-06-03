@@ -4,309 +4,508 @@
   "graph": {},
   "nodes": [
     {
-      "label": "RESTIC-BACKUP.md",
-      "file_type": "document",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L1",
-      "id": "docs_restic_backup_md",
-      "community": 51,
-      "norm_label": "restic-backup.md"
-    },
-    {
-      "label": "Immich restic Backup",
-      "file_type": "document",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L1",
-      "id": "docs_restic_backup_immich_restic_backup",
-      "community": 51,
-      "norm_label": "immich restic backup"
-    },
-    {
-      "label": "What it backs up",
-      "file_type": "document",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L10",
-      "id": "docs_restic_backup_what_it_backs_up",
-      "community": 51,
-      "norm_label": "what it backs up"
-    },
-    {
-      "label": "Repo location",
-      "file_type": "document",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L23",
-      "id": "docs_restic_backup_repo_location",
-      "community": 51,
-      "norm_label": "repo location"
-    },
-    {
-      "label": "Password (3 places)",
-      "file_type": "document",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L32",
-      "id": "docs_restic_backup_password_3_places",
-      "community": 51,
-      "norm_label": "password (3 places)"
-    },
-    {
-      "label": "Retention",
-      "file_type": "document",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L45",
-      "id": "docs_restic_backup_retention",
-      "community": 51,
-      "norm_label": "retention"
-    },
-    {
-      "label": "Mount guard",
-      "file_type": "document",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L53",
-      "id": "docs_restic_backup_mount_guard",
-      "community": 51,
-      "norm_label": "mount guard"
-    },
-    {
-      "label": "Concurrency model",
-      "file_type": "document",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L62",
-      "id": "docs_restic_backup_concurrency_model",
-      "community": 51,
-      "norm_label": "concurrency model"
-    },
-    {
-      "label": "Trigger Now guard (HTTP 409)",
-      "file_type": "document",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L67",
-      "id": "docs_restic_backup_trigger_now_guard_http_409",
-      "community": 51,
-      "norm_label": "trigger now guard (http 409)"
-    },
-    {
-      "label": "Scheduled self-overlap (CronJob `concurrencyPolicy: Forbid`)",
-      "file_type": "document",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L84",
-      "id": "docs_restic_backup_scheduled_self_overlap_cronjob_concurrencypolicy_forbid",
-      "community": 51,
-      "norm_label": "scheduled self-overlap (cronjob `concurrencypolicy: forbid`)"
-    },
-    {
-      "label": "Manual + scheduled overlap (safe but slower)",
-      "file_type": "document",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L92",
-      "id": "docs_restic_backup_manual_scheduled_overlap_safe_but_slower",
-      "community": 51,
-      "norm_label": "manual + scheduled overlap (safe but slower)"
-    },
-    {
-      "label": "Stale-lock recovery",
-      "file_type": "document",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L108",
-      "id": "docs_restic_backup_stale_lock_recovery",
-      "community": 51,
-      "norm_label": "stale-lock recovery"
-    },
-    {
-      "label": "Restore runbook",
-      "file_type": "document",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L129",
-      "id": "docs_restic_backup_restore_runbook",
-      "community": 51,
-      "norm_label": "restore runbook"
-    },
-    {
-      "label": "Manual run",
-      "file_type": "document",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L160",
-      "id": "docs_restic_backup_manual_run",
-      "community": 51,
-      "norm_label": "manual run"
-    },
-    {
-      "label": "deploy.sh",
+      "label": "KubernetesService.java",
       "file_type": "code",
-      "source_file": "deploy.sh",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
       "source_location": "L1",
-      "metadata": {
-        "language": "bash",
-        "kind": "file"
-      },
-      "community": 42,
-      "norm_label": "deploy.sh",
-      "id": "deploy_sh"
+      "id": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java",
+      "community": 0,
+      "norm_label": "kubernetesservice.java"
     },
     {
-      "label": "deploy.sh script",
+      "label": "KubernetesService",
       "file_type": "code",
-      "source_file": "deploy.sh",
-      "source_location": "L1",
-      "metadata": {
-        "language": "bash",
-        "kind": "bash_entrypoint"
-      },
-      "community": 42,
-      "norm_label": "deploy.sh script",
-      "id": "users_nila_developer_apps_storage_console_deploy_sh__entry"
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L30",
+      "id": "k8s_kubernetesservice_kubernetesservice",
+      "community": 0,
+      "norm_label": "kubernetesservice"
     },
     {
-      "label": "MAINTENANCE.md",
-      "file_type": "document",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L1",
-      "community": 5,
-      "norm_label": "maintenance.md",
-      "id": "docs_maintenance_md"
+      "label": ".KubernetesService()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L38",
+      "id": "k8s_kubernetesservice_kubernetesservice_kubernetesservice",
+      "community": 0,
+      "norm_label": ".kubernetesservice()"
     },
     {
-      "label": "Maintenance",
-      "file_type": "document",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L1",
-      "community": 5,
-      "norm_label": "maintenance",
-      "id": "docs_maintenance_maintenance"
+      "label": "KubernetesClient",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L38",
+      "id": "kubernetesclient",
+      "community": 0,
+      "norm_label": "kubernetesclient"
     },
     {
-      "label": "Rebuilding after a code change",
-      "file_type": "document",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L5",
-      "community": 5,
-      "norm_label": "rebuilding after a code change",
-      "id": "docs_maintenance_rebuilding_after_a_code_change"
+      "label": "String",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L38",
+      "id": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string",
+      "community": 0,
+      "norm_label": "string"
     },
     {
-      "label": "Manual rebuild without deploy.sh",
-      "file_type": "document",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L15",
-      "community": 5,
-      "norm_label": "manual rebuild without deploy.sh",
-      "id": "docs_maintenance_manual_rebuild_without_deploy_sh"
-    },
-    {
-      "label": "Rotate admin password",
-      "file_type": "document",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L28",
-      "community": 5,
-      "norm_label": "rotate admin password",
-      "id": "docs_maintenance_rotate_admin_password"
-    },
-    {
-      "label": "Tearing down",
-      "file_type": "document",
-      "source_file": "docs/MAINTENANCE.md",
+      "label": ".namespace()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
       "source_location": "L44",
-      "community": 5,
-      "norm_label": "tearing down",
-      "id": "docs_maintenance_tearing_down"
+      "id": "k8s_kubernetesservice_kubernetesservice_namespace",
+      "community": 0,
+      "norm_label": ".namespace()"
     },
     {
-      "label": "Immich backup (restic)",
-      "file_type": "document",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L67",
-      "community": 5,
-      "norm_label": "immich backup (restic)",
-      "id": "docs_maintenance_immich_backup_restic"
+      "label": ".getCronJob()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L48",
+      "id": "k8s_kubernetesservice_kubernetesservice_getcronjob",
+      "community": 0,
+      "norm_label": ".getcronjob()"
     },
     {
-      "label": "RBAC \u2014 what the ServiceAccount can do",
-      "file_type": "document",
-      "source_file": "docs/MAINTENANCE.md",
+      "label": "Optional",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L48",
+      "id": "optional",
+      "community": 0,
+      "norm_label": "optional"
+    },
+    {
+      "label": "CronJob",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L48",
+      "id": "cronjob",
+      "community": 0,
+      "norm_label": "cronjob"
+    },
+    {
+      "label": ".isSuspended()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L53",
+      "id": "k8s_kubernetesservice_kubernetesservice_issuspended",
+      "community": 0,
+      "norm_label": ".issuspended()"
+    },
+    {
+      "label": ".setSuspend()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L60",
+      "id": "k8s_kubernetesservice_kubernetesservice_setsuspend",
+      "community": 0,
+      "norm_label": ".setsuspend()"
+    },
+    {
+      "label": ".createJobFromCronJob()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
       "source_location": "L80",
-      "community": 5,
-      "norm_label": "rbac \u2014 what the serviceaccount can do",
-      "id": "docs_maintenance_rbac_what_the_serviceaccount_can_do"
+      "id": "k8s_kubernetesservice_kubernetesservice_createjobfromcronjob",
+      "community": 0,
+      "norm_label": ".createjobfromcronjob()"
     },
     {
-      "label": "DB access",
-      "file_type": "document",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L93",
-      "community": 5,
-      "norm_label": "db access",
-      "id": "docs_maintenance_db_access"
+      "label": "Job",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L80",
+      "id": "job",
+      "community": 0,
+      "norm_label": "job"
     },
     {
-      "label": "Troubleshooting",
-      "file_type": "document",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L110",
-      "community": 5,
-      "norm_label": "troubleshooting",
-      "id": "docs_maintenance_troubleshooting"
-    },
-    {
-      "label": "CronJob not found in the UI",
-      "file_type": "document",
-      "source_file": "docs/MAINTENANCE.md",
+      "label": ".listJobsForCronJob()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
       "source_location": "L112",
-      "community": 5,
-      "norm_label": "cronjob not found in the ui",
-      "id": "docs_maintenance_cronjob_not_found_in_the_ui"
+      "id": "k8s_kubernetesservice_kubernetesservice_listjobsforcronjob",
+      "community": 0,
+      "norm_label": ".listjobsforcronjob()"
     },
     {
-      "label": "Manual trigger returns 409 Conflict",
-      "file_type": "document",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L122",
-      "community": 5,
-      "norm_label": "manual trigger returns 409 conflict",
-      "id": "docs_maintenance_manual_trigger_returns_409_conflict"
+      "label": "List",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L112",
+      "id": "list",
+      "community": 0,
+      "norm_label": "list"
     },
     {
-      "label": "HDD shows \"not mounted\" but the disk is plugged in",
-      "file_type": "document",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L125",
-      "community": 5,
-      "norm_label": "hdd shows \"not mounted\" but the disk is plugged in",
-      "id": "docs_maintenance_hdd_shows_not_mounted_but_the_disk_is_plugged_in"
+      "label": ".activeJobsForCronJob()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L140",
+      "id": "k8s_kubernetesservice_kubernetesservice_activejobsforcronjob",
+      "community": 0,
+      "norm_label": ".activejobsforcronjob()"
     },
     {
-      "label": "\"FAIL sha256-mismatch\" in mover logs",
-      "file_type": "document",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L134",
-      "community": 5,
-      "norm_label": "\"fail sha256-mismatch\" in mover logs",
-      "id": "docs_maintenance_fail_sha256_mismatch_in_mover_logs"
+      "label": "ActiveJobs",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L140",
+      "id": "activejobs",
+      "community": 0,
+      "norm_label": "activejobs"
     },
     {
-      "label": "Backend logs",
-      "file_type": "document",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L137",
-      "community": 5,
-      "norm_label": "backend logs",
-      "id": "docs_maintenance_backend_logs"
+      "label": ".belongsToCronJob()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L159",
+      "id": "k8s_kubernetesservice_kubernetesservice_belongstocronjob",
+      "community": 0,
+      "norm_label": ".belongstocronjob()"
     },
     {
-      "label": "Frontend logs",
-      "file_type": "document",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L143",
-      "community": 5,
-      "norm_label": "frontend logs",
-      "id": "docs_maintenance_frontend_logs"
+      "label": ".isInFlight()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L175",
+      "id": "k8s_kubernetesservice_kubernetesservice_isinflight",
+      "community": 0,
+      "norm_label": ".isinflight()"
     },
     {
-      "label": "Rollback to v1 (Go)",
-      "file_type": "document",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L149",
-      "community": 5,
-      "norm_label": "rollback to v1 (go)",
-      "id": "docs_maintenance_rollback_to_v1_go"
+      "label": ".getJob()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L188",
+      "id": "k8s_kubernetesservice_kubernetesservice_getjob",
+      "community": 0,
+      "norm_label": ".getjob()"
+    },
+    {
+      "label": ".tailJobLogs()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L194",
+      "id": "k8s_kubernetesservice_kubernetesservice_tailjoblogs",
+      "community": 0,
+      "norm_label": ".tailjoblogs()"
+    },
+    {
+      "label": ".getConfigMapValue()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L214",
+      "id": "k8s_kubernetesservice_kubernetesservice_getconfigmapvalue",
+      "community": 0,
+      "norm_label": ".getconfigmapvalue()"
+    },
+    {
+      "label": ".patchConfigMapValue()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L232",
+      "id": "k8s_kubernetesservice_kubernetesservice_patchconfigmapvalue",
+      "community": 0,
+      "norm_label": ".patchconfigmapvalue()"
+    },
+    {
+      "label": ".summarize()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L253",
+      "id": "k8s_kubernetesservice_kubernetesservice_summarize",
+      "community": 0,
+      "norm_label": ".summarize()"
+    },
+    {
+      "label": "RunSummary",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L253",
+      "id": "runsummary",
+      "community": 0,
+      "norm_label": "runsummary"
+    },
+    {
+      "label": ".estimateNextRun()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L280",
+      "id": "k8s_kubernetesservice_kubernetesservice_estimatenextrun",
+      "community": 0,
+      "norm_label": ".estimatenextrun()"
+    },
+    {
+      "label": "Instant",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L280",
+      "id": "instant",
+      "community": 0,
+      "norm_label": "instant"
+    },
+    {
+      "label": "ThresholdController.java",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L1",
+      "id": "backend_src_main_java_com_nila_storageconsole_tasks_thresholdcontroller_java",
+      "community": 0,
+      "norm_label": "thresholdcontroller.java"
+    },
+    {
+      "label": "ThresholdController",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L24",
+      "id": "tasks_thresholdcontroller_thresholdcontroller",
+      "community": 0,
+      "norm_label": "thresholdcontroller"
+    },
+    {
+      "label": ".ThresholdController()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L43",
+      "id": "tasks_thresholdcontroller_thresholdcontroller_thresholdcontroller",
+      "community": 0,
+      "norm_label": ".thresholdcontroller()"
+    },
+    {
+      "label": "KubernetesService",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L43",
+      "id": "kubernetesservice",
+      "community": 0,
+      "norm_label": "kubernetesservice"
+    },
+    {
+      "label": ".getAll()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L52",
+      "id": "tasks_thresholdcontroller_thresholdcontroller_getall",
+      "community": 0,
+      "norm_label": ".getall()"
+    },
+    {
+      "label": "ThresholdsView",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L52",
+      "id": "thresholdsview",
+      "community": 0,
+      "norm_label": "thresholdsview"
+    },
+    {
+      "label": "GetMapping",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L52",
+      "id": "getmapping",
+      "community": 0,
+      "norm_label": "getmapping"
+    },
+    {
+      "label": ".setThreshold()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L67",
+      "id": "tasks_thresholdcontroller_thresholdcontroller_setthreshold",
+      "community": 0,
+      "norm_label": ".setthreshold()"
+    },
+    {
+      "label": "String",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L67",
+      "id": "backend_src_main_java_com_nila_storageconsole_tasks_thresholdcontroller_java_string",
+      "community": 0,
+      "norm_label": "string"
+    },
+    {
+      "label": "ThresholdRequest",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L67",
+      "id": "thresholdrequest",
+      "community": 0,
+      "norm_label": "thresholdrequest"
+    },
+    {
+      "label": "AuthUser",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L67",
+      "id": "authuser",
+      "community": 0,
+      "norm_label": "authuser"
+    },
+    {
+      "label": "ThresholdView",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L67",
+      "id": "thresholdview",
+      "community": 0,
+      "norm_label": "thresholdview"
+    },
+    {
+      "label": "PutMapping",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L67",
+      "id": "putmapping",
+      "community": 0,
+      "norm_label": "putmapping"
+    },
+    {
+      "label": ".readGib()",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L120",
+      "id": "tasks_thresholdcontroller_thresholdcontroller_readgib",
+      "community": 0,
+      "norm_label": ".readgib()"
+    },
+    {
+      "label": "TaskCard.tsx",
+      "file_type": "code",
+      "source_file": "frontend/src/components/TaskCard.tsx",
+      "source_location": "L1",
+      "id": "frontend_src_components_taskcard_tsx",
+      "community": 2,
+      "norm_label": "taskcard.tsx"
+    },
+    {
+      "label": "TIERING_TASK_IDS",
+      "file_type": "code",
+      "source_file": "frontend/src/components/TaskCard.tsx",
+      "source_location": "L10",
+      "id": "components_taskcard_tiering_task_ids",
+      "community": 2,
+      "norm_label": "tiering_task_ids"
+    },
+    {
+      "label": "THRESHOLD_GIB_KEY",
+      "file_type": "code",
+      "source_file": "frontend/src/components/TaskCard.tsx",
+      "source_location": "L13",
+      "id": "components_taskcard_threshold_gib_key",
+      "community": 2,
+      "norm_label": "threshold_gib_key"
+    },
+    {
+      "label": "TaskCard()",
+      "file_type": "code",
+      "source_file": "frontend/src/components/TaskCard.tsx",
+      "source_location": "L18",
+      "id": "components_taskcard_taskcard",
+      "community": 2,
+      "norm_label": "taskcard()"
+    },
+    {
+      "label": "api.ts",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L1",
+      "id": "frontend_src_lib_api_ts",
+      "community": 2,
+      "norm_label": "api.ts"
+    },
+    {
+      "label": "Me",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L4",
+      "id": "lib_api_me",
+      "community": 2,
+      "norm_label": "me"
+    },
+    {
+      "label": "RunView",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L11",
+      "id": "lib_api_runview",
+      "community": 2,
+      "norm_label": "runview"
+    },
+    {
+      "label": "Task",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L18",
+      "id": "lib_api_task",
+      "community": 2,
+      "norm_label": "task"
+    },
+    {
+      "label": "HddStatus",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L31",
+      "id": "lib_api_hddstatus",
+      "community": 2,
+      "norm_label": "hddstatus"
+    },
+    {
+      "label": "Thresholds",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L37",
+      "id": "lib_api_thresholds",
+      "community": 2,
+      "norm_label": "thresholds"
+    },
+    {
+      "label": "ThresholdView",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L42",
+      "id": "lib_api_thresholdview",
+      "community": 2,
+      "norm_label": "thresholdview"
+    },
+    {
+      "label": "token()",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L48",
+      "id": "lib_api_token",
+      "community": 2,
+      "norm_label": "token()"
+    },
+    {
+      "label": "setToken()",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L53",
+      "id": "lib_api_settoken",
+      "community": 2,
+      "norm_label": "settoken()"
+    },
+    {
+      "label": "req()",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L59",
+      "id": "lib_api_req",
+      "community": 2,
+      "norm_label": "req()"
+    },
+    {
+      "label": "api",
+      "file_type": "code",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L83",
+      "id": "lib_api_api",
+      "community": 2,
+      "norm_label": "api"
     },
     {
       "label": "setup-graph.sh",
@@ -467,6 +666,32 @@
       "community": 40,
       "norm_label": "/users/nila/.local/pipx/venvs/code-review-graph/bin/python",
       "id": "mcp_json_mcp_command_users_nila_local_pipx_venvs_code_review_graph_bin_python"
+    },
+    {
+      "label": "deploy.sh",
+      "file_type": "code",
+      "source_file": "deploy.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "file"
+      },
+      "community": 42,
+      "norm_label": "deploy.sh",
+      "id": "deploy_sh"
+    },
+    {
+      "label": "deploy.sh script",
+      "file_type": "code",
+      "source_file": "deploy.sh",
+      "source_location": "L1",
+      "metadata": {
+        "language": "bash",
+        "kind": "bash_entrypoint"
+      },
+      "community": 42,
+      "norm_label": "deploy.sh script",
+      "id": "users_nila_developer_apps_storage_console_deploy_sh__entry"
     },
     {
       "label": "mcp.json",
@@ -1178,24 +1403,6 @@
       "id": "login_page_loginpage"
     },
     {
-      "label": "TaskCard.tsx",
-      "file_type": "code",
-      "source_file": "frontend/src/components/TaskCard.tsx",
-      "source_location": "L1",
-      "community": 2,
-      "norm_label": "taskcard.tsx",
-      "id": "frontend_src_components_taskcard_tsx"
-    },
-    {
-      "label": "TaskCard()",
-      "file_type": "code",
-      "source_file": "frontend/src/components/TaskCard.tsx",
-      "source_location": "L10",
-      "community": 2,
-      "norm_label": "taskcard()",
-      "id": "components_taskcard_taskcard"
-    },
-    {
       "label": "StatusBadge.tsx",
       "file_type": "code",
       "source_file": "frontend/src/components/StatusBadge.tsx",
@@ -1239,87 +1446,6 @@
       "community": 2,
       "norm_label": "modetoggle()",
       "id": "components_modetoggle_modetoggle"
-    },
-    {
-      "label": "api.ts",
-      "file_type": "code",
-      "source_file": "frontend/src/lib/api.ts",
-      "source_location": "L1",
-      "community": 2,
-      "norm_label": "api.ts",
-      "id": "frontend_src_lib_api_ts"
-    },
-    {
-      "label": "Me",
-      "file_type": "code",
-      "source_file": "frontend/src/lib/api.ts",
-      "source_location": "L4",
-      "community": 2,
-      "norm_label": "me",
-      "id": "lib_api_me"
-    },
-    {
-      "label": "RunView",
-      "file_type": "code",
-      "source_file": "frontend/src/lib/api.ts",
-      "source_location": "L11",
-      "community": 2,
-      "norm_label": "runview",
-      "id": "lib_api_runview"
-    },
-    {
-      "label": "Task",
-      "file_type": "code",
-      "source_file": "frontend/src/lib/api.ts",
-      "source_location": "L18",
-      "community": 2,
-      "norm_label": "task",
-      "id": "lib_api_task"
-    },
-    {
-      "label": "HddStatus",
-      "file_type": "code",
-      "source_file": "frontend/src/lib/api.ts",
-      "source_location": "L31",
-      "community": 2,
-      "norm_label": "hddstatus",
-      "id": "lib_api_hddstatus"
-    },
-    {
-      "label": "token()",
-      "file_type": "code",
-      "source_file": "frontend/src/lib/api.ts",
-      "source_location": "L37",
-      "community": 2,
-      "norm_label": "token()",
-      "id": "lib_api_token"
-    },
-    {
-      "label": "setToken()",
-      "file_type": "code",
-      "source_file": "frontend/src/lib/api.ts",
-      "source_location": "L42",
-      "community": 2,
-      "norm_label": "settoken()",
-      "id": "lib_api_settoken"
-    },
-    {
-      "label": "req()",
-      "file_type": "code",
-      "source_file": "frontend/src/lib/api.ts",
-      "source_location": "L48",
-      "community": 2,
-      "norm_label": "req()",
-      "id": "lib_api_req"
-    },
-    {
-      "label": "api",
-      "file_type": "code",
-      "source_file": "frontend/src/lib/api.ts",
-      "source_location": "L72",
-      "community": 2,
-      "norm_label": "api",
-      "id": "lib_api_api"
     },
     {
       "label": "format.ts",
@@ -1496,7 +1622,7 @@
       "label": "TaskController",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L23",
+      "source_location": "L25",
       "community": 0,
       "norm_label": "taskcontroller",
       "id": "tasks_taskcontroller_taskcontroller"
@@ -1505,25 +1631,16 @@
       "label": ".TaskController()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L31",
+      "source_location": "L35",
       "community": 0,
       "norm_label": ".taskcontroller()",
       "id": "tasks_taskcontroller_taskcontroller_taskcontroller"
     },
     {
-      "label": "KubernetesService",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L31",
-      "community": 0,
-      "norm_label": "kubernetesservice",
-      "id": "kubernetesservice"
-    },
-    {
       "label": "HddProbeService",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L31",
+      "source_location": "L35",
       "community": 0,
       "norm_label": "hddprobeservice",
       "id": "backend_src_main_java_com_nila_storageconsole_tasks_taskcontroller_java_hddprobeservice"
@@ -1532,7 +1649,7 @@
       "label": "AuditEventRepository",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L31",
+      "source_location": "L35",
       "community": 0,
       "norm_label": "auditeventrepository",
       "id": "auditeventrepository"
@@ -1541,7 +1658,7 @@
       "label": ".list()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L39",
+      "source_location": "L43",
       "community": 0,
       "norm_label": ".list()",
       "id": "tasks_taskcontroller_taskcontroller_list"
@@ -1550,7 +1667,7 @@
       "label": "List",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L39",
+      "source_location": "L43",
       "community": 0,
       "norm_label": "list",
       "id": "backend_src_main_java_com_nila_storageconsole_tasks_taskcontroller_java_list"
@@ -1559,7 +1676,7 @@
       "label": "TaskView",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L39",
+      "source_location": "L43",
       "community": 0,
       "norm_label": "taskview",
       "id": "taskview"
@@ -1568,7 +1685,7 @@
       "label": "GetMapping",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L39",
+      "source_location": "L43",
       "community": 0,
       "norm_label": "getmapping",
       "id": "backend_src_main_java_com_nila_storageconsole_tasks_taskcontroller_java_getmapping"
@@ -1577,7 +1694,7 @@
       "label": ".one()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L49",
+      "source_location": "L53",
       "community": 0,
       "norm_label": ".one()",
       "id": "tasks_taskcontroller_taskcontroller_one"
@@ -1586,7 +1703,7 @@
       "label": "String",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L49",
+      "source_location": "L53",
       "community": 0,
       "norm_label": "string",
       "id": "backend_src_main_java_com_nila_storageconsole_tasks_taskcontroller_java_string"
@@ -1595,7 +1712,7 @@
       "label": ".toView()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L56",
+      "source_location": "L60",
       "community": 0,
       "norm_label": ".toview()",
       "id": "tasks_taskcontroller_taskcontroller_toview"
@@ -1604,7 +1721,7 @@
       "label": "TaskDef",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L56",
+      "source_location": "L60",
       "community": 0,
       "norm_label": "taskdef",
       "id": "backend_src_main_java_com_nila_storageconsole_tasks_taskcontroller_java_taskdef"
@@ -1613,7 +1730,7 @@
       "label": ".setMode()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L98",
+      "source_location": "L102",
       "community": 0,
       "norm_label": ".setmode()",
       "id": "tasks_taskcontroller_taskcontroller_setmode"
@@ -1622,7 +1739,7 @@
       "label": "ModeRequest",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L98",
+      "source_location": "L102",
       "community": 0,
       "norm_label": "moderequest",
       "id": "moderequest"
@@ -1631,25 +1748,16 @@
       "label": "AuthUser",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L98",
+      "source_location": "L102",
       "community": 0,
       "norm_label": "authuser",
       "id": "backend_src_main_java_com_nila_storageconsole_tasks_taskcontroller_java_authuser"
     },
     {
-      "label": "PutMapping",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L98",
-      "community": 0,
-      "norm_label": "putmapping",
-      "id": "putmapping"
-    },
-    {
       "label": ".trigger()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L121",
+      "source_location": "L125",
       "community": 0,
       "norm_label": ".trigger()",
       "id": "tasks_taskcontroller_taskcontroller_trigger"
@@ -1658,7 +1766,7 @@
       "label": "TriggerResponse",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L121",
+      "source_location": "L125",
       "community": 0,
       "norm_label": "triggerresponse",
       "id": "triggerresponse"
@@ -1667,7 +1775,7 @@
       "label": "PostMapping",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L121",
+      "source_location": "L125",
       "community": 0,
       "norm_label": "postmapping",
       "id": "backend_src_main_java_com_nila_storageconsole_tasks_taskcontroller_java_postmapping"
@@ -1676,7 +1784,7 @@
       "label": ".runs()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L149",
+      "source_location": "L171",
       "community": 0,
       "norm_label": ".runs()",
       "id": "tasks_taskcontroller_taskcontroller_runs"
@@ -1685,7 +1793,7 @@
       "label": "RunView",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L149",
+      "source_location": "L171",
       "community": 0,
       "norm_label": "runview",
       "id": "runview"
@@ -1694,7 +1802,7 @@
       "label": ".logs()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L163",
+      "source_location": "L185",
       "community": 0,
       "norm_label": ".logs()",
       "id": "tasks_taskcontroller_taskcontroller_logs"
@@ -1703,7 +1811,7 @@
       "label": ".toRunView()",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L173",
+      "source_location": "L195",
       "community": 0,
       "norm_label": ".torunview()",
       "id": "tasks_taskcontroller_taskcontroller_torunview"
@@ -1712,7 +1820,7 @@
       "label": "RunSummary",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L173",
+      "source_location": "L195",
       "community": 0,
       "norm_label": "runsummary",
       "id": "backend_src_main_java_com_nila_storageconsole_tasks_taskcontroller_java_runsummary"
@@ -1956,7 +2064,7 @@
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/security/JwtService.java",
       "source_location": "L49",
-      "community": 1,
+      "community": 8,
       "norm_label": ".getttlmillis()",
       "id": "security_jwtservice_jwtservice_getttlmillis"
     },
@@ -2055,7 +2163,7 @@
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/security/AuthController.java",
       "source_location": "L1",
-      "community": 18,
+      "community": 1,
       "norm_label": "authcontroller.java",
       "id": "backend_src_main_java_com_nila_storageconsole_security_authcontroller_java"
     },
@@ -2064,7 +2172,7 @@
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/security/AuthController.java",
       "source_location": "L13",
-      "community": 18,
+      "community": 1,
       "norm_label": "authcontroller",
       "id": "security_authcontroller_authcontroller"
     },
@@ -2073,7 +2181,7 @@
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/security/AuthController.java",
       "source_location": "L20",
-      "community": 18,
+      "community": 1,
       "norm_label": ".authcontroller()",
       "id": "security_authcontroller_authcontroller_authcontroller"
     },
@@ -2082,7 +2190,7 @@
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/security/AuthController.java",
       "source_location": "L20",
-      "community": 18,
+      "community": 1,
       "norm_label": "userrepository",
       "id": "backend_src_main_java_com_nila_storageconsole_security_authcontroller_java_userrepository"
     },
@@ -2091,7 +2199,7 @@
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/security/AuthController.java",
       "source_location": "L20",
-      "community": 18,
+      "community": 1,
       "norm_label": "passwordencoder",
       "id": "backend_src_main_java_com_nila_storageconsole_security_authcontroller_java_passwordencoder"
     },
@@ -2100,7 +2208,7 @@
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/security/AuthController.java",
       "source_location": "L20",
-      "community": 18,
+      "community": 1,
       "norm_label": "jwtservice",
       "id": "backend_src_main_java_com_nila_storageconsole_security_authcontroller_java_jwtservice"
     },
@@ -2213,195 +2321,6 @@
       "id": "backend_src_main_java_com_nila_storageconsole_security_authuser_java_authuser"
     },
     {
-      "label": "KubernetesService.java",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L1",
-      "community": 0,
-      "norm_label": "kubernetesservice.java",
-      "id": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java"
-    },
-    {
-      "label": "KubernetesService",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L29",
-      "community": 0,
-      "norm_label": "kubernetesservice",
-      "id": "k8s_kubernetesservice_kubernetesservice"
-    },
-    {
-      "label": ".KubernetesService()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L37",
-      "community": 0,
-      "norm_label": ".kubernetesservice()",
-      "id": "k8s_kubernetesservice_kubernetesservice_kubernetesservice"
-    },
-    {
-      "label": "KubernetesClient",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L37",
-      "community": 0,
-      "norm_label": "kubernetesclient",
-      "id": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_kubernetesclient"
-    },
-    {
-      "label": "String",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L37",
-      "community": 0,
-      "norm_label": "string",
-      "id": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string"
-    },
-    {
-      "label": ".namespace()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L43",
-      "community": 0,
-      "norm_label": ".namespace()",
-      "id": "k8s_kubernetesservice_kubernetesservice_namespace"
-    },
-    {
-      "label": ".getCronJob()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L47",
-      "community": 0,
-      "norm_label": ".getcronjob()",
-      "id": "k8s_kubernetesservice_kubernetesservice_getcronjob"
-    },
-    {
-      "label": "Optional",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L47",
-      "community": 0,
-      "norm_label": "optional",
-      "id": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_optional"
-    },
-    {
-      "label": "CronJob",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L47",
-      "community": 0,
-      "norm_label": "cronjob",
-      "id": "cronjob"
-    },
-    {
-      "label": ".isSuspended()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L52",
-      "community": 0,
-      "norm_label": ".issuspended()",
-      "id": "k8s_kubernetesservice_kubernetesservice_issuspended"
-    },
-    {
-      "label": ".setSuspend()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L59",
-      "community": 0,
-      "norm_label": ".setsuspend()",
-      "id": "k8s_kubernetesservice_kubernetesservice_setsuspend"
-    },
-    {
-      "label": ".createJobFromCronJob()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L79",
-      "community": 0,
-      "norm_label": ".createjobfromcronjob()",
-      "id": "k8s_kubernetesservice_kubernetesservice_createjobfromcronjob"
-    },
-    {
-      "label": "Job",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L79",
-      "community": 0,
-      "norm_label": "job",
-      "id": "job"
-    },
-    {
-      "label": ".listJobsForCronJob()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L111",
-      "community": 0,
-      "norm_label": ".listjobsforcronjob()",
-      "id": "k8s_kubernetesservice_kubernetesservice_listjobsforcronjob"
-    },
-    {
-      "label": "List",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L111",
-      "community": 0,
-      "norm_label": "list",
-      "id": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_list"
-    },
-    {
-      "label": ".getJob()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L134",
-      "community": 0,
-      "norm_label": ".getjob()",
-      "id": "k8s_kubernetesservice_kubernetesservice_getjob"
-    },
-    {
-      "label": ".tailJobLogs()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L140",
-      "community": 0,
-      "norm_label": ".tailjoblogs()",
-      "id": "k8s_kubernetesservice_kubernetesservice_tailjoblogs"
-    },
-    {
-      "label": ".summarize()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L156",
-      "community": 0,
-      "norm_label": ".summarize()",
-      "id": "k8s_kubernetesservice_kubernetesservice_summarize"
-    },
-    {
-      "label": "RunSummary",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L156",
-      "community": 0,
-      "norm_label": "runsummary",
-      "id": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_runsummary"
-    },
-    {
-      "label": ".estimateNextRun()",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L183",
-      "community": 0,
-      "norm_label": ".estimatenextrun()",
-      "id": "k8s_kubernetesservice_kubernetesservice_estimatenextrun"
-    },
-    {
-      "label": "Instant",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L183",
-      "community": 0,
-      "norm_label": "instant",
-      "id": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_instant"
-    },
-    {
       "label": "KubernetesConfig.java",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesConfig.java",
@@ -2460,7 +2379,7 @@
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/HddProbeService.java",
       "source_location": "L1",
-      "community": 13,
+      "community": 0,
       "norm_label": "hddprobeservice.java",
       "id": "backend_src_main_java_com_nila_storageconsole_k8s_hddprobeservice_java"
     },
@@ -3536,6 +3455,132 @@
       "id": "claude_skills_review_changes_skill_md_review_changes_skill_token_efficiency_rules"
     },
     {
+      "label": "RESTIC-BACKUP.md",
+      "file_type": "document",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L1",
+      "community": 51,
+      "norm_label": "restic-backup.md",
+      "id": "docs_restic_backup_md"
+    },
+    {
+      "label": "Immich restic Backup",
+      "file_type": "document",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L1",
+      "community": 51,
+      "norm_label": "immich restic backup",
+      "id": "docs_restic_backup_immich_restic_backup"
+    },
+    {
+      "label": "What it backs up",
+      "file_type": "document",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L10",
+      "community": 51,
+      "norm_label": "what it backs up",
+      "id": "docs_restic_backup_what_it_backs_up"
+    },
+    {
+      "label": "Repo location",
+      "file_type": "document",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L23",
+      "community": 51,
+      "norm_label": "repo location",
+      "id": "docs_restic_backup_repo_location"
+    },
+    {
+      "label": "Password (3 places)",
+      "file_type": "document",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L32",
+      "community": 51,
+      "norm_label": "password (3 places)",
+      "id": "docs_restic_backup_password_3_places"
+    },
+    {
+      "label": "Retention",
+      "file_type": "document",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L45",
+      "community": 51,
+      "norm_label": "retention",
+      "id": "docs_restic_backup_retention"
+    },
+    {
+      "label": "Mount guard",
+      "file_type": "document",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L53",
+      "community": 51,
+      "norm_label": "mount guard",
+      "id": "docs_restic_backup_mount_guard"
+    },
+    {
+      "label": "Concurrency model",
+      "file_type": "document",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L62",
+      "community": 51,
+      "norm_label": "concurrency model",
+      "id": "docs_restic_backup_concurrency_model"
+    },
+    {
+      "label": "Trigger Now guard (HTTP 409)",
+      "file_type": "document",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L67",
+      "community": 51,
+      "norm_label": "trigger now guard (http 409)",
+      "id": "docs_restic_backup_trigger_now_guard_http_409"
+    },
+    {
+      "label": "Scheduled self-overlap (CronJob `concurrencyPolicy: Forbid`)",
+      "file_type": "document",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L84",
+      "community": 51,
+      "norm_label": "scheduled self-overlap (cronjob `concurrencypolicy: forbid`)",
+      "id": "docs_restic_backup_scheduled_self_overlap_cronjob_concurrencypolicy_forbid"
+    },
+    {
+      "label": "Manual + scheduled overlap (safe but slower)",
+      "file_type": "document",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L92",
+      "community": 51,
+      "norm_label": "manual + scheduled overlap (safe but slower)",
+      "id": "docs_restic_backup_manual_scheduled_overlap_safe_but_slower"
+    },
+    {
+      "label": "Stale-lock recovery",
+      "file_type": "document",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L108",
+      "community": 51,
+      "norm_label": "stale-lock recovery",
+      "id": "docs_restic_backup_stale_lock_recovery"
+    },
+    {
+      "label": "Restore runbook",
+      "file_type": "document",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L129",
+      "community": 51,
+      "norm_label": "restore runbook",
+      "id": "docs_restic_backup_restore_runbook"
+    },
+    {
+      "label": "Manual run",
+      "file_type": "document",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L160",
+      "community": 51,
+      "norm_label": "manual run",
+      "id": "docs_restic_backup_manual_run"
+    },
+    {
       "label": "ARCHITECTURE.md",
       "file_type": "document",
       "source_file": "docs/ARCHITECTURE.md",
@@ -3833,6 +3878,159 @@
       "id": "docs_readme_file_reference"
     },
     {
+      "label": "MAINTENANCE.md",
+      "file_type": "document",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L1",
+      "community": 5,
+      "norm_label": "maintenance.md",
+      "id": "docs_maintenance_md"
+    },
+    {
+      "label": "Maintenance",
+      "file_type": "document",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L1",
+      "community": 5,
+      "norm_label": "maintenance",
+      "id": "docs_maintenance_maintenance"
+    },
+    {
+      "label": "Rebuilding after a code change",
+      "file_type": "document",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L5",
+      "community": 5,
+      "norm_label": "rebuilding after a code change",
+      "id": "docs_maintenance_rebuilding_after_a_code_change"
+    },
+    {
+      "label": "Manual rebuild without deploy.sh",
+      "file_type": "document",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L15",
+      "community": 5,
+      "norm_label": "manual rebuild without deploy.sh",
+      "id": "docs_maintenance_manual_rebuild_without_deploy_sh"
+    },
+    {
+      "label": "Rotate admin password",
+      "file_type": "document",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L28",
+      "community": 5,
+      "norm_label": "rotate admin password",
+      "id": "docs_maintenance_rotate_admin_password"
+    },
+    {
+      "label": "Tearing down",
+      "file_type": "document",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L44",
+      "community": 5,
+      "norm_label": "tearing down",
+      "id": "docs_maintenance_tearing_down"
+    },
+    {
+      "label": "Immich backup (restic)",
+      "file_type": "document",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L67",
+      "community": 5,
+      "norm_label": "immich backup (restic)",
+      "id": "docs_maintenance_immich_backup_restic"
+    },
+    {
+      "label": "RBAC \u2014 what the ServiceAccount can do",
+      "file_type": "document",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L80",
+      "community": 5,
+      "norm_label": "rbac \u2014 what the serviceaccount can do",
+      "id": "docs_maintenance_rbac_what_the_serviceaccount_can_do"
+    },
+    {
+      "label": "DB access",
+      "file_type": "document",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L93",
+      "community": 5,
+      "norm_label": "db access",
+      "id": "docs_maintenance_db_access"
+    },
+    {
+      "label": "Troubleshooting",
+      "file_type": "document",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L110",
+      "community": 5,
+      "norm_label": "troubleshooting",
+      "id": "docs_maintenance_troubleshooting"
+    },
+    {
+      "label": "CronJob not found in the UI",
+      "file_type": "document",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L112",
+      "community": 5,
+      "norm_label": "cronjob not found in the ui",
+      "id": "docs_maintenance_cronjob_not_found_in_the_ui"
+    },
+    {
+      "label": "Manual trigger returns 409 Conflict",
+      "file_type": "document",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L122",
+      "community": 5,
+      "norm_label": "manual trigger returns 409 conflict",
+      "id": "docs_maintenance_manual_trigger_returns_409_conflict"
+    },
+    {
+      "label": "HDD shows \"not mounted\" but the disk is plugged in",
+      "file_type": "document",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L125",
+      "community": 5,
+      "norm_label": "hdd shows \"not mounted\" but the disk is plugged in",
+      "id": "docs_maintenance_hdd_shows_not_mounted_but_the_disk_is_plugged_in"
+    },
+    {
+      "label": "\"FAIL sha256-mismatch\" in mover logs",
+      "file_type": "document",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L134",
+      "community": 5,
+      "norm_label": "\"fail sha256-mismatch\" in mover logs",
+      "id": "docs_maintenance_fail_sha256_mismatch_in_mover_logs"
+    },
+    {
+      "label": "Backend logs",
+      "file_type": "document",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L137",
+      "community": 5,
+      "norm_label": "backend logs",
+      "id": "docs_maintenance_backend_logs"
+    },
+    {
+      "label": "Frontend logs",
+      "file_type": "document",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L143",
+      "community": 5,
+      "norm_label": "frontend logs",
+      "id": "docs_maintenance_frontend_logs"
+    },
+    {
+      "label": "Rollback to v1 (Go)",
+      "file_type": "document",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L149",
+      "community": 5,
+      "norm_label": "rollback to v1 (go)",
+      "id": "docs_maintenance_rollback_to_v1_go"
+    },
+    {
       "label": "code-review-graph.instruction.md",
       "file_type": "document",
       "source_file": ".github/code-review-graph.instruction.md",
@@ -3923,6 +4121,33 @@
       "id": "steering_code_review_graph_workflow"
     },
     {
+      "label": "HddProbeService",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L35",
+      "community": 0,
+      "norm_label": "hddprobeservice",
+      "id": "hddprobeservice"
+    },
+    {
+      "label": "TaskDef",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L60",
+      "community": 0,
+      "norm_label": "taskdef",
+      "id": "taskdef"
+    },
+    {
+      "label": "PostMapping",
+      "file_type": "code",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L125",
+      "community": 0,
+      "norm_label": "postmapping",
+      "id": "postmapping"
+    },
+    {
       "label": "String",
       "file_type": "code",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskCatalog.java",
@@ -3930,24 +4155,6 @@
       "community": 0,
       "norm_label": "string",
       "id": "string"
-    },
-    {
-      "label": "Optional",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskCatalog.java",
-      "source_location": "L45",
-      "community": 0,
-      "norm_label": "optional",
-      "id": "optional"
-    },
-    {
-      "label": "TaskDef",
-      "file_type": "code",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskCatalog.java",
-      "source_location": "L45",
-      "community": 0,
-      "norm_label": "taskdef",
-      "id": "taskdef"
     },
     {
       "label": "Stack",
@@ -3988,304 +4195,1531 @@
   ],
   "links": [
     {
-      "relation": "contains",
+      "relation": "imports",
+      "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L1",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L4",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "docs_restic_backup_md",
-      "target": "docs_restic_backup_immich_restic_backup"
+      "source": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java",
+      "target": "cronjob"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L15",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java",
+      "target": "instant"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java",
+      "target": "job"
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L62",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L29",
       "weight": 1.0,
-      "source": "docs_restic_backup_immich_restic_backup",
-      "target": "docs_restic_backup_concurrency_model",
+      "confidence_score": 1.0,
+      "source": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java",
+      "target": "k8s_kubernetesservice_kubernetesservice"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java",
+      "target": "kubernetesclient"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java",
+      "target": "list",
       "confidence_score": 1.0
     },
     {
-      "relation": "contains",
+      "relation": "imports",
+      "context": "import",
       "confidence": "EXTRACTED",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L93",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L22",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "docs_restic_backup_immich_restic_backup",
-      "target": "docs_restic_backup_manual_run"
+      "source": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java",
+      "target": "optional"
     },
     {
-      "relation": "contains",
+      "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L53",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L139",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "docs_restic_backup_immich_restic_backup",
-      "target": "docs_restic_backup_mount_guard"
+      "source": "k8s_kubernetesservice_kubernetesservice",
+      "target": "k8s_kubernetesservice_kubernetesservice_activejobsforcronjob"
     },
     {
-      "relation": "contains",
+      "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L32",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L158",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "docs_restic_backup_immich_restic_backup",
-      "target": "docs_restic_backup_password_3_places"
+      "source": "k8s_kubernetesservice_kubernetesservice",
+      "target": "k8s_kubernetesservice_kubernetesservice_belongstocronjob"
     },
     {
-      "relation": "contains",
+      "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L23",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L79",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "docs_restic_backup_immich_restic_backup",
-      "target": "docs_restic_backup_repo_location"
+      "source": "k8s_kubernetesservice_kubernetesservice",
+      "target": "k8s_kubernetesservice_kubernetesservice_createjobfromcronjob"
     },
     {
-      "relation": "contains",
+      "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L62",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L183",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "docs_restic_backup_immich_restic_backup",
-      "target": "docs_restic_backup_restore_runbook"
+      "source": "k8s_kubernetesservice_kubernetesservice",
+      "target": "k8s_kubernetesservice_kubernetesservice_estimatenextrun"
     },
     {
-      "relation": "contains",
+      "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L45",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L214",
       "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "docs_restic_backup_immich_restic_backup",
-      "target": "docs_restic_backup_retention"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L108",
-      "weight": 1.0,
-      "source": "docs_restic_backup_immich_restic_backup",
-      "target": "docs_restic_backup_stale_lock_recovery",
+      "source": "k8s_kubernetesservice_kubernetesservice",
+      "target": "k8s_kubernetesservice_kubernetesservice_getconfigmapvalue",
       "confidence_score": 1.0
     },
     {
-      "relation": "contains",
+      "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L10",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L47",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "docs_restic_backup_immich_restic_backup",
-      "target": "docs_restic_backup_what_it_backs_up"
+      "source": "k8s_kubernetesservice_kubernetesservice",
+      "target": "k8s_kubernetesservice_kubernetesservice_getcronjob"
     },
     {
-      "relation": "contains",
+      "relation": "method",
       "confidence": "EXTRACTED",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L92",
-      "weight": 1.0,
-      "source": "docs_restic_backup_concurrency_model",
-      "target": "docs_restic_backup_manual_scheduled_overlap_safe_but_slower",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L84",
-      "weight": 1.0,
-      "source": "docs_restic_backup_concurrency_model",
-      "target": "docs_restic_backup_scheduled_self_overlap_cronjob_concurrencypolicy_forbid",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/RESTIC-BACKUP.md",
-      "source_location": "L67",
-      "weight": 1.0,
-      "source": "docs_restic_backup_concurrency_model",
-      "target": "docs_restic_backup_trigger_now_guard_http_409",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "deploy.sh",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "deploy_sh",
-      "target": "users_nila_developer_apps_storage_console_deploy_sh__entry"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L1",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "docs_maintenance_md",
-      "target": "docs_maintenance_maintenance"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L78",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "docs_maintenance_maintenance",
-      "target": "docs_maintenance_db_access"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L67",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "docs_maintenance_maintenance",
-      "target": "docs_maintenance_immich_backup_restic"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L65",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "docs_maintenance_maintenance",
-      "target": "docs_maintenance_rbac_what_the_serviceaccount_can_do"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L3",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "docs_maintenance_maintenance",
-      "target": "docs_maintenance_rebuilding_after_a_code_change"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L26",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "docs_maintenance_maintenance",
-      "target": "docs_maintenance_rotate_admin_password"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L42",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "docs_maintenance_maintenance",
-      "target": "docs_maintenance_tearing_down"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L95",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "docs_maintenance_maintenance",
-      "target": "docs_maintenance_troubleshooting"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L13",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "docs_maintenance_rebuilding_after_a_code_change",
-      "target": "docs_maintenance_manual_rebuild_without_deploy_sh"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L122",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "docs_maintenance_troubleshooting",
-      "target": "docs_maintenance_backend_logs"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L97",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "docs_maintenance_troubleshooting",
-      "target": "docs_maintenance_cronjob_not_found_in_the_ui"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L119",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "docs_maintenance_troubleshooting",
-      "target": "docs_maintenance_fail_sha256_mismatch_in_mover_logs"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L128",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "docs_maintenance_troubleshooting",
-      "target": "docs_maintenance_frontend_logs"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L110",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "docs_maintenance_troubleshooting",
-      "target": "docs_maintenance_hdd_shows_not_mounted_but_the_disk_is_plugged_in"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/MAINTENANCE.md",
-      "source_location": "L107",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "docs_maintenance_troubleshooting",
-      "target": "docs_maintenance_manual_trigger_returns_409_conflict"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "docs/MAINTENANCE.md",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
       "source_location": "L134",
       "weight": 1.0,
       "confidence_score": 1.0,
-      "source": "docs_maintenance_troubleshooting",
-      "target": "docs_maintenance_rollback_to_v1_go"
+      "source": "k8s_kubernetesservice_kubernetesservice",
+      "target": "k8s_kubernetesservice_kubernetesservice_getjob"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L174",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice",
+      "target": "k8s_kubernetesservice_kubernetesservice_isinflight"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L52",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice",
+      "target": "k8s_kubernetesservice_kubernetesservice_issuspended"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L37",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice",
+      "target": "k8s_kubernetesservice_kubernetesservice_kubernetesservice"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L111",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice",
+      "target": "k8s_kubernetesservice_kubernetesservice_listjobsforcronjob"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L43",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice",
+      "target": "k8s_kubernetesservice_kubernetesservice_namespace"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L232",
+      "weight": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice",
+      "target": "k8s_kubernetesservice_kubernetesservice_patchconfigmapvalue",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L59",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice",
+      "target": "k8s_kubernetesservice_kubernetesservice_setsuspend"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L156",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice",
+      "target": "k8s_kubernetesservice_kubernetesservice_summarize"
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L140",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice",
+      "target": "k8s_kubernetesservice_kubernetesservice_tailjoblogs"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L37",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_kubernetesservice",
+      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L37",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_kubernetesservice",
+      "target": "kubernetesclient"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L139",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_activejobsforcronjob",
+      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L158",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_belongstocronjob",
+      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L79",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_createjobfromcronjob",
+      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L183",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_estimatenextrun",
+      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L214",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "k8s_kubernetesservice_kubernetesservice_getconfigmapvalue",
+      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L47",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_getcronjob",
+      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L134",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_getjob",
+      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L52",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_issuspended",
+      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L111",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_listjobsforcronjob",
+      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L43",
+      "weight": 1.0,
+      "context": "return_type",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_namespace",
+      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L232",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "k8s_kubernetesservice_kubernetesservice_patchconfigmapvalue",
+      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L59",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_setsuspend",
+      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L140",
+      "weight": 1.0,
+      "context": "return_type",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_tailjoblogs",
+      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L144",
+      "weight": 1.0,
+      "source": "tasks_taskcontroller_taskcontroller_trigger",
+      "target": "k8s_kubernetesservice_kubernetesservice_namespace"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L80",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_createjobfromcronjob",
+      "target": "k8s_kubernetesservice_kubernetesservice_getcronjob"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L47",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_getcronjob",
+      "target": "cronjob"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L47",
+      "weight": 1.0,
+      "context": "return_type",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_getcronjob",
+      "target": "optional"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L53",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_issuspended",
+      "target": "k8s_kubernetesservice_kubernetesservice_getcronjob"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L60",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_setsuspend",
+      "target": "k8s_kubernetesservice_kubernetesservice_getcronjob"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "tasks_taskcontroller_taskcontroller_toview",
+      "target": "k8s_kubernetesservice_kubernetesservice_getcronjob"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L126",
+      "weight": 1.0,
+      "source": "tasks_taskcontroller_taskcontroller_trigger",
+      "target": "k8s_kubernetesservice_kubernetesservice_getcronjob"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskCatalog.java",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_main_java_com_nila_storageconsole_tasks_taskcatalog_java",
+      "target": "optional"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L21",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_main_java_com_nila_storageconsole_tasks_taskcontroller_java",
+      "target": "optional"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L187",
+      "weight": 1.0,
+      "context": "return_type",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_getjob",
+      "target": "optional"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskCatalog.java",
+      "source_location": "L45",
+      "weight": 1.0,
+      "context": "return_type",
+      "confidence_score": 1.0,
+      "source": "tasks_taskcatalog_taskcatalog_find",
+      "target": "optional"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L8",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_main_java_com_nila_storageconsole_tasks_taskcontroller_java",
+      "target": "cronjob"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L106",
+      "weight": 1.0,
+      "source": "tasks_taskcontroller_taskcontroller_setmode",
+      "target": "k8s_kubernetesservice_kubernetesservice_setsuspend"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L79",
+      "weight": 1.0,
+      "context": "return_type",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_createjobfromcronjob",
+      "target": "job"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L137",
+      "weight": 1.0,
+      "source": "tasks_taskcontroller_taskcontroller_trigger",
+      "target": "k8s_kubernetesservice_kubernetesservice_createjobfromcronjob"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L9",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_main_java_com_nila_storageconsole_tasks_taskcontroller_java",
+      "target": "job"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L158",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_belongstocronjob",
+      "target": "job"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L134",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_getjob",
+      "target": "job"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L174",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_isinflight",
+      "target": "job"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L111",
+      "weight": 1.0,
+      "context": "generic_arg",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_listjobsforcronjob",
+      "target": "job"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L156",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_summarize",
+      "target": "job"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L112",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "k8s_kubernetesservice_kubernetesservice_listjobsforcronjob",
+      "target": "list",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L155",
+      "weight": 1.0,
+      "source": "tasks_taskcontroller_taskcontroller_runs",
+      "target": "k8s_kubernetesservice_kubernetesservice_listjobsforcronjob"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L79",
+      "weight": 1.0,
+      "source": "tasks_taskcontroller_taskcontroller_toview",
+      "target": "k8s_kubernetesservice_kubernetesservice_listjobsforcronjob"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L139",
+      "weight": 1.0,
+      "context": "return_type",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_activejobsforcronjob",
+      "target": "activejobs"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L147",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_activejobsforcronjob",
+      "target": "k8s_kubernetesservice_kubernetesservice_belongstocronjob"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L144",
+      "weight": 1.0,
+      "source": "tasks_taskcontroller_taskcontroller_trigger",
+      "target": "k8s_kubernetesservice_kubernetesservice_activejobsforcronjob"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L170",
+      "weight": 1.0,
+      "source": "tasks_taskcontroller_taskcontroller_logs",
+      "target": "k8s_kubernetesservice_kubernetesservice_tailjoblogs"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L122",
+      "weight": 1.0,
+      "source": "tasks_thresholdcontroller_thresholdcontroller_readgib",
+      "target": "k8s_kubernetesservice_kubernetesservice_getconfigmapvalue"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L93",
+      "weight": 1.0,
+      "source": "tasks_thresholdcontroller_thresholdcontroller_setthreshold",
+      "target": "k8s_kubernetesservice_kubernetesservice_getconfigmapvalue"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L103",
+      "weight": 1.0,
+      "source": "tasks_thresholdcontroller_thresholdcontroller_setthreshold",
+      "target": "k8s_kubernetesservice_kubernetesservice_patchconfigmapvalue"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L253",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "k8s_kubernetesservice_kubernetesservice_summarize",
+      "target": "runsummary",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L80",
+      "weight": 1.0,
+      "source": "tasks_taskcontroller_taskcontroller_toview",
+      "target": "k8s_kubernetesservice_kubernetesservice_summarize"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
+      "source_location": "L236",
+      "weight": 1.0,
+      "context": "return_type",
+      "confidence_score": 1.0,
+      "source": "k8s_kubernetesservice_kubernetesservice_estimatenextrun",
+      "target": "instant"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L77",
+      "weight": 1.0,
+      "source": "tasks_taskcontroller_taskcontroller_toview",
+      "target": "k8s_kubernetesservice_kubernetesservice_estimatenextrun"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/HddProbeService.java",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_main_java_com_nila_storageconsole_k8s_hddprobeservice_java",
+      "target": "instant"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/security/JwtService.java",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_main_java_com_nila_storageconsole_security_jwtservice_java",
+      "target": "instant"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L19",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_main_java_com_nila_storageconsole_tasks_taskcontroller_java",
+      "target": "instant"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "backend_src_main_java_com_nila_storageconsole_tasks_thresholdcontroller_java",
+      "target": "authuser",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "backend_src_main_java_com_nila_storageconsole_tasks_thresholdcontroller_java",
+      "target": "kubernetesservice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "backend_src_main_java_com_nila_storageconsole_tasks_thresholdcontroller_java",
+      "target": "tasks_thresholdcontroller_thresholdcontroller",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L52",
+      "weight": 1.0,
+      "source": "tasks_thresholdcontroller_thresholdcontroller",
+      "target": "tasks_thresholdcontroller_thresholdcontroller_getall",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L120",
+      "weight": 1.0,
+      "source": "tasks_thresholdcontroller_thresholdcontroller",
+      "target": "tasks_thresholdcontroller_thresholdcontroller_readgib",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L67",
+      "weight": 1.0,
+      "source": "tasks_thresholdcontroller_thresholdcontroller",
+      "target": "tasks_thresholdcontroller_thresholdcontroller_setthreshold",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "method",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L43",
+      "weight": 1.0,
+      "source": "tasks_thresholdcontroller_thresholdcontroller",
+      "target": "tasks_thresholdcontroller_thresholdcontroller_thresholdcontroller",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L43",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "tasks_thresholdcontroller_thresholdcontroller_thresholdcontroller",
+      "target": "kubernetesservice",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_main_java_com_nila_storageconsole_tasks_taskcontroller_java",
+      "target": "kubernetesservice"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L31",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "tasks_taskcontroller_taskcontroller_taskcontroller",
+      "target": "kubernetesservice"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L52",
+      "weight": 1.0,
+      "context": "attribute",
+      "source": "tasks_thresholdcontroller_thresholdcontroller_getall",
+      "target": "getmapping",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "tasks_thresholdcontroller_thresholdcontroller_getall",
+      "target": "tasks_thresholdcontroller_thresholdcontroller_readgib",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L52",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "tasks_thresholdcontroller_thresholdcontroller_getall",
+      "target": "thresholdsview",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L43",
+      "weight": 1.0,
+      "context": "attribute",
+      "confidence_score": 1.0,
+      "source": "tasks_taskcontroller_taskcontroller_list",
+      "target": "getmapping"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L185",
+      "weight": 1.0,
+      "context": "attribute",
+      "confidence_score": 1.0,
+      "source": "tasks_taskcontroller_taskcontroller_logs",
+      "target": "getmapping"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L53",
+      "weight": 1.0,
+      "context": "attribute",
+      "confidence_score": 1.0,
+      "source": "tasks_taskcontroller_taskcontroller_one",
+      "target": "getmapping"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L171",
+      "weight": 1.0,
+      "context": "attribute",
+      "confidence_score": 1.0,
+      "source": "tasks_taskcontroller_taskcontroller_runs",
+      "target": "getmapping"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L67",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "tasks_thresholdcontroller_thresholdcontroller_setthreshold",
+      "target": "authuser",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L67",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "tasks_thresholdcontroller_thresholdcontroller_setthreshold",
+      "target": "backend_src_main_java_com_nila_storageconsole_tasks_thresholdcontroller_java_string",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L67",
+      "weight": 1.0,
+      "context": "attribute",
+      "source": "tasks_thresholdcontroller_thresholdcontroller_setthreshold",
+      "target": "putmapping",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L67",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "tasks_thresholdcontroller_thresholdcontroller_setthreshold",
+      "target": "thresholdrequest",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L67",
+      "weight": 1.0,
+      "context": "return_type",
+      "source": "tasks_thresholdcontroller_thresholdcontroller_setthreshold",
+      "target": "thresholdview",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/ThresholdController.java",
+      "source_location": "L120",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "source": "tasks_thresholdcontroller_thresholdcontroller_readgib",
+      "target": "backend_src_main_java_com_nila_storageconsole_tasks_thresholdcontroller_java_string",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "backend_src_main_java_com_nila_storageconsole_tasks_taskcontroller_java",
+      "target": "authuser"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L102",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "tasks_taskcontroller_taskcontroller_setmode",
+      "target": "authuser"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L125",
+      "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
+      "source": "tasks_taskcontroller_taskcontroller_trigger",
+      "target": "authuser"
+    },
+    {
+      "relation": "references",
+      "confidence": "EXTRACTED",
+      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
+      "source_location": "L98",
+      "weight": 1.0,
+      "context": "attribute",
+      "confidence_score": 1.0,
+      "source": "tasks_taskcontroller_taskcontroller_setmode",
+      "target": "putmapping"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/page.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_app_page_tsx",
+      "target": "frontend_src_components_taskcard_tsx"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/TaskCard.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_components_taskcard_tsx",
+      "target": "components_modetoggle_modetoggle"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/TaskCard.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_components_taskcard_tsx",
+      "target": "components_statusbadge_statusbadge"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/TaskCard.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_components_taskcard_tsx",
+      "target": "components_taskcard_taskcard"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/TaskCard.tsx",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "frontend_src_components_taskcard_tsx",
+      "target": "components_taskcard_threshold_gib_key",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/TaskCard.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "frontend_src_components_taskcard_tsx",
+      "target": "components_taskcard_tiering_task_ids",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/TaskCard.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_components_taskcard_tsx",
+      "target": "frontend_src_components_modetoggle_tsx"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/TaskCard.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_components_taskcard_tsx",
+      "target": "frontend_src_components_statusbadge_tsx"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/TaskCard.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_components_taskcard_tsx",
+      "target": "frontend_src_lib_api_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/TaskCard.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_components_taskcard_tsx",
+      "target": "frontend_src_lib_format_ts"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/TaskCard.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_components_taskcard_tsx",
+      "target": "lib_api_api"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/TaskCard.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_components_taskcard_tsx",
+      "target": "lib_api_runview"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/TaskCard.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_components_taskcard_tsx",
+      "target": "lib_api_task"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/TaskCard.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_components_taskcard_tsx",
+      "target": "lib_format_relativetime"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/components/TaskCard.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_components_taskcard_tsx",
+      "target": "lib_format_timeofday"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/TaskCard.tsx",
+      "source_location": "L131",
+      "weight": 1.0,
+      "source": "components_taskcard_taskcard",
+      "target": "lib_format_relativetime"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/TaskCard.tsx",
+      "source_location": "L122",
+      "weight": 1.0,
+      "source": "components_taskcard_taskcard",
+      "target": "lib_format_timeofday"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/page.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_app_page_tsx",
+      "target": "components_taskcard_taskcard"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/login/page.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_app_login_page_tsx",
+      "target": "frontend_src_lib_api_ts"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/page.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_app_page_tsx",
+      "target": "frontend_src_lib_api_ts"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L72",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_lib_api_ts",
+      "target": "lib_api_api"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L31",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_lib_api_ts",
+      "target": "lib_api_hddstatus"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_lib_api_ts",
+      "target": "lib_api_me"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L48",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_lib_api_ts",
+      "target": "lib_api_req"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_lib_api_ts",
+      "target": "lib_api_runview"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L42",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_lib_api_ts",
+      "target": "lib_api_settoken"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L18",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_lib_api_ts",
+      "target": "lib_api_task"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "frontend_src_lib_api_ts",
+      "target": "lib_api_thresholds",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L42",
+      "weight": 1.0,
+      "source": "frontend_src_lib_api_ts",
+      "target": "lib_api_thresholdview",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L37",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_lib_api_ts",
+      "target": "lib_api_token"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/page.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_app_page_tsx",
+      "target": "lib_api_me"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/page.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_app_page_tsx",
+      "target": "lib_api_task"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L50",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_api_req",
+      "target": "lib_api_token"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/login/page.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_app_login_page_tsx",
+      "target": "lib_api_settoken"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/page.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_app_page_tsx",
+      "target": "lib_api_settoken"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/lib/api.ts",
+      "source_location": "L55",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "lib_api_req",
+      "target": "lib_api_settoken"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/login/page.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_app_login_page_tsx",
+      "target": "lib_api_api"
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "frontend/src/app/page.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "frontend_src_app_page_tsx",
+      "target": "lib_api_api"
     },
     {
       "relation": "contains",
@@ -4397,6 +5831,16 @@
       "context": "command",
       "source": "storage_console_mcp_mcp_server_code_review_graph",
       "target": "mcp_json_mcp_command_users_nila_local_pipx_venvs_code_review_graph_bin_python"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "deploy.sh",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "deploy_sh",
+      "target": "users_nila_developer_apps_storage_console_deploy_sh__entry"
     },
     {
       "relation": "contains",
@@ -5002,17 +6446,6 @@
       "target": "components_statusbadge_hddbadge"
     },
     {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/app/page.tsx",
-      "source_location": "L6",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_app_page_tsx",
-      "target": "components_taskcard_taskcard"
-    },
-    {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -5022,105 +6455,6 @@
       "confidence_score": 1.0,
       "source": "frontend_src_app_page_tsx",
       "target": "frontend_src_components_statusbadge_tsx"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/app/page.tsx",
-      "source_location": "L6",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_app_page_tsx",
-      "target": "frontend_src_components_taskcard_tsx"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/app/page.tsx",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_app_page_tsx",
-      "target": "frontend_src_lib_api_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/app/page.tsx",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_app_page_tsx",
-      "target": "lib_api_api"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/app/page.tsx",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_app_page_tsx",
-      "target": "lib_api_me"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/app/page.tsx",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_app_page_tsx",
-      "target": "lib_api_settoken"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/app/page.tsx",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_app_page_tsx",
-      "target": "lib_api_task"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/app/login/page.tsx",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_app_login_page_tsx",
-      "target": "frontend_src_lib_api_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/app/login/page.tsx",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_app_login_page_tsx",
-      "target": "lib_api_api"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/app/login/page.tsx",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_app_login_page_tsx",
-      "target": "lib_api_settoken"
     },
     {
       "relation": "contains",
@@ -5131,159 +6465,6 @@
       "confidence_score": 1.0,
       "source": "frontend_src_app_login_page_tsx",
       "target": "login_page_loginpage"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/TaskCard.tsx",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_components_taskcard_tsx",
-      "target": "components_modetoggle_modetoggle"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/TaskCard.tsx",
-      "source_location": "L6",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_components_taskcard_tsx",
-      "target": "components_statusbadge_statusbadge"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/TaskCard.tsx",
-      "source_location": "L10",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_components_taskcard_tsx",
-      "target": "components_taskcard_taskcard"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/TaskCard.tsx",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_components_taskcard_tsx",
-      "target": "frontend_src_components_modetoggle_tsx"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/TaskCard.tsx",
-      "source_location": "L6",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_components_taskcard_tsx",
-      "target": "frontend_src_components_statusbadge_tsx"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/TaskCard.tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_components_taskcard_tsx",
-      "target": "frontend_src_lib_api_ts"
-    },
-    {
-      "relation": "imports_from",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/TaskCard.tsx",
-      "source_location": "L7",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_components_taskcard_tsx",
-      "target": "frontend_src_lib_format_ts"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/TaskCard.tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_components_taskcard_tsx",
-      "target": "lib_api_api"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/TaskCard.tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_components_taskcard_tsx",
-      "target": "lib_api_runview"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/TaskCard.tsx",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_components_taskcard_tsx",
-      "target": "lib_api_task"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/TaskCard.tsx",
-      "source_location": "L7",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_components_taskcard_tsx",
-      "target": "lib_format_relativetime"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/components/TaskCard.tsx",
-      "source_location": "L7",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_components_taskcard_tsx",
-      "target": "lib_format_timeofday"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "frontend/src/components/TaskCard.tsx",
-      "source_location": "L131",
-      "weight": 1.0,
-      "source": "components_taskcard_taskcard",
-      "target": "lib_format_relativetime"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "frontend/src/components/TaskCard.tsx",
-      "source_location": "L122",
-      "weight": 1.0,
-      "source": "components_taskcard_taskcard",
-      "target": "lib_format_timeofday"
     },
     {
       "relation": "contains",
@@ -5314,108 +6495,6 @@
       "confidence_score": 1.0,
       "source": "frontend_src_components_modetoggle_tsx",
       "target": "components_modetoggle_modetoggle"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/lib/api.ts",
-      "source_location": "L72",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_lib_api_ts",
-      "target": "lib_api_api"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/lib/api.ts",
-      "source_location": "L31",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_lib_api_ts",
-      "target": "lib_api_hddstatus"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/lib/api.ts",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_lib_api_ts",
-      "target": "lib_api_me"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/lib/api.ts",
-      "source_location": "L48",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_lib_api_ts",
-      "target": "lib_api_req"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/lib/api.ts",
-      "source_location": "L11",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_lib_api_ts",
-      "target": "lib_api_runview"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/lib/api.ts",
-      "source_location": "L42",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_lib_api_ts",
-      "target": "lib_api_settoken"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/lib/api.ts",
-      "source_location": "L18",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_lib_api_ts",
-      "target": "lib_api_task"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/lib/api.ts",
-      "source_location": "L37",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "frontend_src_lib_api_ts",
-      "target": "lib_api_token"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/lib/api.ts",
-      "source_location": "L50",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "lib_api_req",
-      "target": "lib_api_token"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "frontend/src/lib/api.ts",
-      "source_location": "L55",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "lib_api_req",
-      "target": "lib_api_settoken"
     },
     {
       "relation": "contains",
@@ -5510,17 +6589,6 @@
       "target": "backend_src_main_java_com_nila_storageconsole_tasks_taskcatalog_java_optional"
     },
     {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskCatalog.java",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_main_java_com_nila_storageconsole_tasks_taskcatalog_java",
-      "target": "optional"
-    },
-    {
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskCatalog.java",
@@ -5582,17 +6650,6 @@
       "confidence_score": 1.0,
       "source": "tasks_taskcatalog_taskcatalog_find",
       "target": "backend_src_main_java_com_nila_storageconsole_tasks_taskcatalog_java_taskdef"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskCatalog.java",
-      "source_location": "L45",
-      "weight": 1.0,
-      "context": "return_type",
-      "confidence_score": 1.0,
-      "source": "tasks_taskcatalog_taskcatalog_find",
-      "target": "optional"
     },
     {
       "relation": "references",
@@ -5720,44 +6777,11 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L8",
+      "source_location": "L5",
       "weight": 1.0,
       "confidence_score": 1.0,
       "source": "backend_src_main_java_com_nila_storageconsole_tasks_taskcontroller_java",
-      "target": "cronjob"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L9",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_main_java_com_nila_storageconsole_tasks_taskcontroller_java",
-      "target": "job"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L6",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_main_java_com_nila_storageconsole_tasks_taskcontroller_java",
-      "target": "kubernetesservice"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L21",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_main_java_com_nila_storageconsole_tasks_taskcontroller_java",
-      "target": "optional"
+      "target": "hddprobeservice"
     },
     {
       "relation": "contains",
@@ -5874,7 +6898,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L31",
+      "source_location": "L35",
       "weight": 1.0,
       "context": "parameter_type",
       "confidence_score": 1.0,
@@ -5885,18 +6909,18 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L31",
+      "source_location": "L35",
       "weight": 1.0,
       "context": "parameter_type",
       "confidence_score": 1.0,
       "source": "tasks_taskcontroller_taskcontroller_taskcontroller",
-      "target": "kubernetesservice"
+      "target": "hddprobeservice"
     },
     {
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L39",
+      "source_location": "L43",
       "weight": 1.0,
       "context": "attribute",
       "confidence_score": 1.0,
@@ -5984,7 +7008,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L163",
+      "source_location": "L185",
       "weight": 1.0,
       "context": "attribute",
       "confidence_score": 1.0,
@@ -5995,7 +7019,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L49",
+      "source_location": "L53",
       "weight": 1.0,
       "context": "attribute",
       "confidence_score": 1.0,
@@ -6006,7 +7030,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L149",
+      "source_location": "L171",
       "weight": 1.0,
       "context": "attribute",
       "confidence_score": 1.0,
@@ -6094,7 +7118,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L56",
+      "source_location": "L60",
       "weight": 1.0,
       "context": "parameter_type",
       "confidence_score": 1.0,
@@ -6102,48 +7126,15 @@
       "target": "backend_src_main_java_com_nila_storageconsole_tasks_taskcontroller_java_taskdef"
     },
     {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
+      "relation": "references",
+      "confidence": "EXTRACTED",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L77",
+      "source_location": "L60",
       "weight": 1.0,
+      "context": "parameter_type",
+      "confidence_score": 1.0,
       "source": "tasks_taskcontroller_taskcontroller_toview",
-      "target": "k8s_kubernetesservice_kubernetesservice_estimatenextrun"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L57",
-      "weight": 1.0,
-      "source": "tasks_taskcontroller_taskcontroller_toview",
-      "target": "k8s_kubernetesservice_kubernetesservice_getcronjob"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L79",
-      "weight": 1.0,
-      "source": "tasks_taskcontroller_taskcontroller_toview",
-      "target": "k8s_kubernetesservice_kubernetesservice_listjobsforcronjob"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L80",
-      "weight": 1.0,
-      "source": "tasks_taskcontroller_taskcontroller_toview",
-      "target": "k8s_kubernetesservice_kubernetesservice_summarize"
+      "target": "taskdef"
     },
     {
       "relation": "calls",
@@ -6160,23 +7151,12 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L98",
+      "source_location": "L102",
       "weight": 1.0,
       "context": "parameter_type",
       "confidence_score": 1.0,
       "source": "tasks_taskcontroller_taskcontroller_setmode",
       "target": "backend_src_main_java_com_nila_storageconsole_tasks_taskcontroller_java_authuser"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L106",
-      "weight": 1.0,
-      "source": "tasks_taskcontroller_taskcontroller_setmode",
-      "target": "k8s_kubernetesservice_kubernetesservice_setsuspend"
     },
     {
       "relation": "references",
@@ -6193,18 +7173,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L98",
-      "weight": 1.0,
-      "context": "attribute",
-      "confidence_score": 1.0,
-      "source": "tasks_taskcontroller_taskcontroller_setmode",
-      "target": "putmapping"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L121",
+      "source_location": "L125",
       "weight": 1.0,
       "context": "parameter_type",
       "confidence_score": 1.0,
@@ -6215,7 +7184,7 @@
       "relation": "references",
       "confidence": "EXTRACTED",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L121",
+      "source_location": "L125",
       "weight": 1.0,
       "context": "attribute",
       "confidence_score": 1.0,
@@ -6223,37 +7192,15 @@
       "target": "backend_src_main_java_com_nila_storageconsole_tasks_taskcontroller_java_postmapping"
     },
     {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
+      "relation": "references",
+      "confidence": "EXTRACTED",
       "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L137",
+      "source_location": "L125",
       "weight": 1.0,
+      "context": "attribute",
+      "confidence_score": 1.0,
       "source": "tasks_taskcontroller_taskcontroller_trigger",
-      "target": "k8s_kubernetesservice_kubernetesservice_createjobfromcronjob"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L126",
-      "weight": 1.0,
-      "source": "tasks_taskcontroller_taskcontroller_trigger",
-      "target": "k8s_kubernetesservice_kubernetesservice_getcronjob"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L144",
-      "weight": 1.0,
-      "source": "tasks_taskcontroller_taskcontroller_trigger",
-      "target": "k8s_kubernetesservice_kubernetesservice_namespace"
+      "target": "postmapping"
     },
     {
       "relation": "references",
@@ -6265,17 +7212,6 @@
       "confidence_score": 1.0,
       "source": "tasks_taskcontroller_taskcontroller_trigger",
       "target": "triggerresponse"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L155",
-      "weight": 1.0,
-      "source": "tasks_taskcontroller_taskcontroller_runs",
-      "target": "k8s_kubernetesservice_kubernetesservice_listjobsforcronjob"
     },
     {
       "relation": "references",
@@ -6298,17 +7234,6 @@
       "confidence_score": 1.0,
       "source": "tasks_taskcontroller_taskcontroller_torunview",
       "target": "runview"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "INFERRED",
-      "confidence_score": 0.8,
-      "source_file": "backend/src/main/java/com/nila/storageconsole/tasks/TaskController.java",
-      "source_location": "L170",
-      "weight": 1.0,
-      "source": "tasks_taskcontroller_taskcontroller_logs",
-      "target": "k8s_kubernetesservice_kubernetesservice_tailjoblogs"
     },
     {
       "relation": "references",
@@ -7323,456 +8248,6 @@
       "weight": 1.0,
       "source": "security_authuser_from",
       "target": "user_user_user_getusername"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L15",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java",
-      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_instant"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L8",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java",
-      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_kubernetesclient"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L20",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java",
-      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_list"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L22",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java",
-      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_optional"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L4",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java",
-      "target": "cronjob"
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L5",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java",
-      "target": "job"
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L29",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java",
-      "target": "k8s_kubernetesservice_kubernetesservice"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L79",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice",
-      "target": "k8s_kubernetesservice_kubernetesservice_createjobfromcronjob"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L183",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice",
-      "target": "k8s_kubernetesservice_kubernetesservice_estimatenextrun"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L47",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice",
-      "target": "k8s_kubernetesservice_kubernetesservice_getcronjob"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L134",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice",
-      "target": "k8s_kubernetesservice_kubernetesservice_getjob"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L52",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice",
-      "target": "k8s_kubernetesservice_kubernetesservice_issuspended"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L37",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice",
-      "target": "k8s_kubernetesservice_kubernetesservice_kubernetesservice"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L111",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice",
-      "target": "k8s_kubernetesservice_kubernetesservice_listjobsforcronjob"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L43",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice",
-      "target": "k8s_kubernetesservice_kubernetesservice_namespace"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L59",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice",
-      "target": "k8s_kubernetesservice_kubernetesservice_setsuspend"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L156",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice",
-      "target": "k8s_kubernetesservice_kubernetesservice_summarize"
-    },
-    {
-      "relation": "method",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L140",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice",
-      "target": "k8s_kubernetesservice_kubernetesservice_tailjoblogs"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L37",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_kubernetesservice",
-      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_kubernetesclient"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L37",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_kubernetesservice",
-      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L79",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_createjobfromcronjob",
-      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L183",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_estimatenextrun",
-      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L47",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_getcronjob",
-      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L134",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_getjob",
-      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L52",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_issuspended",
-      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L111",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_listjobsforcronjob",
-      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L43",
-      "weight": 1.0,
-      "context": "return_type",
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_namespace",
-      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L59",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_setsuspend",
-      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L140",
-      "weight": 1.0,
-      "context": "return_type",
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_tailjoblogs",
-      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_string"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L80",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_createjobfromcronjob",
-      "target": "k8s_kubernetesservice_kubernetesservice_getcronjob"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L47",
-      "weight": 1.0,
-      "context": "return_type",
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_getcronjob",
-      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_optional"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L47",
-      "weight": 1.0,
-      "context": "generic_arg",
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_getcronjob",
-      "target": "cronjob"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L53",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_issuspended",
-      "target": "k8s_kubernetesservice_kubernetesservice_getcronjob"
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L60",
-      "weight": 1.0,
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_setsuspend",
-      "target": "k8s_kubernetesservice_kubernetesservice_getcronjob"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L134",
-      "weight": 1.0,
-      "context": "return_type",
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_getjob",
-      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_optional"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L79",
-      "weight": 1.0,
-      "context": "return_type",
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_createjobfromcronjob",
-      "target": "job"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L134",
-      "weight": 1.0,
-      "context": "generic_arg",
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_getjob",
-      "target": "job"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L111",
-      "weight": 1.0,
-      "context": "generic_arg",
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_listjobsforcronjob",
-      "target": "job"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L156",
-      "weight": 1.0,
-      "context": "parameter_type",
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_summarize",
-      "target": "job"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L111",
-      "weight": 1.0,
-      "context": "return_type",
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_listjobsforcronjob",
-      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_list"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L156",
-      "weight": 1.0,
-      "context": "return_type",
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_summarize",
-      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_runsummary"
-    },
-    {
-      "relation": "references",
-      "confidence": "EXTRACTED",
-      "source_file": "backend/src/main/java/com/nila/storageconsole/k8s/KubernetesService.java",
-      "source_location": "L183",
-      "weight": 1.0,
-      "context": "return_type",
-      "confidence_score": 1.0,
-      "source": "k8s_kubernetesservice_kubernetesservice_estimatenextrun",
-      "target": "backend_src_main_java_com_nila_storageconsole_k8s_kubernetesservice_java_instant"
     },
     {
       "relation": "imports",
@@ -9053,6 +9528,136 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_restic_backup_md",
+      "target": "docs_restic_backup_immich_restic_backup"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L62",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_restic_backup_immich_restic_backup",
+      "target": "docs_restic_backup_concurrency_model"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L93",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_restic_backup_immich_restic_backup",
+      "target": "docs_restic_backup_manual_run"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L53",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_restic_backup_immich_restic_backup",
+      "target": "docs_restic_backup_mount_guard"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L32",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_restic_backup_immich_restic_backup",
+      "target": "docs_restic_backup_password_3_places"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L23",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_restic_backup_immich_restic_backup",
+      "target": "docs_restic_backup_repo_location"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L62",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_restic_backup_immich_restic_backup",
+      "target": "docs_restic_backup_restore_runbook"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L45",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_restic_backup_immich_restic_backup",
+      "target": "docs_restic_backup_retention"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L108",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_restic_backup_immich_restic_backup",
+      "target": "docs_restic_backup_stale_lock_recovery"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_restic_backup_immich_restic_backup",
+      "target": "docs_restic_backup_what_it_backs_up"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L92",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_restic_backup_concurrency_model",
+      "target": "docs_restic_backup_manual_scheduled_overlap_safe_but_slower"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L84",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_restic_backup_concurrency_model",
+      "target": "docs_restic_backup_scheduled_self_overlap_cronjob_concurrencypolicy_forbid"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/RESTIC-BACKUP.md",
+      "source_location": "L67",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_restic_backup_concurrency_model",
+      "target": "docs_restic_backup_trigger_now_guard_http_409"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "docs/ARCHITECTURE.md",
       "source_location": "L1",
       "weight": 1.0,
@@ -9393,6 +9998,166 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_maintenance_md",
+      "target": "docs_maintenance_maintenance"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L78",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_maintenance_maintenance",
+      "target": "docs_maintenance_db_access"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L67",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_maintenance_maintenance",
+      "target": "docs_maintenance_immich_backup_restic"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L65",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_maintenance_maintenance",
+      "target": "docs_maintenance_rbac_what_the_serviceaccount_can_do"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L3",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_maintenance_maintenance",
+      "target": "docs_maintenance_rebuilding_after_a_code_change"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L26",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_maintenance_maintenance",
+      "target": "docs_maintenance_rotate_admin_password"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L42",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_maintenance_maintenance",
+      "target": "docs_maintenance_tearing_down"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L95",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_maintenance_maintenance",
+      "target": "docs_maintenance_troubleshooting"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L13",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_maintenance_rebuilding_after_a_code_change",
+      "target": "docs_maintenance_manual_rebuild_without_deploy_sh"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L122",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_maintenance_troubleshooting",
+      "target": "docs_maintenance_backend_logs"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L97",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_maintenance_troubleshooting",
+      "target": "docs_maintenance_cronjob_not_found_in_the_ui"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L119",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_maintenance_troubleshooting",
+      "target": "docs_maintenance_fail_sha256_mismatch_in_mover_logs"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L128",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_maintenance_troubleshooting",
+      "target": "docs_maintenance_frontend_logs"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L110",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_maintenance_troubleshooting",
+      "target": "docs_maintenance_hdd_shows_not_mounted_but_the_disk_is_plugged_in"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L107",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_maintenance_troubleshooting",
+      "target": "docs_maintenance_manual_trigger_returns_409_conflict"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "docs/MAINTENANCE.md",
+      "source_location": "L134",
+      "weight": 1.0,
+      "confidence_score": 1.0,
+      "source": "docs_maintenance_troubleshooting",
+      "target": "docs_maintenance_rollback_to_v1_go"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": ".github/code-review-graph.instruction.md",
       "source_location": "L9",
       "weight": 1.0,
@@ -9472,5 +10237,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "73c93ad8a87644738b42e53bdae4503dd66cb7ea"
+  "built_at_commit": "f9565d5d43216c911e164421b66b41ee44443e07"
 }
