@@ -131,6 +131,59 @@ public class KubernetesService {
                 .toList();
     }
 
+    /**
+     * Count Jobs belonging to this CronJob that are still in-flight — i.e. have
+     * {@code status.active > 0} or have neither succeeded nor failed yet. Used by
+     * the Trigger-Now concurrency guard to reject a second run while one is live.
+     */
+    public ActiveJobs activeJobsForCronJob(String cronJobName) {
+        // Broader matcher than listJobsForCronJob(): the guard must also catch
+        // Jobs created out-of-band by `kubectl create job --from=cronjob/<name>`
+        // (which carry only annotation cronjob.kubernetes.io/instantiate=manual
+        // and the conventional name prefix "<cronJobName>-"), otherwise an
+        // overlapping run from the CLI fallback would slip past the guard.
+        List<Job> all = client.batch().v1().jobs().inNamespace(namespace).list().getItems();
+        List<Job> inFlight = all.stream()
+                .filter(j -> belongsToCronJob(j, cronJobName))
+                .filter(KubernetesService::isInFlight)
+                .toList();
+        String firstName = inFlight.stream()
+                .map(j -> j.getMetadata().getName())
+                .findFirst()
+                .orElse(null);
+        return new ActiveJobs(inFlight.size(), firstName);
+    }
+
+    /** True if a Job belongs to the named CronJob, by owning label/annotation OR name convention. */
+    private static boolean belongsToCronJob(Job j, String cronJobName) {
+        Map<String, String> labels = j.getMetadata().getLabels();
+        Map<String, String> ann = j.getMetadata().getAnnotations();
+        if (labels != null && cronJobName.equals(labels.get("storage-console.nila/cronjob"))) return true;
+        if (labels != null && cronJobName.equals(labels.get("cronjob-name"))) return true;
+        if (ann != null && cronJobName.equals(ann.get("batch.kubernetes.io/cronjob-name"))) return true;
+        // Jobs from `kubectl create job --from=cronjob/<name>` (and our own
+        // "<cronJobName>-manual-<stamp>") follow the name-prefix convention and
+        // carry the instantiate annotation but no cronjob-name back-reference.
+        String name = j.getMetadata().getName();
+        boolean manualInstantiate = ann != null
+                && ann.containsKey("cronjob.kubernetes.io/instantiate");
+        return name != null && name.startsWith(cronJobName + "-") && manualInstantiate;
+    }
+
+    /** A Job is in-flight if it is actively running OR has not yet completed/failed. */
+    private static boolean isInFlight(Job j) {
+        var status = j.getStatus();
+        if (status == null) return true; // just-created, no status populated yet
+        Integer active = status.getActive();
+        Integer succeeded = status.getSucceeded();
+        Integer failed = status.getFailed();
+        if (active != null && active > 0) return true;
+        boolean done = (succeeded != null && succeeded > 0) || (failed != null && failed > 0);
+        return !done;
+    }
+
+    public record ActiveJobs(long count, String firstJobName) {}
+
     public Optional<Job> getJob(String jobName) {
         return Optional.ofNullable(
                 client.batch().v1().jobs().inNamespace(namespace).withName(jobName).get());
