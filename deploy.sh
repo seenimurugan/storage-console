@@ -63,7 +63,7 @@ fi
 echo ""
 echo "[deploy] (1/8) Building images (linux/arm64 — OrbStack k3s shares Mac Docker)"
 echo "  → $BACKEND_IMAGE:$BACKEND_TAG"
-docker build --platform linux/arm64 -t "$BACKEND_IMAGE:$BACKEND_TAG"   "$SCRIPT_DIR/backend"
+docker build --platform linux/arm64 -t "$BACKEND_IMAGE:$BACKEND_TAG" -t "$BACKEND_IMAGE:latest" "$SCRIPT_DIR/backend"
 echo "  → $FRONTEND_IMAGE:$FRONTEND_TAG"
 docker build --platform linux/arm64 -t "$FRONTEND_IMAGE:$FRONTEND_TAG" "$SCRIPT_DIR/frontend"
 
