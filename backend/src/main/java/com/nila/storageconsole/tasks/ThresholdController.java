@@ -130,7 +130,7 @@ public class ThresholdController {
 
     // ─────────────────────────── DTOs ─────────────────────────────────────────
 
-    public record ThresholdRequest(@DecimalMin("0.0") double gib) {}
+    public record ThresholdRequest(@DecimalMin(value = "0.0", inclusive = false) double gib) {}
 
     public record ThresholdView(String task, double gib, long bytes) {}
 
