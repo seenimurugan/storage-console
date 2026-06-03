@@ -35,11 +35,11 @@ Source: `/Users/nila/Developer/apps/storage-console/`
 
 | Card | CronJob controlled | Trigger model |
 |---|---|---|
-| Immich Tier (>2 GB) | `tier-mover-immich` | `suspend=false` → runs daily at 3 AM; `suspend=true` → manual-only |
-| Jellyfin Tier (>3 GB) | `tier-mover-jellyfin` | same |
+| Immich Tier | `tier-mover-immich` | `suspend=false` → runs daily at 3 AM; `suspend=true` → manual-only |
+| Jellyfin Tier | `tier-mover-jellyfin` | same |
 | Immich Backup | `immich-backup` | same |
 
-Each card shows the CronJob's current state (Auto/Manual), the last run time, and a "Trigger Now" button that fires the job immediately. The backend reads and patches CronJob resources via the fabric8 Kubernetes client.
+Each tier card has a **configurable size threshold** (GiB, decimals; default 1 GiB) — only files larger than it are moved to the HDD. Each card also shows the CronJob's current state (Auto/Manual), the last run time, and a "Trigger Now" button that fires the job immediately. The backend reads and patches CronJob resources (and the `tiering-thresholds` ConfigMap) via the fabric8 Kubernetes client.
 
 ---
 

@@ -78,6 +78,8 @@ All routes under `/api/`. JWT in `Authorization: Bearer <token>` (or as the only
 | POST | `/api/tasks/{id}/trigger` | manual run; rejects 409 if mode=auto |
 | GET | `/api/tasks/{id}/runs?limit=10` | recent Jobs spawned by this CronJob |
 | GET | `/api/tasks/{id}/runs/{jobName}/logs?lines=500` | text/plain log tail |
+| GET | `/api/thresholds` | `{immichGib, jellyfinGib}` — current tiering size thresholds |
+| PUT | `/api/thresholds/{task}` | body `{gib}` (>0, decimals) → patches the threshold ConfigMap; `{task}` ∈ `immich-tier`/`jellyfin-tier` |
 | GET | `/api/system/hdd-status` | `{hostPath, connected, lastChecked}` (cached 30s) |
 | GET | `/actuator/health/{liveness,readiness}` | k8s probes |
 
@@ -101,15 +103,23 @@ Mode (Auto vs Manual) is **not** stored in the database. It's stored as `CronJob
 
 Backend toggles this via `kubernetesClient.batch().v1().cronjobs().withName(n).edit(...)` (fabric8).
 
+## Threshold persistence
+
+Like mode, the per-app tiering **size threshold** is **not** stored in the database — it lives in the `tiering-thresholds` ConfigMap (keys `immich-threshold-bytes` / `jellyfin-threshold-bytes`, stored in **bytes**), so Kubernetes is the single source of truth and the value survives backend restarts.
+
+- `PUT /api/thresholds/{task}` validates `gib > 0`, converts GiB → bytes (`round(gib × 1073741824)`), and patches the ConfigMap key via fabric8 (`getConfigMapValue` / `patchConfigMapValue`).
+- The mover script reads the value from an env var injected via `configMapKeyRef`, with the historical literal as a `${VAR:-default}` fallback. So both the scheduled Auto run and the manual *Trigger Now* run pick up the current value on their next invocation — no redeploy.
+- Defaults are seeded at 1 GiB each in `k8s/05-tiering-thresholds-cm.yaml`.
+
 ## HDD-connected detection
 
-The backend pod's Deployment mounts the macOS host path `HOMELAB_TIER_HDD_PATH` (default `/Volumes/homelab-hdd`) as `hostPath` at `/hdd-probe`. The `HddProbeService`:
+The backend pod's Deployment mounts the **always-present parent** `/Volumes` (`hostPath`, `type: Directory`) at `/hdd-root`, with `mountPropagation: HostToContainer`. `HddProbeService` then probes the `/hdd-root/homelab-hdd` subpath (overridable via `STORAGE_CONSOLE_HDD_PROBE_PATH`):
 
-1. Checks `Files.isDirectory(/hdd-probe)`.
+1. Checks `Files.isDirectory(/hdd-root/homelab-hdd)`.
 2. Lists the directory — at least one entry means "mounted" (a freshly-unplugged disk leaves an empty mount point on macOS auto-mount).
-3. Caches the result for 30 s to keep the UI poll cheap.
+3. Caches the result for 30 s to keep the UI poll cheap; logs the connected↔disconnected transition at INFO.
 
-This is preferred over spawning a probe Job because it's instant (~µs) and doesn't pollute the Jobs history.
+**Why the parent mount:** bind-mounting `/Volumes/homelab-hdd` *directly* made the container runtime try to `mkdir` the missing path → `permission denied` → **CrashLoopBackOff** whenever the HDD was unplugged. Mounting the parent (which always exists) means the backend always starts; `HostToContainer` propagation means a later-plugged disk appears inside the running pod and the next 30 s probe flips the status to connected — no restart. This is preferred over spawning a probe Job because it's instant (~µs) and doesn't pollute the Jobs history.
 
 ## CronJob HDD guard
 

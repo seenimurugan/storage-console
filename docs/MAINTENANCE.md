@@ -87,8 +87,9 @@ The `storage-console` ServiceAccount is bound to a Role scoped to the `homelab` 
 | `batch/jobs` | get, list, watch, create, delete |
 | `core/pods` | get, list |
 | `core/pods/log` | get |
+| `core/configmaps` | get, patch, update |
 
-It cannot delete CronJobs, access secrets, or operate outside `homelab`.
+It cannot delete CronJobs, access secrets, or operate outside `homelab`. The `configmaps` verbs are used to read/persist the per-app tiering size thresholds in the `tiering-thresholds` ConfigMap.
 
 ## DB access
 
@@ -122,14 +123,24 @@ If missing, re-run `./deploy.sh`.
 ### Manual trigger returns 409 Conflict
 The CronJob is currently in Auto mode (`suspend=false`). Switch the card to Manual first.
 
+### Backend is resilient to a missing HDD (does NOT crash)
+As of backend `2.5`, the Deployment mounts the **parent** `/Volumes` (hostPath `type: Directory`, always present) at `/hdd-root` with `mountPropagation: HostToContainer`, instead of bind-mounting `/Volumes/homelab-hdd` directly. `HddProbeService` then probes the `/hdd-root/homelab-hdd` subpath.
+
+Why: a direct bind-mount of `/Volumes/homelab-hdd` made the container runtime `mkdir` a missing path → `permission denied` → **CrashLoopBackOff** whenever the HDD was unplugged. Mounting the always-present parent means the backend **always starts**; a missing HDD is reported as `connected:false` (degraded), not a crash.
+
 ### HDD shows "not mounted" but the disk is plugged in
-The backend pod mounts `/Volumes/homelab-hdd` as a hostPath. OrbStack VM may not see the mount immediately after macOS finishes auto-mounting. Restart the backend:
+With `HostToContainer` propagation, a freshly re-plugged disk appears inside the running pod automatically; the 30 s probe cache (`HddProbeService`) flips the status to connected on the next cycle — **no restart needed**. If it's still wrong after ~1 min:
 
 ```bash
+# confirm the host sees it
+ls /Volumes/homelab-hdd
+# confirm the pod sees it
+kubectl -n homelab exec deploy/storage-console-backend -- ls /hdd-root/homelab-hdd
+# last resort
 kubectl -n homelab rollout restart deployment/storage-console-backend
 ```
 
-Also see memory note `feedback_orbstack_hdd_mount_limit.md` — first-mount can ENFILE. If the deployment is in a `CreateContainerConfigError`, unplug + replug the HDD and `kubectl rollout restart`.
+Note: the **mover CronJob** pods bind-mount the HDD directly (they legitimately need it) and exit 0 via their `test -d /hdd-check` guard when it's absent — unchanged.
 
 ### "FAIL sha256-mismatch" in mover logs
 The mover did a sha256 integrity check after copying SSD → HDD and the hashes diverged. Symlink was NOT created; HDD copy was removed. Investigate disk health (`smartctl`) before retrying.

@@ -1,11 +1,19 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { api, Task, RunView } from '@/lib/api';
 import { ModeToggle } from './ModeToggle';
 import { StatusBadge } from './StatusBadge';
 import { relativeTime, timeOfDay } from '@/lib/format';
 import clsx from 'clsx';
+
+const TIERING_TASK_IDS = new Set(['immich-tier', 'jellyfin-tier']);
+
+/** Map task id → which key in the /api/thresholds response to use for prefill */
+const THRESHOLD_GIB_KEY: Record<string, keyof { immichGib: number; jellyfinGib: number }> = {
+  'immich-tier': 'immichGib',
+  'jellyfin-tier': 'jellyfinGib',
+};
 
 export function TaskCard({ task, onChanged }: { task: Task; onChanged: () => void }) {
   const [busy, setBusy] = useState(false);
@@ -13,6 +21,48 @@ export function TaskCard({ task, onChanged }: { task: Task; onChanged: () => voi
   const [showLogs, setShowLogs] = useState(false);
   const [logs, setLogs] = useState<string>('');
   const [activeJob, setActiveJob] = useState<string | null>(null);
+
+  // ── Threshold state (tiering tasks only) ────────────────────────────────
+  const isTieringTask = TIERING_TASK_IDS.has(task.id);
+  const [thresholdGib, setThresholdGib] = useState<number | ''>('');
+  const [thresholdBusy, setThresholdBusy] = useState(false);
+  const [thresholdError, setThresholdError] = useState<string | null>(null);
+  const [thresholdSuccess, setThresholdSuccess] = useState(false);
+
+  // Fetch threshold on mount for tiering tasks
+  useEffect(() => {
+    if (!isTieringTask) return;
+    api.getThresholds()
+      .then((t) => {
+        const key = THRESHOLD_GIB_KEY[task.id];
+        setThresholdGib(t[key]);
+      })
+      .catch(() => {
+        // Non-fatal: UI will show empty, user can still set
+      });
+  }, [task.id, isTieringTask]);
+
+  async function saveThreshold() {
+    if (thresholdBusy) return;
+    const gib = typeof thresholdGib === 'number' ? thresholdGib : parseFloat(String(thresholdGib));
+    if (!gib || gib <= 0 || isNaN(gib)) {
+      setThresholdError('Enter a value greater than 0');
+      return;
+    }
+    setThresholdBusy(true);
+    setThresholdError(null);
+    setThresholdSuccess(false);
+    try {
+      const result = await api.setThreshold(task.id, gib);
+      setThresholdGib(result.gib);
+      setThresholdSuccess(true);
+      setTimeout(() => setThresholdSuccess(false), 3000);
+    } catch (e: unknown) {
+      setThresholdError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setThresholdBusy(false);
+    }
+  }
 
   async function changeMode(next: 'auto' | 'manual') {
     if (busy) return;
@@ -112,6 +162,44 @@ export function TaskCard({ task, onChanged }: { task: Task; onChanged: () => voi
           {busy ? 'Working…' : 'Trigger Now'}
         </button>
       </div>
+
+      {/* ── Threshold control (tier tasks only) ──────────────────────────── */}
+      {isTieringTask && (
+        <div className="border-t border-slate-100 dark:border-slate-800 pt-3 flex flex-col gap-2">
+          <label className="text-xs uppercase tracking-wide text-slate-500">
+            Move files larger than (GiB)
+          </label>
+          <div className="flex items-center gap-2">
+            <input
+              type="number"
+              step="0.1"
+              min="0.1"
+              value={thresholdGib}
+              onChange={(e) => {
+                setThresholdError(null);
+                setThresholdSuccess(false);
+                setThresholdGib(e.target.value === '' ? '' : parseFloat(e.target.value));
+              }}
+              className="w-28 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              disabled={thresholdBusy}
+            />
+            <button
+              type="button"
+              onClick={saveThreshold}
+              disabled={thresholdBusy}
+              className="px-3 py-1.5 rounded-lg bg-brand-500 hover:bg-brand-600 text-white text-sm font-medium transition-colors disabled:opacity-50"
+            >
+              {thresholdBusy ? 'Saving…' : 'Save'}
+            </button>
+            {thresholdSuccess && (
+              <span className="text-xs text-green-600 dark:text-green-400">Saved</span>
+            )}
+          </div>
+          {thresholdError && (
+            <div className="text-xs text-red-600">{thresholdError}</div>
+          )}
+        </div>
+      )}
 
       <div className="grid grid-cols-2 gap-3 text-sm border-t border-slate-100 dark:border-slate-800 pt-3">
         <div>

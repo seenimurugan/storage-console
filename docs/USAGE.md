@@ -14,18 +14,36 @@ Three cards, one per storage operation:
 
 | Card | Threshold | Source → destination |
 |---|---|---|
-| Immich Tier | >2 GiB | Immich SSD `library/` + `encoded-video/` → HDD `immich-library/` |
-| Jellyfin Tier | >3 GiB | Jellyfin SSD `movies/`, `tvshows/`, `music/` → HDD `jellyfin-media/` |
+| Immich Tier | configurable (default 1 GiB) | Immich SSD `library/` + `encoded-video/` → HDD `immich-library/` |
+| Jellyfin Tier | configurable (default 1 GiB) | Jellyfin SSD `movies/`, `tvshows/`, `music/` → HDD `jellyfin-media/` |
 | Immich Backup | — | pg_dump + library tar → HDD `backups/postgres/` and `backups/library/` |
 
 Each card shows:
 
+- **Size threshold (tier cards only)** — a numeric input (GiB, decimals allowed) "Move files larger than (GiB)". Only files **larger** than this are tiered to the HDD. Type a value, click **Save**; it persists immediately and applies to both the manual *Trigger Now* run and the scheduled Auto run. The Immich Backup card has no threshold. See [Setting the size threshold](#setting-the-size-threshold).
 - **Mode toggle** — Auto or Manual. State is stored as `CronJob.spec.suspend` (Auto = false, Manual = true). Kubernetes is the source of truth — there is no DB column for mode.
 - **Trigger Now** — only enabled in Manual mode. Spawns a Job with name `<cronjob>-manual-<utc-timestamp>` and opens a live log viewer that polls every 2 s.
 - **Next run** — for Auto mode, the next time the CronJob will fire (assumes `0 H * * *` daily schedule).
 - **Last run** — most recent Job's outcome (succeeded / failed / running / pending), with a relative timestamp. Click "view logs" to see the last 500 log lines.
 
 The top bar shows a global **HDD connected / not mounted** indicator, refreshed when the page reloads tasks (every 15 s).
+
+## Setting the size threshold
+
+Each tier card (Immich, Jellyfin) has a **Move files larger than (GiB)** input. Only files strictly larger than the threshold are moved to the HDD; smaller files stay on the SSD.
+
+1. Type a value in GiB — decimals are allowed (e.g. `0.5`, `1`, `1.5`, `2.5`). Must be greater than 0.
+2. Click **Save**. A green "Saved" confirmation appears.
+3. The value is stored in the `tiering-thresholds` ConfigMap (keys `immich-threshold-bytes` / `jellyfin-threshold-bytes`, in bytes) and is read by both the manual *Trigger Now* run and the scheduled Auto run on their next invocation. No redeploy needed.
+
+Immich and Jellyfin thresholds are independent. Defaults are seeded at 1 GiB each on first deploy.
+
+```bash
+# Inspect / set from the CLI
+kubectl -n homelab get configmap tiering-thresholds -o jsonpath='{.data}'
+kubectl -n homelab patch configmap tiering-thresholds --type merge \
+  -p '{"data":{"immich-threshold-bytes":"1610612736"}}'   # 1.5 GiB
+```
 
 ## Setting Auto mode
 

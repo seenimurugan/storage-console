@@ -52,8 +52,9 @@ storage-console:
     # Path on the Mac host (mounted into the backend pod for probing).
     # The CronJob pods also mount this path independently; see k8s/40-cronjobs.yaml.
     host-path: ${HOMELAB_TIER_HDD_PATH:/Volumes/homelab-hdd}
-    # Path inside the backend pod where host-path is mounted (see k8s/10-backend.yaml).
-    probe-path: /hdd-probe
+    # Path inside the backend pod where /Volumes is mounted and the HDD subdir is probed.
+    # Overridable via STORAGE_CONSOLE_HDD_PROBE_PATH env var (set in k8s/10-backend.yaml).
+    probe-path: ${STORAGE_CONSOLE_HDD_PROBE_PATH:/hdd-root/homelab-hdd}
 
 logging:
   level:

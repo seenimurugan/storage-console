@@ -377,13 +377,15 @@ spec:
                   fi
 
                   # c. stale-lock recovery ─────────────────────────────────────
-                  # Remove a stale lock left by a previously-killed run (OOM, node
-                  # reboot, pod evicted).  Safe: storage-console's Trigger-Now
-                  # concurrency guard now prevents a SECOND real run overlapping a
-                  # live one, so any lock seen here belongs to a dead process.
-                  log "event=immich.backup.unlock outcome=begin reason=clear-stale-locks"
-                  if restic unlock; then
-                    log "event=immich.backup.unlock outcome=success reason=stale-locks-cleared"
+                  # Remove ALL stale locks left by previously-killed runs.  Each
+                  # k8s pod has a unique hostname so plain `restic unlock` only
+                  # clears locks owned by THIS hostname — stale locks from other
+                  # pods remain and block `restic backup`.  --remove-all is safe
+                  # here because the CronJob's concurrencyPolicy=Forbid guarantees
+                  # no OTHER live backup is running concurrently.
+                  log "event=immich.backup.unlock outcome=begin reason=clear-all-stale-locks"
+                  if restic unlock --remove-all; then
+                    log "event=immich.backup.unlock outcome=success reason=all-stale-locks-cleared"
                   else
                     log "event=immich.backup.unlock outcome=warn reason=unlock-nonzero-continuing"
                   fi
@@ -400,7 +402,12 @@ spec:
                     exit 1
                   fi
 
-                  # e. retention / prune ───────────────────────────────────────
+                  # e. remove stale locks then retention / prune ──────────────
+                  # Stale locks can be left if the container is OOMKilled or
+                  # restarted mid-run; unlock before forget so it never blocks.
+                  log "event=immich.backup.unlock outcome=begin reason=clear-all-stale-locks-before-forget"
+                  restic unlock --remove-all || true
+                  log "event=immich.backup.unlock outcome=done reason=all-stale-locks-cleared-before-forget"
                   log "event=immich.backup.forget.start outcome=begin reason=keep-weekly-8-monthly-24-prune"
                   if restic forget --keep-weekly 8 --keep-monthly 24 --prune; then
                     log "event=immich.backup.forget.end outcome=success reason=forget-prune-complete"
