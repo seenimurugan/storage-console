@@ -1,5 +1,6 @@
 package com.nila.storageconsole.k8s;
 
+import io.fabric8.kubernetes.api.model.ConfigMap;
 import io.fabric8.kubernetes.api.model.ObjectMeta;
 import io.fabric8.kubernetes.api.model.batch.v1.CronJob;
 import io.fabric8.kubernetes.api.model.batch.v1.Job;
@@ -202,6 +203,49 @@ public class KubernetesService {
             log.warn("Failed to read logs for job {}: {}", jobName, e.getMessage());
             return "";
         }
+    }
+
+    // ─────────────────────────── ConfigMap ────────────────────────────────────
+
+    /**
+     * Read a single key from a ConfigMap in the service's namespace.
+     * Returns null if the ConfigMap or key does not exist.
+     */
+    public String getConfigMapValue(String configMapName, String key) {
+        ConfigMap cm = client.configMaps()
+                .inNamespace(namespace)
+                .withName(configMapName)
+                .get();
+        if (cm == null || cm.getData() == null) {
+            log.warn("event=configmap.get.missing configMap={} key={}", configMapName, key);
+            return null;
+        }
+        String value = cm.getData().get(key);
+        log.info("event=configmap.get configMap={} key={} value={}", configMapName, key, value);
+        return value;
+    }
+
+    /**
+     * Patch a single key in a ConfigMap in the service's namespace.
+     * If the ConfigMap does not exist an IllegalStateException is thrown.
+     */
+    public void patchConfigMapValue(String configMapName, String key, String value) {
+        ConfigMap cm = client.configMaps()
+                .inNamespace(namespace)
+                .withName(configMapName)
+                .get();
+        if (cm == null) {
+            log.error("event=configmap.patch.missing configMap={} key={}", configMapName, key);
+            throw new IllegalStateException("ConfigMap not found: " + configMapName);
+        }
+        client.configMaps()
+                .inNamespace(namespace)
+                .withName(configMapName)
+                .edit(c -> {
+                    c.getData().put(key, value);
+                    return c;
+                });
+        log.info("event=configmap.patch.ok configMap={} key={} value={}", configMapName, key, value);
     }
 
     // ─────────────────────────────── Util ─────────────────────────────────────

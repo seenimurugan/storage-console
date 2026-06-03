@@ -1,0 +1,16 @@
+# tiering-thresholds ConfigMap
+# Seed defaults: both Immich and Jellyfin = 1 GiB (1073741824 bytes).
+# The storage-console backend patches these keys when the user changes
+# the threshold via PUT /api/thresholds/{task}.
+# The tier-mover-immich and tier-mover-jellyfin CronJobs inject the
+# relevant key as IMMICH_THRESHOLD_BYTES / JELLYFIN_THRESHOLD_BYTES env via
+# valueFrom.configMapKeyRef.
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tiering-thresholds
+  namespace: homelab
+data:
+  immich-threshold-bytes: "1073741824"
+  jellyfin-threshold-bytes: "1073741824"

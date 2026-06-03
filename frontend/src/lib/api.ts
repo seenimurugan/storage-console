@@ -34,6 +34,17 @@ export type HddStatus = {
   lastChecked: string;
 };
 
+export type Thresholds = {
+  immichGib: number;
+  jellyfinGib: number;
+};
+
+export type ThresholdView = {
+  task: string;
+  gib: number;
+  bytes: number;
+};
+
 function token(): string | null {
   if (typeof window === 'undefined') return null;
   return window.localStorage.getItem('storage-console.token');
@@ -86,4 +97,10 @@ export const api = {
   logs: (id: string, jobName: string, lines = 500) =>
     req<string>(`/api/tasks/${id}/runs/${jobName}/logs?lines=${lines}`),
   hddStatus: () => req<HddStatus>('/api/system/hdd-status'),
+  getThresholds: () => req<Thresholds>('/api/thresholds'),
+  setThreshold: (task: string, gib: number) =>
+    req<ThresholdView>(`/api/thresholds/${task}`, {
+      method: 'PUT',
+      body: JSON.stringify({ gib }),
+    }),
 };
