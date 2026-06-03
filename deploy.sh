@@ -24,11 +24,13 @@ set -a; source "$ENV_FILE"; set +a
 : "${FRONTEND_IMAGE:=storage-console-frontend}"
 : "${FRONTEND_TAG:=2.0}"
 : "${HOMELAB_TIER_HDD_PATH:=/Volumes/homelab-hdd}"
+: "${HOMELAB_HDD_PATH:=/Volumes/homelab-backup-hdd}"
 : "${IMMICH_TIER_SCHEDULE:=0 3 * * *}"
 : "${JELLYFIN_TIER_SCHEDULE:=0 3 * * *}"
 : "${IMMICH_BACKUP_SCHEDULE:=0 4 * * *}"
 export HOMELAB_NAMESPACE BACKEND_IMAGE BACKEND_TAG FRONTEND_IMAGE FRONTEND_TAG \
-       HOMELAB_TIER_HDD_PATH IMMICH_TIER_SCHEDULE JELLYFIN_TIER_SCHEDULE IMMICH_BACKUP_SCHEDULE \
+       HOMELAB_TIER_HDD_PATH HOMELAB_HDD_PATH \
+       IMMICH_TIER_SCHEDULE JELLYFIN_TIER_SCHEDULE IMMICH_BACKUP_SCHEDULE \
        STORAGE_CONSOLE_JWT_SECRET STORAGE_CONSOLE_ADMIN_USERNAME STORAGE_CONSOLE_ADMIN_PASSWORD \
        STORAGE_CONSOLE_ADMIN_DISPLAY_NAME
 
@@ -87,6 +89,37 @@ else
     --from-literal=STORAGE_CONSOLE_PASSWORD="${STORAGE_CONSOLE_PASSWORD}"
 fi
 
+# ── 5b. Ensure restic-immich-secret exists (RESTIC_PASSWORD) ─────────────────
+# The restic repo password lives in 3 places (see docs/RESTIC-BACKUP.md):
+#   (i)  this cluster Secret, (ii) host file ~/.config/immich/restic-password,
+#   (iii) .env.example placeholder.  If the repo password is LOST the restic
+#   repo is UNRECOVERABLE — we therefore NEVER auto-generate-and-forget here.
+# Precedence: existing cluster secret (leave as-is) > $RESTIC_PASSWORD env >
+#   host file ~/.config/immich/restic-password.  We never print the value.
+echo ""
+echo "[deploy] (2b/8) Ensuring restic-immich-secret (RESTIC_PASSWORD)"
+RESTIC_PW_FILE="${HOME}/.config/immich/restic-password"
+if kubectl -n "$HOMELAB_NAMESPACE" get secret restic-immich-secret &>/dev/null; then
+  echo "  ✓ restic-immich-secret already exists — leaving untouched (password is immutable for repo access)."
+else
+  _RESTIC_PW=""
+  if [[ -n "${RESTIC_PASSWORD:-}" ]]; then
+    _RESTIC_PW="${RESTIC_PASSWORD}"
+    echo "  → using RESTIC_PASSWORD from environment"
+  elif [[ -f "$RESTIC_PW_FILE" ]]; then
+    _RESTIC_PW="$(cat "$RESTIC_PW_FILE")"
+    echo "  → using RESTIC_PASSWORD from $RESTIC_PW_FILE"
+  else
+    echo "  ERROR: no restic password found. Set RESTIC_PASSWORD in .env OR create"
+    echo "         $RESTIC_PW_FILE (chmod 600) before deploying. See docs/RESTIC-BACKUP.md."
+    exit 1
+  fi
+  kubectl -n "$HOMELAB_NAMESPACE" create secret generic restic-immich-secret \
+    --from-literal=RESTIC_PASSWORD="${_RESTIC_PW}"
+  unset _RESTIC_PW
+  echo "  ✓ restic-immich-secret created (value masked)"
+fi
+
 # ── 6. Ensure storage_console DB + user exist in shared-postgres ─────────────
 # The shared-postgres init.sh ConfigMap only runs on first postgres startup,
 # so for an existing cluster we have to create the DB/user ourselves.
@@ -131,9 +164,23 @@ fi
 echo ""
 echo "[deploy] (4/8) HDD mount check (informational)"
 if [[ -d "$HOMELAB_TIER_HDD_PATH" && -n "$(ls -A "$HOMELAB_TIER_HDD_PATH" 2>/dev/null)" ]]; then
-  echo "  ✓ $HOMELAB_TIER_HDD_PATH is mounted (contents: $(ls "$HOMELAB_TIER_HDD_PATH" 2>/dev/null | head -5 | tr '\n' ' '))"
+  echo "  ✓ $HOMELAB_TIER_HDD_PATH (tier disk) is mounted (contents: $(ls "$HOMELAB_TIER_HDD_PATH" 2>/dev/null | head -5 | tr '\n' ' '))"
 else
-  echo "  ⚠ $HOMELAB_TIER_HDD_PATH is not mounted (or empty). CronJob runs will skip silently until plugged in."
+  echo "  ⚠ $HOMELAB_TIER_HDD_PATH (tier disk) is not mounted (or empty). Tier CronJobs will skip until plugged in."
+fi
+
+# Backup HDD: restic repo target + pre-flight mount-guard sentinel.
+# The immich-backup CronJob ABORTS unless ${HOMELAB_HDD_PATH}/.homelab-backup-hdd
+# exists, so we (a) create the repo dir and (b) drop the sentinel here.  Both are
+# done on the host where deploy.sh runs (the Mac with the disk physically mounted);
+# the sandboxed agent shell cannot, so a one-off pod is used during testing.
+if [[ -d "$HOMELAB_HDD_PATH" && -w "$HOMELAB_HDD_PATH" ]]; then
+  mkdir -p "$HOMELAB_HDD_PATH/restic-immich"
+  [[ -f "$HOMELAB_HDD_PATH/.homelab-backup-hdd" ]] || \
+    printf 'homelab backup disk marker — DO NOT DELETE (immich-backup mount guard)\n' > "$HOMELAB_HDD_PATH/.homelab-backup-hdd"
+  echo "  ✓ $HOMELAB_HDD_PATH (backup disk) ready: restic-immich/ + .homelab-backup-hdd marker present"
+else
+  echo "  ⚠ $HOMELAB_HDD_PATH (backup disk) not mounted/writable. immich-backup will ABORT (guard) until present."
 fi
 
 # ── 8. Remove old v1 deployment if present ──────────────────────────────────
@@ -148,7 +195,7 @@ kubectl -n "$HOMELAB_NAMESPACE" delete ingress storage-console    --ignore-not-f
 echo ""
 echo "[deploy] (6/8) Applying k8s manifests (envsubst → kubectl apply)"
 K8S_DIR="$SCRIPT_DIR/k8s"
-ENVSUBST_VARS='${HOMELAB_NAMESPACE} ${BACKEND_IMAGE} ${BACKEND_TAG} ${FRONTEND_IMAGE} ${FRONTEND_TAG} ${HOMELAB_TIER_HDD_PATH} ${IMMICH_TIER_SCHEDULE} ${JELLYFIN_TIER_SCHEDULE} ${IMMICH_BACKUP_SCHEDULE} ${STORAGE_CONSOLE_JWT_SECRET} ${STORAGE_CONSOLE_ADMIN_USERNAME} ${STORAGE_CONSOLE_ADMIN_PASSWORD} ${STORAGE_CONSOLE_ADMIN_DISPLAY_NAME}'
+ENVSUBST_VARS='${HOMELAB_NAMESPACE} ${BACKEND_IMAGE} ${BACKEND_TAG} ${FRONTEND_IMAGE} ${FRONTEND_TAG} ${HOMELAB_TIER_HDD_PATH} ${HOMELAB_HDD_PATH} ${IMMICH_TIER_SCHEDULE} ${JELLYFIN_TIER_SCHEDULE} ${IMMICH_BACKUP_SCHEDULE} ${STORAGE_CONSOLE_JWT_SECRET} ${STORAGE_CONSOLE_ADMIN_USERNAME} ${STORAGE_CONSOLE_ADMIN_PASSWORD} ${STORAGE_CONSOLE_ADMIN_DISPLAY_NAME}'
 for f in \
     "$K8S_DIR"/10-backend.yaml \
     "$K8S_DIR"/20-frontend.yaml \

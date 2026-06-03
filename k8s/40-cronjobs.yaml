@@ -260,6 +260,28 @@ spec:
                 name: tiered-storage-mover-script
                 defaultMode: 0755
 ---
+# ─────────────────────────────────────────────────────────────────────────────
+# immich-backup — restic-based, incremental, decoupled-pod backup (Immich only).
+#
+# Design (v2 rework):
+#   • initContainer  : pg_dump of the immich DB → shared emptyDir /work/immich-db.sql
+#   • main container : restic backup of SSD library + HDD-tiered originals + the
+#                      pg dump, into a restic repo on the dedicated BACKUP HDD
+#                      (${HOMELAB_HDD_PATH}/restic-immich), NOT the tier HDD.
+#   • Incremental    : restic dedups + only stores new/changed blobs each run.
+#   • Retention      : --keep-weekly 8 --keep-monthly 24 --prune
+#
+# PRE-FLIGHT MOUNT GUARD: the repo must live on the real backup HDD.  We require
+#   a sentinel ${HOMELAB_HDD_PATH}/.homelab-backup-hdd to exist (created on the
+#   real disk during deploy).  If missing, we ERROR + exit non-zero WITHOUT
+#   running restic — never silently write the repo into the VM's ephemeral disk.
+#
+# RESTIC_PASSWORD comes from the restic-immich-secret Secret (created out-of-band
+# by deploy.sh — NOT templated here, so the password value never lives in git).
+#
+# Name/namespace/labels preserved — the storage-console "Immich Backup" card
+# drives this CronJob by name (suspend toggle + createJobFromCronJob).
+# ─────────────────────────────────────────────────────────────────────────────
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -274,69 +296,34 @@ spec:
   failedJobsHistoryLimit: 3
   jobTemplate:
     spec:
+      backoffLimit: 1
       template:
         spec:
           serviceAccountName: immich-backup
           restartPolicy: OnFailure
           securityContext:
             runAsUser: 0
-          containers:
-            - name: backup
+          initContainers:
+            # ── pg_dump → /work/immich-db.sql (shared emptyDir) ──────────────
+            - name: pg-dump
               image: postgres:17-alpine
               command: ["/bin/sh", "-c"]
               args:
                 - |
                   set -eu
                   set -o pipefail
-
-                  # HDD-mounted guard
-                  if [ ! -d /hdd-check ] || [ -z "$(ls -A /hdd-check 2>/dev/null)" ]; then
-                    echo "SKIP HDD not mounted (or empty) — exiting 0."
-                    exit 0
-                  fi
-
-                  echo "=== Immich Backup starting ==="
-                  apk add --no-cache zstd tar >/dev/null
-                  mkdir -p /hdd/backups/postgres /hdd/backups/library
-
-                  DATE="$(date +%Y%m%d-%H%M%S)"
-
-                  PG_OUT="/hdd/backups/postgres/immich-${DATE}.sql.zst"
-                  echo "=== pg_dump → ${PG_OUT} ==="
+                  TS="$(date +%Y-%m-%dT%H:%M:%S%z)"
+                  echo "ts=${TS} event=immich.backup.pgdump.start actor=immich-backup target=immich-postgres/immich outcome=begin reason=scheduled-or-manual"
+                  OUT=/work/immich-db.sql
                   PGPASSWORD="${POSTGRES_PASSWORD}" pg_dump \
                     -h immich-postgres -U "${POSTGRES_USER}" -d immich \
-                    --no-owner --clean --if-exists \
-                    | zstd -3 -T0 -q -o "${PG_OUT}"
-                  PG_BYTES="$(stat -c%s "${PG_OUT}" 2>/dev/null || echo 0)"
-                  echo "pg_dump complete: ${PG_BYTES} bytes"
-
-                  LIB_OUT="/hdd/backups/library/immich-library-${DATE}.tar.zst"
-                  echo "=== tar library → ${LIB_OUT} ==="
-                  tar --no-dereference -cf - \
-                    --exclude='./thumbs' --exclude='./encoded-video' \
-                    -C /data . \
-                    | zstd -3 -T0 -q -o "${LIB_OUT}"
-                  LIB_BYTES="$(stat -c%s "${LIB_OUT}" 2>/dev/null || echo 0)"
-                  echo "tar complete: ${LIB_BYTES} bytes"
-
-                  echo "=== pruning old backups (keep=7) ==="
-                  PRUNED=0
-                  cd /hdd/backups/postgres
-                  FILELIST=/tmp/prune_list
-                  ls -1t immich-*.sql.zst 2>/dev/null | tail -n +8 > "$FILELIST" || true
-                  while IFS= read -r old; do
-                    echo "PRUNE postgres/${old}"; rm -f "$old"; PRUNED="$((PRUNED+1))"
-                  done < "$FILELIST"
-                  rm -f "$FILELIST"
-                  cd /hdd/backups/library
-                  ls -1t immich-library-*.tar.zst 2>/dev/null | tail -n +8 > "$FILELIST" || true
-                  while IFS= read -r old; do
-                    echo "PRUNE library/${old}"; rm -f "$old"; PRUNED="$((PRUNED+1))"
-                  done < "$FILELIST"
-                  rm -f "$FILELIST"
-
-                  echo "SUMMARY backup pg_bytes=${PG_BYTES} library_bytes=${LIB_BYTES} pruned=${PRUNED}"
-                  echo "=== Immich Backup complete ==="
+                    --no-owner --clean --if-exists > "${OUT}"
+                  BYTES="$(stat -c%s "${OUT}" 2>/dev/null || echo 0)"
+                  echo "ts=$(date +%Y-%m-%dT%H:%M:%S%z) event=immich.backup.pgdump.end actor=immich-backup target=${OUT} outcome=success reason=pg_dump-complete bytes=${BYTES}"
+                  if [ "${BYTES}" -lt 1024 ]; then
+                    echo "ts=$(date +%Y-%m-%dT%H:%M:%S%z) event=immich.backup.pgdump.guard actor=immich-backup target=${OUT} outcome=fail reason=dump-suspiciously-small bytes=${BYTES}"
+                    exit 1
+                  fi
               env:
                 - name: POSTGRES_USER
                   valueFrom:
@@ -348,24 +335,121 @@ spec:
                 requests: { memory: "256Mi", cpu: "200m" }
                 limits:   { memory: "1Gi",   cpu: "1" }
               volumeMounts:
-                - name: hdd-check
-                  mountPath: /hdd-check
+                - name: work
+                  mountPath: /work
+          containers:
+            # ── restic backup of library + tiered originals + pg dump ────────
+            - name: restic
+              # alpine pinned base; restic installed via apk (native arm64, has a
+              # shell + mountpoint + stat — restic/restic is distroless/no-shell).
+              image: alpine:3.21
+              command: ["/bin/sh", "-eu", "-c"]
+              args:
+                - |
+                  log() { echo "ts=$(date +%Y-%m-%dT%H:%M:%S%z) actor=immich-backup $*"; }
+                  log "event=immich.backup.start outcome=begin reason=scheduled-or-manual repo=${RESTIC_REPOSITORY}"
+
+                  # a. PRE-FLIGHT MOUNT GUARD ───────────────────────────────────
+                  # The repo must be on the real backup HDD.  Require the sentinel
+                  # marker at the backup-disk ROOT (/backup-root mounts
+                  # ${HOMELAB_HDD_PATH}); /repo is its restic-immich/ subdir.  If
+                  # the marker is absent the HDD is unplugged OR the hostPath
+                  # silently fell back to the pod overlay fs — abort WITHOUT
+                  # touching restic so we never write the repo to ephemeral disk.
+                  if [ ! -f "/backup-root/.homelab-backup-hdd" ]; then
+                    log "event=immich.backup.guard target=/backup-root outcome=fail reason=backup-hdd-marker-missing"
+                    log "event=immich.backup.end outcome=fail reason=preflight-guard-aborted"
+                    exit 1
+                  fi
+                  log "event=immich.backup.guard target=/backup-root outcome=pass reason=backup-hdd-marker-present"
+
+                  log "event=immich.backup.toolinstall outcome=begin reason=apk-add-restic"
+                  apk add --no-cache restic >/dev/null
+                  log "event=immich.backup.toolinstall outcome=success reason=$(restic version)"
+
+                  # b. init repo if it does not yet exist ──────────────────────
+                  if restic cat config >/dev/null 2>&1; then
+                    log "event=immich.backup.repo.open outcome=success reason=existing-repo"
+                  else
+                    log "event=immich.backup.repo.init outcome=begin reason=repo-not-found"
+                    restic init
+                    log "event=immich.backup.repo.init outcome=success reason=repo-created"
+                  fi
+
+                  # c. incremental backup ──────────────────────────────────────
+                  log "event=immich.backup.snapshot.start outcome=begin reason=backup-ssd+hdd+pgdump paths=/ssd-immich,/hdd-immich,/work"
+                  START="$(date +%s)"
+                  if restic backup --host immich --tag weekly /ssd-immich /hdd-immich /work; then
+                    DUR="$(( $(date +%s) - START ))"
+                    log "event=immich.backup.snapshot.end outcome=success reason=backup-complete duration_s=${DUR}"
+                  else
+                    DUR="$(( $(date +%s) - START ))"
+                    log "event=immich.backup.snapshot.end outcome=fail reason=restic-backup-nonzero duration_s=${DUR}"
+                    exit 1
+                  fi
+
+                  # d. retention / prune ───────────────────────────────────────
+                  log "event=immich.backup.forget.start outcome=begin reason=keep-weekly-8-monthly-24-prune"
+                  if restic forget --keep-weekly 8 --keep-monthly 24 --prune; then
+                    log "event=immich.backup.forget.end outcome=success reason=forget-prune-complete"
+                  else
+                    log "event=immich.backup.forget.end outcome=fail reason=forget-prune-nonzero"
+                    exit 1
+                  fi
+
+                  # e. report snapshots + stats ────────────────────────────────
+                  log "event=immich.backup.snapshots outcome=info reason=listing-below"
+                  restic snapshots --compact || true
+                  log "event=immich.backup.stats outcome=info reason=stats-latest-below"
+                  restic stats latest || true
+
+                  log "event=immich.backup.end outcome=success reason=all-steps-complete"
+              env:
+                - name: RESTIC_REPOSITORY
+                  value: "/repo"
+                - name: RESTIC_PASSWORD
+                  valueFrom:
+                    secretKeyRef: { name: restic-immich-secret, key: RESTIC_PASSWORD }
+              resources:
+                requests: { memory: "512Mi", cpu: "250m" }
+                limits:   { memory: "2Gi",   cpu: "2" }
+              volumeMounts:
+                - name: ssd-immich
+                  mountPath: /ssd-immich
                   readOnly: true
-                - name: hdd-backups
-                  mountPath: /hdd/backups
-                - name: immich-library
-                  mountPath: /data
+                - name: hdd-immich
+                  mountPath: /hdd-immich
                   readOnly: true
+                - name: repo
+                  mountPath: /repo
+                - name: backup-root
+                  mountPath: /backup-root
+                  readOnly: true
+                - name: work
+                  mountPath: /work
           volumes:
-            - name: hdd-check
+            # SSD Immich library (RO) — local-path PV hostPath
+            - name: ssd-immich
               hostPath:
-                path: ${HOMELAB_TIER_HDD_PATH}
-                type: ""
-            - name: hdd-backups
+                # immich-upload-localpath-pvc — PV pvc-17ce78b9-...
+                path: /var/lib/rancher/k3s/storage/pvc-17ce78b9-de1e-4fe7-b2f0-214c599795d9_homelab_immich-upload-localpath-pvc
+                type: Directory
+            # HDD-tiered Immich originals (RO) — on the TIER HDD
+            - name: hdd-immich
               hostPath:
-                path: ${HOMELAB_TIER_HDD_PATH}/backups
+                path: ${HOMELAB_TIER_HDD_PATH}/immich-library
                 type: ""
-            - name: immich-library
-              persistentVolumeClaim:
-                claimName: immich-upload-localpath-pvc
-                readOnly: true
+            # restic repo (RW) — on the dedicated BACKUP HDD
+            - name: repo
+              hostPath:
+                path: ${HOMELAB_HDD_PATH}/restic-immich
+                type: ""
+            # backup-disk ROOT (RO) — holds the .homelab-backup-hdd sentinel
+            # the pre-flight mount guard checks before any restic write.
+            - name: backup-root
+              hostPath:
+                path: ${HOMELAB_HDD_PATH}
+                type: ""
+            # shared scratch for the pg dump (initContainer → main container)
+            - name: work
+              emptyDir: {}

@@ -64,6 +64,19 @@ kubectl -n homelab delete configmap tiered-storage-mover-script
 kubectl -n homelab delete sa tiered-storage-mover immich-backup
 ```
 
+## Immich backup (restic)
+
+The **Immich Backup** card drives the `immich-backup` CronJob, which now does a
+restic-based incremental backup (DB dump + SSD library + HDD-tiered originals)
+into a repo on the dedicated backup disk. Repo location, the 3-place password
+store, retention, the mount guard, and the **restore runbook** are documented
+separately:
+
+→ [docs/RESTIC-BACKUP.md](RESTIC-BACKUP.md)
+
+The launchd fallback `~/homelab/backup-immich.sh` and the Jellyfin backup are
+independent and untouched.
+
 ## RBAC — what the ServiceAccount can do
 
 The `storage-console` ServiceAccount is bound to a Role scoped to the `homelab` namespace.
