@@ -376,7 +376,19 @@ spec:
                     log "event=immich.backup.repo.init outcome=success reason=repo-created"
                   fi
 
-                  # c. incremental backup ──────────────────────────────────────
+                  # c. stale-lock recovery ─────────────────────────────────────
+                  # Remove a stale lock left by a previously-killed run (OOM, node
+                  # reboot, pod evicted).  Safe: storage-console's Trigger-Now
+                  # concurrency guard now prevents a SECOND real run overlapping a
+                  # live one, so any lock seen here belongs to a dead process.
+                  log "event=immich.backup.unlock outcome=begin reason=clear-stale-locks"
+                  if restic unlock; then
+                    log "event=immich.backup.unlock outcome=success reason=stale-locks-cleared"
+                  else
+                    log "event=immich.backup.unlock outcome=warn reason=unlock-nonzero-continuing"
+                  fi
+
+                  # d. incremental backup ──────────────────────────────────────
                   log "event=immich.backup.snapshot.start outcome=begin reason=backup-ssd+hdd+pgdump paths=/ssd-immich,/hdd-immich,/work"
                   START="$(date +%s)"
                   if restic backup --host immich --tag weekly /ssd-immich /hdd-immich /work; then
@@ -388,7 +400,7 @@ spec:
                     exit 1
                   fi
 
-                  # d. retention / prune ───────────────────────────────────────
+                  # e. retention / prune ───────────────────────────────────────
                   log "event=immich.backup.forget.start outcome=begin reason=keep-weekly-8-monthly-24-prune"
                   if restic forget --keep-weekly 8 --keep-monthly 24 --prune; then
                     log "event=immich.backup.forget.end outcome=success reason=forget-prune-complete"
@@ -397,7 +409,7 @@ spec:
                     exit 1
                   fi
 
-                  # e. report snapshots + stats ────────────────────────────────
+                  # f. report snapshots + stats ────────────────────────────────
                   log "event=immich.backup.snapshots outcome=info reason=listing-below"
                   restic snapshots --compact || true
                   log "event=immich.backup.stats outcome=info reason=stats-latest-below"

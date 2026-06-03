@@ -9,6 +9,8 @@ import io.fabric8.kubernetes.api.model.batch.v1.CronJob;
 import io.fabric8.kubernetes.api.model.batch.v1.Job;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +25,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/tasks")
 public class TaskController {
+
+    private static final Logger log = LoggerFactory.getLogger(TaskController.class);
 
     private final KubernetesService k8s;
     private final HddProbeService hdd;
@@ -121,20 +125,38 @@ public class TaskController {
     @PostMapping("/{id}/trigger")
     public TriggerResponse trigger(@PathVariable String id,
                                     @AuthenticationPrincipal AuthUser principal) {
+        String actor = principal == null ? "anonymous" : principal.username();
         TaskCatalog.TaskDef def = TaskCatalog.find(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unknown task: " + id));
+        log.info("event=task.trigger.requested actor={} task={} cronJob={}",
+                actor, def.id(), def.cronJobName());
         CronJob cj = k8s.getCronJob(def.cronJobName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "CronJob not found"));
         boolean suspended = Boolean.TRUE.equals(cj.getSpec().getSuspend());
         if (!suspended) {
+            log.info("event=task.trigger.rejected actor={} task={} outcome=409 reason=auto-mode",
+                    actor, def.id());
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                     "Task is in auto mode — switch to manual before triggering.");
+        }
+        // Concurrency guard: refuse to spawn a second run while one is in-flight.
+        // Generic across all tasks — a restic/tier backup must never overlap itself.
+        KubernetesService.ActiveJobs active = k8s.activeJobsForCronJob(def.cronJobName());
+        log.info("event=task.trigger.activecheck actor={} task={} activeJobs={} activeJobName={}",
+                actor, def.id(), active.count(), active.firstJobName());
+        if (active.count() > 0) {
+            log.info("event=task.trigger.rejected actor={} task={} outcome=409 reason=already-running activeJobName={}",
+                    actor, def.id(), active.firstJobName());
+            throw new ResponseStatusException(HttpStatus.CONFLICT,
+                    "Backup already running — wait for it to finish.");
         }
         String stamp = DateTimeFormatter.ofPattern("yyyyMMddHHmmss")
                 .withZone(java.time.ZoneOffset.UTC)
                 .format(Instant.now());
         String jobName = def.cronJobName() + "-manual-" + stamp;
         Job j = k8s.createJobFromCronJob(def.cronJobName(), jobName);
+        log.info("event=task.trigger.created actor={} task={} jobName={} outcome=201",
+                actor, def.id(), j.getMetadata().getName());
         audits.save(new AuditEvent(
                 principal == null ? null : principal.username(),
                 "task.trigger",
