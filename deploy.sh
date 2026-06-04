@@ -23,12 +23,14 @@ set -a; source "$ENV_FILE"; set +a
 : "${BACKEND_TAG:=2.0}"
 : "${FRONTEND_IMAGE:=storage-console-frontend}"
 : "${FRONTEND_TAG:=2.0}"
+: "${HDD_HEALER_TAG:=0.2.0}"
 : "${HOMELAB_TIER_HDD_PATH:=/Volumes/homelab-hdd}"
 : "${HOMELAB_HDD_PATH:=/Volumes/homelab-backup-hdd}"
 : "${IMMICH_TIER_SCHEDULE:=0 3 * * *}"
 : "${JELLYFIN_TIER_SCHEDULE:=0 3 * * *}"
 : "${IMMICH_BACKUP_SCHEDULE:=0 4 * * *}"
 export HOMELAB_NAMESPACE BACKEND_IMAGE BACKEND_TAG FRONTEND_IMAGE FRONTEND_TAG \
+       HDD_HEALER_TAG \
        HOMELAB_TIER_HDD_PATH HOMELAB_HDD_PATH \
        IMMICH_TIER_SCHEDULE JELLYFIN_TIER_SCHEDULE IMMICH_BACKUP_SCHEDULE \
        STORAGE_CONSOLE_JWT_SECRET STORAGE_CONSOLE_ADMIN_USERNAME STORAGE_CONSOLE_ADMIN_PASSWORD \
@@ -66,6 +68,11 @@ echo "  → $BACKEND_IMAGE:$BACKEND_TAG"
 docker build --platform linux/arm64 -t "$BACKEND_IMAGE:$BACKEND_TAG" -t "$BACKEND_IMAGE:latest" "$SCRIPT_DIR/backend"
 echo "  → $FRONTEND_IMAGE:$FRONTEND_TAG"
 docker build --platform linux/arm64 -t "$FRONTEND_IMAGE:$FRONTEND_TAG" "$SCRIPT_DIR/frontend"
+echo "  → hdd-healer:${HDD_HEALER_TAG:-0.1.0}"
+docker build --platform linux/arm64 \
+  -t "hdd-healer:${HDD_HEALER_TAG:-0.1.0}" \
+  -t "hdd-healer:latest" \
+  "$SCRIPT_DIR/healer"
 
 # ── 5. Ensure storage-console-postgres-secret has STORAGE_CONSOLE_* keys ─────
 # Dedicated per-app secret (split from shared-postgres-secret on 2026-06-01).
@@ -195,12 +202,13 @@ kubectl -n "$HOMELAB_NAMESPACE" delete ingress storage-console    --ignore-not-f
 echo ""
 echo "[deploy] (6/8) Applying k8s manifests (envsubst → kubectl apply)"
 K8S_DIR="$SCRIPT_DIR/k8s"
-ENVSUBST_VARS='${HOMELAB_NAMESPACE} ${BACKEND_IMAGE} ${BACKEND_TAG} ${FRONTEND_IMAGE} ${FRONTEND_TAG} ${HOMELAB_TIER_HDD_PATH} ${HOMELAB_HDD_PATH} ${IMMICH_TIER_SCHEDULE} ${JELLYFIN_TIER_SCHEDULE} ${IMMICH_BACKUP_SCHEDULE} ${STORAGE_CONSOLE_JWT_SECRET} ${STORAGE_CONSOLE_ADMIN_USERNAME} ${STORAGE_CONSOLE_ADMIN_PASSWORD} ${STORAGE_CONSOLE_ADMIN_DISPLAY_NAME}'
+ENVSUBST_VARS='${HOMELAB_NAMESPACE} ${BACKEND_IMAGE} ${BACKEND_TAG} ${FRONTEND_IMAGE} ${FRONTEND_TAG} ${HDD_HEALER_TAG} ${HOMELAB_TIER_HDD_PATH} ${HOMELAB_HDD_PATH} ${IMMICH_TIER_SCHEDULE} ${JELLYFIN_TIER_SCHEDULE} ${IMMICH_BACKUP_SCHEDULE} ${STORAGE_CONSOLE_JWT_SECRET} ${STORAGE_CONSOLE_ADMIN_USERNAME} ${STORAGE_CONSOLE_ADMIN_PASSWORD} ${STORAGE_CONSOLE_ADMIN_DISPLAY_NAME}'
 for f in \
     "$K8S_DIR"/10-backend.yaml \
     "$K8S_DIR"/20-frontend.yaml \
     "$K8S_DIR"/30-ingress.yaml \
-    "$K8S_DIR"/40-cronjobs.yaml; do
+    "$K8S_DIR"/40-cronjobs.yaml \
+    "$K8S_DIR"/50-hdd-healer.yaml; do
   echo "  → $(basename "$f")"
   envsubst "$ENVSUBST_VARS" < "$f" | kubectl apply -f -
 done
