@@ -156,6 +156,8 @@ spec:
   failedJobsHistoryLimit: 3
   jobTemplate:
     spec:
+      activeDeadlineSeconds: 600
+      backoffLimit: 2
       template:
         spec:
           serviceAccountName: tiered-storage-mover
@@ -215,6 +217,8 @@ spec:
   failedJobsHistoryLimit: 3
   jobTemplate:
     spec:
+      activeDeadlineSeconds: 600
+      backoffLimit: 2
       template:
         spec:
           serviceAccountName: tiered-storage-mover
@@ -248,9 +252,11 @@ spec:
                 type: ""
             - name: ssd-jellyfin
               hostPath:
-                # jellyfin-media-localpath-pvc — PV pvc-663f38f5-...
-                path: /var/lib/rancher/k3s/storage/pvc-663f38f5-a625-4dfb-bb7a-7b4e1442c1c2_homelab_jellyfin-media-localpath-pvc
-                type: Directory
+                # jellyfin-media-hostpath-pv — live hostPath after local-path→hostPath migration.
+                # Confirmed via: kubectl -n homelab get pv jellyfin-media-hostpath-pv -o jsonpath='{.spec.hostPath.path}'
+                # type: "" (resilient — no strict existence check, matches hdd-jellyfin convention).
+                path: /Users/nila/movies
+                type: ""
             - name: hdd-jellyfin
               hostPath:
                 path: ${HOMELAB_TIER_HDD_PATH}/jellyfin-media
