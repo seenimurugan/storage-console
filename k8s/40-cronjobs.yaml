@@ -61,12 +61,14 @@ data:
     IMMICH_SSD=/ssd-immich
     IMMICH_HDD=/hdd-immich
     IMMICH_POD_HDD=/data-hdd
-    IMMICH_THRESHOLD_BYTES=2147483648   # 2 GiB
+    # Allow env override from tiering-thresholds ConfigMap; default = 2 GiB
+    IMMICH_THRESHOLD_BYTES="${IMMICH_THRESHOLD_BYTES:-2147483648}"
 
     JELLYFIN_SSD=/ssd-jellyfin
     JELLYFIN_HDD=/hdd-jellyfin
     JELLYFIN_POD_HDD=/media-hdd
-    JELLYFIN_THRESHOLD_BYTES=3221225472 # 3 GiB
+    # Allow env override from tiering-thresholds ConfigMap; default = 3 GiB
+    JELLYFIN_THRESHOLD_BYTES="${JELLYFIN_THRESHOLD_BYTES:-3221225472}"
 
     init_counters() {
       local prefix="$1"
@@ -130,14 +132,29 @@ data:
       rm -f "$FILELIST"
       echo "SUMMARY immich moved=$(read_counter immich moved) bytes=$(read_counter immich bytes) failed=$(read_counter immich failed) skipped=$(read_counter immich skipped)"
     else
-      echo "=== Jellyfin: scanning movies/, tvshows/, music/ ==="
-      for subdir in movies tvshows music; do
-        src_dir="${JELLYFIN_SSD}/${subdir}"
-        if [ ! -d "$src_dir" ]; then echo "SKIP dir-missing ${src_dir}"; inc_counter jellyfin skipped 1; continue; fi
-        find "$src_dir" -type f ! -type l -size "+${JELLYFIN_THRESHOLD_BYTES}c" \
+      echo "=== Jellyfin: scanning all subdirs under ${JELLYFIN_SSD} (layout-agnostic) ==="
+      if [ ! -d "${JELLYFIN_SSD}" ]; then
+        echo "SKIP dir-missing ${JELLYFIN_SSD}"; inc_counter jellyfin skipped 1
+      else
+        # Walk every regular (non-symlink) file under JELLYFIN_SSD regardless of
+        # subdir name — works for any category layout (tamil/, english/, etc.).
+        # For each file, derive the first-level subdir from its path so the
+        # move_file helper can compute the correct HDD destination and pod symlink
+        # target using the same convention as before.
+        find "${JELLYFIN_SSD}" -mindepth 2 -type f ! -type l \
+          -size "+${JELLYFIN_THRESHOLD_BYTES}c" \
           ! -name '._*' ! -name '.DS_Store' > "$FILELIST" || true
-        while IFS= read -r f; do move_file "$f" "$JELLYFIN_HDD" "$JELLYFIN_POD_HDD" "$subdir" "jellyfin"; done < "$FILELIST"
-      done
+        while IFS= read -r f; do
+          # Extract first-level subdirectory: strip SSD prefix + leading slash,
+          # then take the first path component.
+          rel_to_ssd="${f#${JELLYFIN_SSD}/}"
+          subdir="${rel_to_ssd%%/*}"
+          if [ -z "$subdir" ]; then
+            echo "SKIP no-subdir ${f}"; inc_counter jellyfin skipped 1; continue
+          fi
+          move_file "$f" "$JELLYFIN_HDD" "$JELLYFIN_POD_HDD" "$subdir" "jellyfin"
+        done < "$FILELIST"
+      fi
       rm -f "$FILELIST"
       echo "SUMMARY jellyfin moved=$(read_counter jellyfin moved) bytes=$(read_counter jellyfin bytes) failed=$(read_counter jellyfin failed) skipped=$(read_counter jellyfin skipped)"
     fi
@@ -156,7 +173,7 @@ spec:
   failedJobsHistoryLimit: 3
   jobTemplate:
     spec:
-      activeDeadlineSeconds: 600
+      activeDeadlineSeconds: 14400
       backoffLimit: 2
       template:
         spec:
@@ -171,6 +188,11 @@ spec:
               env:
                 - name: APP
                   value: "immich"
+                - name: IMMICH_THRESHOLD_BYTES
+                  valueFrom:
+                    configMapKeyRef:
+                      name: tiering-thresholds
+                      key: immich-threshold-bytes
               resources:
                 requests: { memory: "256Mi", cpu: "200m" }
                 limits:   { memory: "512Mi", cpu: "500m" }
@@ -217,7 +239,7 @@ spec:
   failedJobsHistoryLimit: 3
   jobTemplate:
     spec:
-      activeDeadlineSeconds: 600
+      activeDeadlineSeconds: 14400
       backoffLimit: 2
       template:
         spec:
@@ -232,6 +254,11 @@ spec:
               env:
                 - name: APP
                   value: "jellyfin"
+                - name: JELLYFIN_THRESHOLD_BYTES
+                  valueFrom:
+                    configMapKeyRef:
+                      name: tiering-thresholds
+                      key: jellyfin-threshold-bytes
               resources:
                 requests: { memory: "256Mi", cpu: "200m" }
                 limits:   { memory: "512Mi", cpu: "500m" }

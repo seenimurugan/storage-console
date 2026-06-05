@@ -15,7 +15,7 @@ Three cards, one per storage operation:
 | Card | Threshold | Source → destination |
 |---|---|---|
 | Immich Tier | configurable (default 1 GiB) | Immich SSD `library/` + `encoded-video/` → HDD `immich-library/` |
-| Jellyfin Tier | configurable (default 1 GiB) | Jellyfin SSD `movies/`, `tvshows/`, `music/` → HDD `jellyfin-media/` |
+| Jellyfin Tier | configurable (default 1 GiB) | Jellyfin SSD — all subdirs recursively (layout-agnostic; any category folder such as `tamil/`, `english/`, `uncategorized/`) → HDD `jellyfin-media/` |
 | Immich Backup | — | pg_dump + library tar → HDD `backups/postgres/` and `backups/library/` |
 
 Each card shows:
