@@ -32,8 +32,8 @@ metadata:
 ---
 # Shared mover script — moves files > threshold from SSD to HDD, replaces
 # original with a symlink to the HDD path that's visible inside the consumer
-# app pod (Immich = /data-hdd, Jellyfin = /media-hdd).  See ~/homelab/tier-now.sh
-# and the original cluster-setup yaml for the full design rationale.
+# app pod (Immich = /hdd-root/homelab-hdd/immich-library, Jellyfin = /hdd-root/homelab-hdd/jellyfin-media).
+# See ~/homelab/tier-now.sh and the original cluster-setup yaml for the full design rationale.
 apiVersion: v1
 kind: ConfigMap
 metadata:
