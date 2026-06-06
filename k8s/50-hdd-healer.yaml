@@ -273,11 +273,12 @@ metadata:
     app: hdd-healer
     component: auto-heal
 spec:
-  # Default: suspend: true — manual-only via storage-console UI.
-  # This prevents the healer from restarting Immich/Jellyfin in an endless loop
-  # while the HDD is disconnected. Flip to auto via the UI ONLY when the HDD is
-  # consistently present. Any re-apply of this manifest keeps it suspended.
-  suspend: true
+  # suspend: false — healer is ALWAYS ON and auto-recovers stale HDD mounts.
+  # The two-stage detection (host-HDD probe first, then per-pod staleness check)
+  # already prevents pointless restarts when the HDD is genuinely absent.
+  # Do NOT set this to true; every `kubectl apply` or deploy.sh run re-applies
+  # this value and will permanently disable the auto-heal loop.
+  suspend: false
   # Every minute — fast recovery after HDD replug
   schedule: "* * * * *"
   timeZone: "Europe/London"
