@@ -143,10 +143,16 @@ public class SecretsBackupService {
                 SECRET_COUNT=0
                 for ns in $NAMESPACES; do
                   NS_OUT=$(kubectl -n "$ns" get secret --no-headers 2>/tmp/ns-err-$ns || true)
-                  if grep -qiE 'not found|NotFound|Forbidden|namespaces.*not' /tmp/ns-err-$ns 2>/dev/null; then
+                  if grep -qiE 'NotFound|Forbidden|not found' /tmp/ns-err-$ns 2>/dev/null; then
                     log "event=secrets_backup.namespace outcome=skip ns=$ns reason=not-found-or-forbidden"
                     rm -f /tmp/ns-err-$ns
                     continue
+                  fi
+                  if [ -s /tmp/ns-err-$ns ]; then
+                    NS_ERR=$(head -1 /tmp/ns-err-$ns)
+                    log "event=secrets_backup.namespace outcome=error ns=$ns reason=${NS_ERR}"
+                    rm -f /tmp/ns-err-$ns
+                    exit 1
                   fi
                   rm -f /tmp/ns-err-$ns
                   NCOUNT=$(echo "$NS_OUT" | grep -c . || true)
