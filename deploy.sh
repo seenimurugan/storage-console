@@ -66,7 +66,7 @@ echo "[deploy] (1/8) Building images (linux/arm64 — OrbStack k3s shares Mac Do
 echo "  → $BACKEND_IMAGE:$BACKEND_TAG"
 docker build --platform linux/arm64 -t "$BACKEND_IMAGE:$BACKEND_TAG" -t "$BACKEND_IMAGE:latest" "$SCRIPT_DIR/backend"
 echo "  → $FRONTEND_IMAGE:$FRONTEND_TAG"
-docker build --platform linux/arm64 -t "$FRONTEND_IMAGE:$FRONTEND_TAG" "$SCRIPT_DIR/frontend"
+docker build --platform linux/arm64 -t "$FRONTEND_IMAGE:$FRONTEND_TAG" -t "$FRONTEND_IMAGE:latest" "$SCRIPT_DIR/frontend"
 
 # ── 5. Ensure storage-console-postgres-secret has STORAGE_CONSOLE_* keys ─────
 # Dedicated per-app secret (split from shared-postgres-secret on 2026-06-01).
@@ -224,7 +224,8 @@ for f in \
     "$K8S_DIR"/20-frontend.yaml \
     "$K8S_DIR"/30-ingress.yaml \
     "$K8S_DIR"/40-cronjobs.yaml \
-    "$K8S_DIR"/60-db-backup.yaml; do
+    "$K8S_DIR"/60-db-backup.yaml \
+    "$K8S_DIR"/70-secrets-backup.yaml; do
   echo "  → $(basename "$f")"
   envsubst "$ENVSUBST_VARS" < "$f" | kubectl apply -f -
 done
@@ -249,10 +250,12 @@ cat <<EOF
   Access (on Tailnet):    https://tier.stoat-perch.ts.net
   Admin login:            ${STORAGE_CONSOLE_ADMIN_USERNAME} / (see .env)
 
-  Three cards on the dashboard, each backed by a CronJob:
-    • Immich Tier   (cronjob/tier-mover-immich)
-    • Jellyfin Tier (cronjob/tier-mover-jellyfin)
-    • Immich Backup (cronjob/immich-backup)
+  Five cards on the dashboard:
+    • Immich Tier    (cronjob/tier-mover-immich)
+    • Jellyfin Tier  (cronjob/tier-mover-jellyfin)
+    • Immich Backup  (cronjob/immich-backup)
+    • DB Backup      (cronjob/db-backup)
+    • Secrets Backup (one-off Job triggered on demand)
 
   All CronJobs start in MANUAL mode (suspend=true).  Toggle Auto in the UI
   to enable the 3 AM schedule.  HDD must be mounted at:

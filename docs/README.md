@@ -33,13 +33,17 @@ Source: `/Users/nila/Developer/apps/storage-console/`
 
 ## What it does
 
-| Card | CronJob controlled | Trigger model |
+| Card | Backed by | Trigger model |
 |---|---|---|
-| Immich Tier | `tier-mover-immich` | `suspend=false` → runs daily at 3 AM; `suspend=true` → manual-only |
-| Jellyfin Tier | `tier-mover-jellyfin` | same |
-| Immich Backup | `immich-backup` | same |
+| Immich Tier | CronJob `tier-mover-immich` | `suspend=false` → runs daily at 3 AM; `suspend=true` → manual-only |
+| Jellyfin Tier | CronJob `tier-mover-jellyfin` | same |
+| Immich Backup | CronJob `immich-backup` | same (restic incremental → backup HDD; daily at 4 AM when Auto) |
+| DB Backup | CronJob `db-backup` | same (dumps all Postgres + SQLite DBs → backup HDD; daily at 5 AM when Auto) |
+| Secrets Backup | one-off Job (no CronJob) | **on-demand only** — single "Back Up Secrets Now" button; age-encrypts all cluster secrets → backup HDD |
 
-Each tier card has a **configurable size threshold** (GiB, decimals; default 1 GiB) — only files larger than it are moved to the HDD. Each card also shows the CronJob's current state (Auto/Manual), the last run time, and a "Trigger Now" button that fires the job immediately. The backend reads and patches CronJob resources (and the `tiering-thresholds` ConfigMap) via the fabric8 Kubernetes client.
+The three tier/CronJob cards show the CronJob's current state (Auto/Manual), the last run time, and a "Trigger Now" button; the two tier cards additionally expose a **configurable size threshold** (GiB, decimals; default 1 GiB) — only files larger than it are moved to the HDD. The backend reads and patches CronJob resources (and the `tiering-thresholds` ConfigMap) via the fabric8 Kubernetes client.
+
+The **Secrets Backup** card is different: it has no schedule and no Auto/Manual toggle. Clicking it creates a one-off Job that runs under a dedicated least-privilege ServiceAccount (`get,list` on `secrets` only) and writes a single age-encrypted dump (`secrets-<ts>.age`) to `/hdd-root/homelab-backup-hdd/secrets/`. A concurrency guard returns HTTP 409 if a backup is already running. Decryption requires the offline age private key — the in-cluster ConfigMap holds only the public recipient key.
 
 ---
 
@@ -89,4 +93,6 @@ The `hdd-healer` CronJob was removed in v2.7. Immich and Jellyfin self-heal HDD 
 | `/Users/nila/Developer/apps/storage-console/k8s/10-backend.yaml` | Backend Deployment + Service + Secret |
 | `/Users/nila/Developer/apps/storage-console/k8s/20-frontend.yaml` | Frontend Deployment + Service |
 | `/Users/nila/Developer/apps/storage-console/k8s/30-ingress.yaml` | Tailscale Ingress (path-routed) |
-| `/Users/nila/Developer/apps/storage-console/k8s/40-cronjobs.yaml` | The three CronJobs this app controls |
+| `/Users/nila/Developer/apps/storage-console/k8s/40-cronjobs.yaml` | The three tier/backup CronJobs (`tier-mover-immich`, `tier-mover-jellyfin`, `immich-backup`) |
+| `/Users/nila/Developer/apps/storage-console/k8s/60-db-backup.yaml` | `db-backup` CronJob + namespaced RBAC (dumps all Postgres + SQLite DBs) |
+| `/Users/nila/Developer/apps/storage-console/k8s/70-secrets-backup.yaml` | Secrets-backup ServiceAccount + ClusterRole (`get,list` secrets) + binding + age-pubkey ConfigMap |

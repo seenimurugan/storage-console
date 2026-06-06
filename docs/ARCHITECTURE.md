@@ -83,7 +83,12 @@ All routes under `/api/`. JWT in `Authorization: Bearer <token>` (or as the only
 | GET | `/api/thresholds` | `{immichGib, jellyfinGib}` — current tiering size thresholds |
 | PUT | `/api/thresholds/{task}` | body `{gib}` (>0, decimals) → patches the threshold ConfigMap; `{task}` ∈ `immich-tier`/`jellyfin-tier` |
 | GET | `/api/system/hdd-status` | `{hostPath, connected, lastChecked}` (cached 30s) |
+| GET | `/api/secrets-backup` | last-run status of the on-demand secrets backup |
+| POST | `/api/secrets-backup/trigger` | creates a one-off age-encrypt Job; `409` if one is already running; `401` if unauthenticated |
+| GET | `/api/secrets-backup/{jobName}/logs` | text/plain log tail of a secrets-backup Job |
 | GET | `/actuator/health/{liveness,readiness}` | k8s probes |
+
+The task list (`GET /api/tasks`) returns **four** CronJob-backed tasks: `immich-tier`, `jellyfin-tier`, `immich-backup`, `db-backup`. The **secrets backup** is not a task/CronJob — it is a one-off Job created on demand via the `/api/secrets-backup` endpoints and rendered by its own card.
 
 ## Data model
 
