@@ -73,6 +73,8 @@ Backend and frontend pods are stateless — no PVCs in this app's manifests.
 
 CronJobs owned by this app: `tier-mover-immich`, `tier-mover-jellyfin`, `immich-backup` (defined in `k8s/40-cronjobs.yaml`). The legacy `cluster-setup/50-tiered-storage-mover.yaml` is deprecated — apply only via storage-console's `./deploy.sh`.
 
+The `hdd-healer` CronJob was removed in v2.7. Immich and Jellyfin self-heal HDD unplug/replug automatically via a propagation-safe hostPath mount (`/Volumes` → `/hdd-root`, `mountPropagation: HostToContainer`) — no pod restart or healer is needed.
+
 ---
 
 ## See also

@@ -14,9 +14,9 @@ Three cards, one per storage operation:
 
 | Card | Threshold | Source → destination |
 |---|---|---|
-| Immich Tier | configurable (default 1 GiB) | Immich SSD `library/` + `encoded-video/` → HDD `immich-library/` |
-| Jellyfin Tier | configurable (default 1 GiB) | Jellyfin SSD — all subdirs recursively (layout-agnostic; any category folder such as `tamil/`, `english/`, `uncategorized/`) → HDD `jellyfin-media/` |
-| Immich Backup | — | pg_dump + library tar → HDD `backups/postgres/` and `backups/library/` |
+| Immich Tier | configurable (default 1 GiB) | Immich SSD `library/` + `encoded-video/` → HDD `/Volumes/homelab-hdd/immich-library/`; the original SSD path becomes a symlink pointing to `/hdd-root/homelab-hdd/immich-library/...` (the Immich server pod's propagation-safe view) |
+| Jellyfin Tier | configurable (default 1 GiB) | Jellyfin SSD — all subdirs recursively (layout-agnostic: `tamil/`, `english/`, `uncategorized/`, etc.) → HDD `/Volumes/homelab-hdd/jellyfin-media/`; the original SSD path becomes a symlink pointing to `/hdd-root/homelab-hdd/jellyfin-media/...` (the Jellyfin server pod's propagation-safe view) |
+| Immich Backup | — | restic incremental: pg_dump + SSD library + HDD-tiered originals → `/Volumes/homelab-backup-hdd/restic-immich/` |
 
 Each card shows:
 
@@ -47,7 +47,7 @@ kubectl -n homelab patch configmap tiering-thresholds --type merge \
 
 ## Setting Auto mode
 
-1. Make sure the HDD is mounted at `/Volumes/homelab-hdd` and contains the expected subdirs (`immich-library/`, `jellyfin-media/`, `backups/`).
+1. Make sure the HDD is mounted at `/Volumes/homelab-hdd` and contains the expected subdirs (`immich-library/`, `jellyfin-media/`).
 2. Switch the card to **Auto**.
 3. The CronJob will fire at the configured schedule (default `0 3 * * *` in Europe/London for the tier movers, `0 4 * * *` for the backup).
 
