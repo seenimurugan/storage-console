@@ -60,7 +60,12 @@ data:
 
     IMMICH_SSD=/ssd-immich
     IMMICH_HDD=/hdd-immich
-    IMMICH_POD_HDD=/data-hdd
+    # Symlink target as seen inside the Immich server pod. Now points at the
+    # propagation-safe mount: hostPath /Volumes mounted at /hdd-root with
+    # mountPropagation: HostToContainer (immich-values.yaml persistence.hddroot).
+    # The HDD lives at /Volumes/homelab-hdd/immich-library, so inside the pod
+    # tiered files resolve at /hdd-root/homelab-hdd/immich-library/...
+    IMMICH_POD_HDD=/hdd-root/homelab-hdd/immich-library
     # Allow env override from tiering-thresholds ConfigMap; default = 2 GiB
     IMMICH_THRESHOLD_BYTES="${IMMICH_THRESHOLD_BYTES:-2147483648}"
 
