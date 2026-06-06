@@ -1,0 +1,331 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# db-backup — comprehensive RESTORABLE database backup for the whole homelab.
+#
+# Owned by storage-console (additive — does NOT touch the backend/frontend).
+# Mirrors the immich-backup CronJob pattern in 40-cronjobs.yaml:
+#   • alpine base + `apk add` of the tools it needs at runtime
+#     (kubectl + sqlite + gzip + tar) — same idiom as immich-backup's
+#     `apk add restic`.  No custom image to build/bump.
+#   • hostPath mount of the backup HDD with a pre-flight writability guard
+#     (ERROR + exit non-zero if the disk is unplugged — never silent no-op).
+#
+# WHAT IT BACKS UP (all RESTORABLE):
+#   Postgres (logical pg_dump --clean --if-exists, gzip):
+#     shared-postgres-0 : kidstasks, reminders, moviesda, emailmatrix, storage_console
+#     immich-postgres-0 : immich
+#   SQLite (consistent online backup, gzip):
+#     jellyfin /config/data/jellyfin.db
+#     radarr   /config/radarr.db
+#     prowlarr /config/prowlarr.db
+#     bazarr   /config/db/bazarr.db
+#     grocy    /config/data/grocy.db
+#     filebrowser /database/filebrowser.db
+#   (skips *logs.db, qbittorrent — no DB, valkey/redis — ephemeral cache)
+#
+# SQLITE METHOD (important):
+#   The app pods do NOT ship a sqlite3/python3 client, so the prompt's
+#   "kubectl exec <pod> -- sqlite3 .backup" is impossible in-pod.  Instead we
+#   stream the CONSISTENT file SET (db + -wal + -shm) out of the pod with
+#   `kubectl exec -- tar` and run `sqlite3 .backup` INSIDE the backup-job pod
+#   (which has sqlite3 via apk).  Capturing db+wal+shm together and letting a
+#   real sqlite3 checkpoint+backup it yields a single clean, integrity-checked
+#   file — never a torn raw cp of a live WAL DB.  Fallbacks, in order, if
+#   .backup fails: sqlite3 .dump → raw db copy → ERROR for that app (continue).
+#
+# Restore runbook: docs/DB-RESTORE.md
+#
+# Note: this file is processed by envsubst in deploy.sh (${HOMELAB_NAMESPACE},
+#       ${HOMELAB_HDD_PATH}, ${DB_BACKUP_SCHEDULE}).
+# ─────────────────────────────────────────────────────────────────────────────
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: db-backup
+  namespace: ${HOMELAB_NAMESPACE}
+---
+# RBAC — the job execs into the DB/app pods to run pg_dump and to tar out the
+# sqlite files.  Needs: discover pods (get/list) + create pods/exec.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: db-backup
+  namespace: ${HOMELAB_NAMESPACE}
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list"]
+  - apiGroups: [""]
+    resources: ["pods/exec"]
+    verbs: ["create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: db-backup
+  namespace: ${HOMELAB_NAMESPACE}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: db-backup
+subjects:
+  - kind: ServiceAccount
+    name: db-backup
+    namespace: ${HOMELAB_NAMESPACE}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-backup-script
+  namespace: ${HOMELAB_NAMESPACE}
+data:
+  db-backup.sh: |
+    #!/bin/sh
+    # Per-DB error handling: NO `set -e` — one failed DB must not clobber the
+    # others' good dumps.  We track an overall RC and exit non-zero at the end
+    # if anything failed, but every DB is attempted.
+    set -u
+
+    NS="${HOMELAB_NAMESPACE:-homelab}"
+    KEEP_DB="${KEEP_DB:-14}"
+    DATE="$(date +%Y-%m-%dT%H-%M-%S)"
+    # BACKUP_ROOT defaults to the mounted HDD; the manual test overrides it to
+    # a scratch path (e.g. /tmp/db-backup) when the HDD is not mounted.
+    BACKUP_ROOT="${BACKUP_ROOT:-/hdd-root/homelab-backup-hdd/backups/databases}"
+    PG_DIR="${BACKUP_ROOT}/postgres"
+    SQLITE_DIR="${BACKUP_ROOT}/sqlite"
+    OVERALL_RC=0
+
+    log() { echo "ts=$(date +%Y-%m-%dT%H:%M:%S%z) actor=db-backup $*"; }
+
+    log "event=dbbackup.start outcome=begin reason=scheduled-or-manual backup_root=${BACKUP_ROOT} keep_db=${KEEP_DB}"
+
+    # ── tooling ──────────────────────────────────────────────────────────────
+    log "event=dbbackup.toolinstall outcome=begin reason=apk-add-kubectl-sqlite-gzip-tar"
+    if ! apk add --no-cache kubectl sqlite gzip tar >/dev/null 2>&1; then
+      log "event=dbbackup.toolinstall outcome=fail reason=apk-add-failed"
+      log "event=dbbackup.end outcome=fail reason=no-tooling"
+      exit 1
+    fi
+    log "event=dbbackup.toolinstall outcome=success reason=$(sqlite3 --version | awk '{print $1}')-sqlite_$(kubectl version --client -o json 2>/dev/null | grep -o '\"gitVersion\":\"[^\"]*\"' | head -1)"
+
+    # ── HDD writability guard (skipped when BACKUP_ROOT points at scratch) ────
+    # When backing up to the real HDD, the parent /hdd-root mounts /Volumes.
+    # If the disk is unplugged the hostPath silently falls back to an empty
+    # dir — we MUST NOT write the only DB backups to ephemeral VM disk.  We
+    # require the standard backup-HDD sentinel to exist before writing there.
+    if [ "${SKIP_HDD_GUARD:-0}" != "1" ]; then
+      if [ ! -f /hdd-root/homelab-backup-hdd/.homelab-backup-hdd ]; then
+        log "event=dbbackup.guard target=/hdd-root/homelab-backup-hdd outcome=fail reason=backup-hdd-marker-missing"
+        log "event=dbbackup.end outcome=fail reason=preflight-guard-aborted"
+        exit 1
+      fi
+      log "event=dbbackup.guard target=/hdd-root/homelab-backup-hdd outcome=pass reason=backup-hdd-marker-present"
+    else
+      log "event=dbbackup.guard outcome=skip reason=SKIP_HDD_GUARD-set (scratch/test mode)"
+    fi
+
+    if ! mkdir -p "${PG_DIR}" "${SQLITE_DIR}" 2>/dev/null; then
+      log "event=dbbackup.guard target=${BACKUP_ROOT} outcome=fail reason=mkdir-failed-not-writable"
+      log "event=dbbackup.end outcome=fail reason=backup-root-not-writable"
+      exit 1
+    fi
+    if ! ( : > "${BACKUP_ROOT}/.writetest" ) 2>/dev/null; then
+      log "event=dbbackup.guard target=${BACKUP_ROOT} outcome=fail reason=write-test-failed"
+      log "event=dbbackup.end outcome=fail reason=backup-root-not-writable"
+      exit 1
+    fi
+    rm -f "${BACKUP_ROOT}/.writetest"
+    log "event=dbbackup.guard target=${BACKUP_ROOT} outcome=pass reason=writable"
+
+    # ── helper: resolve the first Running pod for a label selector ────────────
+    find_pod() {
+      kubectl -n "${NS}" get pods -l "$1" \
+        --field-selector=status.phase=Running \
+        -o jsonpath='{.items[0].metadata.name}' 2>/dev/null
+    }
+
+    # ── Postgres dump (logical, restorable) ───────────────────────────────────
+    # $1 pod  $2 pgUser  $3 db  $4 label-for-log
+    pg_backup() {
+      pod="$1"; user="$2"; db="$3"
+      out="${PG_DIR}/${db}-${DATE}.sql.gz"
+      tmp="${out}.tmp"
+      log "event=dbbackup.pg.start actor=db-backup target=${pod}/${db} user=${user} outcome=begin reason=pg_dump"
+      if kubectl -n "${NS}" exec "${pod}" -- \
+           pg_dump -U "${user}" -d "${db}" --no-owner --clean --if-exists 2>/tmp/pgerr \
+           | gzip -c > "${tmp}" 2>/dev/null \
+         && [ -s "${tmp}" ] && gzip -t "${tmp}" 2>/dev/null; then
+        mv -f "${tmp}" "${out}"
+        bytes="$(stat -c%s "${out}" 2>/dev/null || echo 0)"
+        log "event=dbbackup.pg.end actor=db-backup target=${out} outcome=success reason=pg_dump-complete bytes=${bytes}"
+      else
+        rm -f "${tmp}"
+        log "event=dbbackup.pg.end actor=db-backup target=${pod}/${db} outcome=fail reason=pg_dump-failed err=$(tr '\n' ';' < /tmp/pgerr 2>/dev/null | cut -c1-200)"
+        OVERALL_RC=1
+      fi
+      rm -f /tmp/pgerr
+    }
+
+    log "event=dbbackup.phase outcome=begin reason=postgres-shared"
+    SHARED_POD="shared-postgres-0"
+    for db in kidstasks reminders moviesda emailmatrix storage_console; do
+      pg_backup "${SHARED_POD}" "postgres" "${db}"
+    done
+
+    log "event=dbbackup.phase outcome=begin reason=postgres-immich"
+    pg_backup "immich-postgres-0" "immich" "immich"
+
+    # ── SQLite dump (consistent online backup) ────────────────────────────────
+    # Method: stream the CONSISTENT file set (db + -wal + -shm) out of the pod
+    # via `kubectl exec -- tar`, then run sqlite3 `.backup` against the
+    # reconstituted DB inside THIS job pod (sqlite3 installed above).  Falls
+    # back to `.dump` then raw copy.  Reports method used per app.
+    # $1 app  $2 dbpath-in-pod  $3 label-selector  $4 container(optional)
+    sqlite_backup() {
+      app="$1"; dbpath="$2"; selector="$3"; container="${4:-}"
+      out="${SQLITE_DIR}/${app}-${DATE}.db.gz"
+      tmp="${out}.tmp"
+      work="/tmp/${app}"
+      base="$(basename "${dbpath}")"
+      cflag=""; [ -n "${container}" ] && cflag="-c ${container}"
+
+      log "event=dbbackup.sqlite.start actor=db-backup target=${app}:${dbpath} outcome=begin reason=resolve-pod"
+      pod="$(find_pod "${selector}")"
+      if [ -z "${pod}" ]; then
+        log "event=dbbackup.sqlite.end actor=db-backup target=${app} outcome=fail reason=no-running-pod selector=${selector}"
+        OVERALL_RC=1; return 0
+      fi
+
+      rm -rf "${work}"; mkdir -p "${work}"
+      dbdir="$(dirname "${dbpath}")"
+      # Stream db + sidecars (-wal/-shm if present) as a tar.  --ignore-failed-read
+      # so missing -wal/-shm don't abort.  Untar into the job's work dir.
+      if ! kubectl -n "${NS}" exec "${pod}" ${cflag} -- \
+             sh -c "cd '${dbdir}' && tar cf - '${base}' '${base}-wal' '${base}-shm' 2>/dev/null || tar cf - '${base}'" \
+             2>/tmp/tarerr | tar xf - -C "${work}" 2>/dev/null; then
+        log "event=dbbackup.sqlite.stream actor=db-backup target=${app} outcome=fail reason=tar-stream-failed err=$(tr '\n' ';' < /tmp/tarerr 2>/dev/null | cut -c1-160)"
+      fi
+      rm -f /tmp/tarerr
+      local_db="${work}/${base}"
+      if [ ! -f "${local_db}" ]; then
+        log "event=dbbackup.sqlite.end actor=db-backup target=${app} outcome=fail reason=db-file-not-streamed"
+        OVERALL_RC=1; rm -rf "${work}"; return 0
+      fi
+
+      method=""
+      clean="${work}/clean.db"
+      # 1) sqlite3 .backup — consistent (checkpoints WAL into a single file)
+      if sqlite3 "${local_db}" ".backup '${clean}'" 2>/tmp/sqerr && [ -s "${clean}" ] \
+         && [ "$(sqlite3 "${clean}" 'PRAGMA integrity_check;' 2>/dev/null)" = "ok" ]; then
+        method="sqlite3-backup"
+      # 2) fallback: .dump (text SQL) — wrap as a fresh db so output stays .db.gz
+      elif sqlite3 "${local_db}" ".dump" 2>/tmp/sqerr | sqlite3 "${clean}" 2>/dev/null \
+           && [ -s "${clean}" ]; then
+        method="sqlite3-dump-restore"
+      # 3) last resort: raw copy of the streamed db (db+wal+shm captured together)
+      elif cp -f "${local_db}" "${clean}" 2>/dev/null && [ -s "${clean}" ]; then
+        method="raw-copy-with-wal-set"
+      else
+        log "event=dbbackup.sqlite.end actor=db-backup target=${app} outcome=fail reason=all-methods-failed err=$(tr '\n' ';' < /tmp/sqerr 2>/dev/null | cut -c1-160)"
+        OVERALL_RC=1; rm -rf "${work}"; rm -f /tmp/sqerr; return 0
+      fi
+      rm -f /tmp/sqerr
+
+      if gzip -c "${clean}" > "${tmp}" 2>/dev/null && [ -s "${tmp}" ] && gzip -t "${tmp}" 2>/dev/null; then
+        mv -f "${tmp}" "${out}"
+        bytes="$(stat -c%s "${out}" 2>/dev/null || echo 0)"
+        log "event=dbbackup.sqlite.end actor=db-backup target=${out} outcome=success reason=backup-complete method=${method} bytes=${bytes}"
+      else
+        rm -f "${tmp}"
+        log "event=dbbackup.sqlite.end actor=db-backup target=${app} outcome=fail reason=gzip-failed method=${method}"
+        OVERALL_RC=1
+      fi
+      rm -rf "${work}"
+    }
+
+    log "event=dbbackup.phase outcome=begin reason=sqlite"
+    sqlite_backup "jellyfin"    "/config/data/jellyfin.db" "app.kubernetes.io/name=jellyfin"  ""
+    sqlite_backup "radarr"      "/config/radarr.db"        "app=radarr"                        "radarr"
+    sqlite_backup "prowlarr"    "/config/prowlarr.db"      "app=prowlarr"                      "prowlarr"
+    sqlite_backup "bazarr"      "/config/db/bazarr.db"     "app=bazarr"                        "bazarr"
+    sqlite_backup "grocy"       "/config/data/grocy.db"    "app=grocy"                         ""
+    sqlite_backup "filebrowser" "/database/filebrowser.db" "app=filebrowser"                   ""
+
+    # ── retention ──────────────────────────────────────────────────────────────
+    log "event=dbbackup.retention outcome=begin reason=keep-newest-${KEEP_DB}-per-db"
+    prune_dir() {
+      d="$1"; pat="$2"
+      # group by db/app stem: strip the -<DATE>.<ext> suffix, keep newest KEEP_DB
+      for stem in $(ls -1 "${d}" 2>/dev/null | sed -E "s/-[0-9]{4}-[0-9]{2}-[0-9]{2}T.*//" | sort -u); do
+        # shellcheck disable=SC2012
+        ls -1t "${d}/${stem}-"*"${pat}" 2>/dev/null | tail -n +"$((KEEP_DB + 1))" | while IFS= read -r old; do
+          rm -f "${old}" && log "event=dbbackup.retention.delete target=${old} outcome=success reason=older-than-keep-${KEEP_DB}"
+        done
+      done
+    }
+    prune_dir "${PG_DIR}" ".sql.gz"
+    prune_dir "${SQLITE_DIR}" ".db.gz"
+    log "event=dbbackup.retention outcome=done reason=prune-complete"
+
+    if [ "${OVERALL_RC}" -eq 0 ]; then
+      log "event=dbbackup.end outcome=success reason=all-dbs-backed-up"
+    else
+      log "event=dbbackup.end outcome=partial-fail reason=one-or-more-dbs-failed (see above) rc=${OVERALL_RC}"
+    fi
+    exit "${OVERALL_RC}"
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: db-backup
+  namespace: ${HOMELAB_NAMESPACE}
+spec:
+  # Daily at 05:00 Europe/London — after the 03:00 tier movers and the 04:00
+  # immich-backup, so no contention on the DB pods or the backup HDD.
+  schedule: "${DB_BACKUP_SCHEDULE}"
+  timeZone: "Europe/London"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      activeDeadlineSeconds: 3600
+      backoffLimit: 1
+      template:
+        spec:
+          serviceAccountName: db-backup
+          restartPolicy: OnFailure
+          securityContext:
+            runAsUser: 0
+          containers:
+            - name: db-backup
+              image: alpine:3.21
+              command: ["/bin/sh", "/scripts/db-backup.sh"]
+              env:
+                - name: HOMELAB_NAMESPACE
+                  value: "${HOMELAB_NAMESPACE}"
+                - name: KEEP_DB
+                  value: "14"
+              resources:
+                requests: { memory: "256Mi", cpu: "200m" }
+                limits:   { memory: "1Gi",   cpu: "1" }
+              volumeMounts:
+                - name: hdd-root
+                  mountPath: /hdd-root
+                  mountPropagation: HostToContainer
+                - name: script
+                  mountPath: /scripts
+          volumes:
+            # Parent-mount of /Volumes (propagation-safe) — the backup HDD lives
+            # at /Volumes/homelab-backup-hdd; inside the pod it resolves at
+            # /hdd-root/homelab-backup-hdd.  Same idiom as the tier mover's
+            # propagation-safe hostPath.  type: "" — no strict existence check.
+            - name: hdd-root
+              hostPath:
+                path: /Volumes
+                type: ""
+            - name: script
+              configMap:
+                name: db-backup-script
+                defaultMode: 0755
