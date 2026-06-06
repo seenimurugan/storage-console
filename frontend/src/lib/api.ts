@@ -16,7 +16,7 @@ export type RunView = {
 };
 
 export type Task = {
-  id: 'immich-tier' | 'jellyfin-tier' | 'immich-backup' | 'hdd-healer';
+  id: 'immich-tier' | 'jellyfin-tier' | 'immich-backup' | 'db-backup';
   displayName: string;
   description: string;
   cronJobName: string;
@@ -26,6 +26,13 @@ export type Task = {
   lastRun: RunView | null;
   hddConnected: boolean;
   warning: string | null;
+};
+
+export type SecretsBackupStatus = {
+  lastJobName: string | null;
+  startedAt: string | null;
+  finishedAt: string | null;
+  outcome: 'pending' | 'running' | 'succeeded' | 'failed' | null;
 };
 
 export type HddStatus = {
@@ -103,4 +110,9 @@ export const api = {
       method: 'PUT',
       body: JSON.stringify({ gib }),
     }),
+  secretsBackupStatus: () => req<SecretsBackupStatus>('/api/secrets-backup'),
+  triggerSecretsBackup: () =>
+    req<{ jobName: string; namespace: string }>('/api/secrets-backup/trigger', { method: 'POST' }),
+  secretsBackupLogs: (jobName: string, lines = 500) =>
+    req<string>(`/api/secrets-backup/${jobName}/logs?lines=${lines}`),
 };

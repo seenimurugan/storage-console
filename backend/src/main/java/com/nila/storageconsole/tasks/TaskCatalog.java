@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Hardcoded catalog of the three storage operations.
+ * Hardcoded catalog of the four storage operations.
  *
  * Task IDs are the public/UI keys. CronJob names are what's stored in Kubernetes
  * (must match the names in k8s/40-cronjobs.yaml). This indirection keeps the
@@ -40,7 +40,14 @@ public final class TaskCatalog {
             "immich-backup"
     );
 
-    public static final List<TaskDef> ALL = List.of(IMMICH_TIER, JELLYFIN_TIER, IMMICH_BACKUP);
+    public static final TaskDef DB_BACKUP = new TaskDef(
+            "db-backup",
+            "DB Backup",
+            "pg_dump + SQLite consistent backup of all homelab databases to the HDD",
+            "db-backup"
+    );
+
+    public static final List<TaskDef> ALL = List.of(IMMICH_TIER, JELLYFIN_TIER, IMMICH_BACKUP, DB_BACKUP);
 
     public static Optional<TaskDef> find(String id) {
         return ALL.stream().filter(t -> t.id().equals(id)).findFirst();

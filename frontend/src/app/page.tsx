@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { api, Me, Task, setToken } from '@/lib/api';
 import { TaskCard } from '@/components/TaskCard';
+import { SecretsBackupCard } from '@/components/SecretsBackupCard';
 import { HddBadge } from '@/components/StatusBadge';
 
 export default function DashboardPage() {
@@ -80,6 +81,7 @@ export default function DashboardPage() {
             {tasks.map((t) => (
               <TaskCard key={t.id} task={t} onChanged={reload} />
             ))}
+            <SecretsBackupCard />
           </div>
         )}
       </main>
