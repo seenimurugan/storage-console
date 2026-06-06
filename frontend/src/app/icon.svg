@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Storage console: stacked disk / database glyph -->
+  <!-- Top disk platter -->
+  <ellipse cx="16" cy="9" rx="12" ry="4" fill="#2563eb"/>
+  <ellipse cx="16" cy="9" rx="12" ry="4" stroke="#1d4ed8" stroke-width="1"/>
+  <!-- Cylinder body -->
+  <rect x="4" y="9" width="24" height="10" fill="#3b82f6"/>
+  <rect x="4" y="9" width="24" height="10" stroke="#1d4ed8" stroke-width="1"/>
+  <!-- Bottom disk platter -->
+  <ellipse cx="16" cy="19" rx="12" ry="4" fill="#3b82f6"/>
+  <ellipse cx="16" cy="19" rx="12" ry="4" stroke="#1d4ed8" stroke-width="1"/>
+  <!-- Second tier body -->
+  <rect x="4" y="19" width="24" height="6" fill="#60a5fa"/>
+  <rect x="4" y="19" width="24" height="6" stroke="#1d4ed8" stroke-width="1"/>
+  <!-- Bottom cap -->
+  <ellipse cx="16" cy="25" rx="12" ry="4" fill="#60a5fa"/>
+  <ellipse cx="16" cy="25" rx="12" ry="4" stroke="#1d4ed8" stroke-width="1"/>
+  <!-- Highlight dot on top -->
+  <ellipse cx="22" cy="9" rx="2.5" ry="1" fill="#93c5fd" opacity="0.7"/>
+  <!-- Tier arrow indicator -->
+  <path d="M13 14 L16 17 L19 14" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

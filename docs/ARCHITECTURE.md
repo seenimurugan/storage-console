@@ -18,6 +18,8 @@ graph TD
 
 storage-console v2 is a two-container app (Spring Boot backend + Next.js frontend) that wraps three Kubernetes CronJobs in a friendly UI. The CronJobs themselves are also owned by this app (defined in `k8s/40-cronjobs.yaml`).
 
+Immich and Jellyfin self-heal HDD unplug/replug via a propagation-safe hostPath mount — no `hdd-healer` CronJob is needed or present. The healer was removed in v2.7.
+
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │                     Browser (Tailnet)                            │
@@ -134,6 +136,17 @@ fi
 
 `/hdd-check` is a read-only `hostPath` mount of `HOMELAB_TIER_HDD_PATH`. If the disk isn't mounted on the Mac, the directory is empty and the job exits 0 silently — no false failures clogging `failedJobsHistoryLimit`.
 
+## Tier-mover symlink targets
+
+After copying a file from SSD to HDD, the mover replaces the original SSD path with a symlink whose **target is the path as seen inside the consumer app's pod** (not the raw host path). This is required because Immich and Jellyfin access files via their own container's mount namespace.
+
+| App | Symlink target (inside consumer pod) | Host path |
+|---|---|---|
+| Immich | `/hdd-root/homelab-hdd/immich-library/<rel-path>` | `/Volumes/homelab-hdd/immich-library/<rel-path>` |
+| Jellyfin | `/hdd-root/homelab-hdd/jellyfin-media/<subdir>/<rel-path>` | `/Volumes/homelab-hdd/jellyfin-media/<subdir>/<rel-path>` |
+
+Both Immich and Jellyfin mount `/Volumes` at `/hdd-root` with `mountPropagation: HostToContainer`. Because the mover's symlink target matches this in-pod path (not the raw host path), tiered files resolve correctly inside the app pod without any additional configuration.
+
 ## Why fabric8 over kubectl?
 
 The v1 Go app shelled out to `kubectl` for everything. v2 uses fabric8's Java client because:
@@ -176,7 +189,7 @@ The frontend's `next.config.js` also proxies `/api` and `/actuator` to the backe
 | Backend | Go stdlib + `os/exec kubectl` | Spring Boot + fabric8 Java client |
 | Frontend | Vanilla HTML/CSS/JS in `embed.FS` | Next.js 15 App Router + Tailwind |
 | Mode toggle | n/a (always suspend=true) | Auto/Manual stored as `spec.suspend` |
-| HDD detection | n/a | hostPath probe with 30s cache |
+| HDD detection | n/a | hostPath probe with 30s cache (propagation-safe parent mount; no healer CronJob) |
 | Auth | None (Tailscale only) | Tailscale + JWT admin login |
 | Database | None | shared-postgres (audit + future run history) |
 | CronJob ownership | cluster-setup + ~/homelab | storage-console k8s manifests |

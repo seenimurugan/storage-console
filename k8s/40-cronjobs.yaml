@@ -32,8 +32,8 @@ metadata:
 ---
 # Shared mover script — moves files > threshold from SSD to HDD, replaces
 # original with a symlink to the HDD path that's visible inside the consumer
-# app pod (Immich = /data-hdd, Jellyfin = /media-hdd).  See ~/homelab/tier-now.sh
-# and the original cluster-setup yaml for the full design rationale.
+# app pod (Immich = /hdd-root/homelab-hdd/immich-library, Jellyfin = /hdd-root/homelab-hdd/jellyfin-media).
+# See ~/homelab/tier-now.sh and the original cluster-setup yaml for the full design rationale.
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -60,13 +60,23 @@ data:
 
     IMMICH_SSD=/ssd-immich
     IMMICH_HDD=/hdd-immich
-    IMMICH_POD_HDD=/data-hdd
+    # Symlink target as seen inside the Immich server pod. Now points at the
+    # propagation-safe mount: hostPath /Volumes mounted at /hdd-root with
+    # mountPropagation: HostToContainer (immich-values.yaml persistence.hddroot).
+    # The HDD lives at /Volumes/homelab-hdd/immich-library, so inside the pod
+    # tiered files resolve at /hdd-root/homelab-hdd/immich-library/...
+    IMMICH_POD_HDD=/hdd-root/homelab-hdd/immich-library
     # Allow env override from tiering-thresholds ConfigMap; default = 2 GiB
     IMMICH_THRESHOLD_BYTES="${IMMICH_THRESHOLD_BYTES:-2147483648}"
 
     JELLYFIN_SSD=/ssd-jellyfin
     JELLYFIN_HDD=/hdd-jellyfin
-    JELLYFIN_POD_HDD=/media-hdd
+    # Symlink target as seen inside the Jellyfin server pod. Now points at the
+    # propagation-safe mount: hostPath /Volumes mounted at /hdd-root with
+    # mountPropagation: HostToContainer (jellyfin-values.yaml hdd-root volume).
+    # The HDD lives at /Volumes/homelab-hdd/jellyfin-media, so inside the pod
+    # tiered files resolve at /hdd-root/homelab-hdd/jellyfin-media/...
+    JELLYFIN_POD_HDD=/hdd-root/homelab-hdd/jellyfin-media
     # Allow env override from tiering-thresholds ConfigMap; default = 3 GiB
     JELLYFIN_THRESHOLD_BYTES="${JELLYFIN_THRESHOLD_BYTES:-3221225472}"
 

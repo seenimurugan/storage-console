@@ -16,7 +16,7 @@ export type RunView = {
 };
 
 export type Task = {
-  id: 'immich-tier' | 'jellyfin-tier' | 'immich-backup';
+  id: 'immich-tier' | 'jellyfin-tier' | 'immich-backup' | 'hdd-healer';
   displayName: string;
   description: string;
   cronJobName: string;
