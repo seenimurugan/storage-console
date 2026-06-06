@@ -66,7 +66,7 @@ echo "[deploy] (1/8) Building images (linux/arm64 — OrbStack k3s shares Mac Do
 echo "  → $BACKEND_IMAGE:$BACKEND_TAG"
 docker build --platform linux/arm64 -t "$BACKEND_IMAGE:$BACKEND_TAG" -t "$BACKEND_IMAGE:latest" "$SCRIPT_DIR/backend"
 echo "  → $FRONTEND_IMAGE:$FRONTEND_TAG"
-docker build --platform linux/arm64 -t "$FRONTEND_IMAGE:$FRONTEND_TAG" "$SCRIPT_DIR/frontend"
+docker build --platform linux/arm64 -t "$FRONTEND_IMAGE:$FRONTEND_TAG" -t "$FRONTEND_IMAGE:latest" "$SCRIPT_DIR/frontend"
 
 # ── 5. Ensure storage-console-postgres-secret has STORAGE_CONSOLE_* keys ─────
 # Dedicated per-app secret (split from shared-postgres-secret on 2026-06-01).

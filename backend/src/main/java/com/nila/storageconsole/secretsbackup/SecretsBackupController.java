@@ -50,7 +50,11 @@ public class SecretsBackupController {
     @PostMapping("/trigger")
     @ResponseStatus(HttpStatus.CREATED)
     public TriggerResponse trigger(@AuthenticationPrincipal AuthUser principal) {
-        String actor = principal == null ? "anonymous" : principal.username();
+        if (principal == null) {
+            log.warn("event=secrets_backup.trigger.rejected reason=unauthenticated outcome=401");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Authentication required");
+        }
+        String actor = principal.username();
         log.info("event=secrets_backup.trigger.request actor={}", actor);
         try {
             Job job = service.trigger(actor);

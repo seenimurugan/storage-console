@@ -23,8 +23,9 @@ export function SecretsBackupCard() {
     try {
       const s = await api.secretsBackupStatus();
       setStatus(s);
-    } catch {
-      // non-fatal: status is informational
+      setError(null);
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : 'Failed to load status');
     }
   }
 

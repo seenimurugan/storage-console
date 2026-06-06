@@ -136,15 +136,20 @@ public class SecretsBackupService {
                 fi
 
                 # ── count secrets per namespace ────────────────────────────────────────
+                # Use direct secret listing to check namespace reachability — no 'get namespace'
+                # permission needed (ClusterRole only has get/list on secrets).
                 PRESENT_NS=""
                 NS_OK=0
                 SECRET_COUNT=0
                 for ns in $NAMESPACES; do
-                  if ! kubectl get namespace "$ns" >/dev/null 2>&1; then
-                    log "event=secrets_backup.namespace outcome=skip ns=$ns reason=not-found"
+                  NS_OUT=$(kubectl -n "$ns" get secret --no-headers 2>/tmp/ns-err-$ns || true)
+                  if grep -qiE 'not found|NotFound|Forbidden|namespaces.*not' /tmp/ns-err-$ns 2>/dev/null; then
+                    log "event=secrets_backup.namespace outcome=skip ns=$ns reason=not-found-or-forbidden"
+                    rm -f /tmp/ns-err-$ns
                     continue
                   fi
-                  NCOUNT=$(kubectl -n "$ns" get secret --no-headers 2>/dev/null | wc -l | tr -d ' ')
+                  rm -f /tmp/ns-err-$ns
+                  NCOUNT=$(echo "$NS_OUT" | grep -c . || true)
                   PRESENT_NS="${PRESENT_NS} ${ns}"
                   NS_OK=$((NS_OK + 1))
                   SECRET_COUNT=$((SECRET_COUNT + NCOUNT))
@@ -261,12 +266,10 @@ public class SecretsBackupService {
     }
 
     private List<Job> listJobs(int limit) {
-        return client.batch().v1().jobs().inNamespace(namespace).list().getItems()
+        return client.batch().v1().jobs().inNamespace(namespace)
+                .withLabelSelector(LABEL_KEY + "=" + LABEL_VALUE)
+                .list().getItems()
                 .stream()
-                .filter(j -> {
-                    var labels = j.getMetadata().getLabels();
-                    return labels != null && LABEL_VALUE.equals(labels.get(LABEL_KEY));
-                })
                 .sorted(java.util.Comparator.comparing(
                         (Job j) -> Optional.ofNullable(j.getMetadata().getCreationTimestamp()).orElse(""))
                         .reversed())
@@ -276,13 +279,12 @@ public class SecretsBackupService {
 
     private static boolean isInFlight(Job j) {
         var status = j.getStatus();
-        if (status == null) return true;
+        if (status == null) return false;
         Integer active = status.getActive();
-        Integer succeeded = status.getSucceeded();
-        Integer failed = status.getFailed();
-        if (active != null && active > 0) return true;
-        boolean done = (succeeded != null && succeeded > 0) || (failed != null && failed > 0);
-        return !done;
+        // Only block a new trigger when a pod is actively running.
+        // All-null / succeeded / failed states (including evicted or hung jobs)
+        // are NOT considered in-flight; activeDeadlineSeconds (1800s) reaps stuck jobs.
+        return active != null && active > 0;
     }
 
     private Container buildContainer(String script) {
