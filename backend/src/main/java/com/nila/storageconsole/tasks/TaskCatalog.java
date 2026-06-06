@@ -40,7 +40,14 @@ public final class TaskCatalog {
             "immich-backup"
     );
 
-    public static final List<TaskDef> ALL = List.of(IMMICH_TIER, JELLYFIN_TIER, IMMICH_BACKUP);
+    public static final TaskDef HDD_HEALER = new TaskDef(
+            "hdd-healer",
+            "HDD Healer",
+            "Detect and restart Immich/Jellyfin pods with stale virtiofs HDD mounts (keep suspended when HDD is disconnected)",
+            "hdd-healer"
+    );
+
+    public static final List<TaskDef> ALL = List.of(IMMICH_TIER, JELLYFIN_TIER, IMMICH_BACKUP, HDD_HEALER);
 
     public static Optional<TaskDef> find(String id) {
         return ALL.stream().filter(t -> t.id().equals(id)).findFirst();

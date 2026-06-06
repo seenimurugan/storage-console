@@ -130,6 +130,14 @@ public class TaskController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Unknown task: " + id));
         log.info("event=task.trigger.requested actor={} task={} cronJob={}",
                 actor, def.id(), def.cronJobName());
+        // Safety warning: hdd-healer restarts immich-server + jellyfin pods.
+        // Triggering it while the HDD is disconnected will restart them into an
+        // unhealthy state (stale mounts). Log a WARN so operators can correlate
+        // any post-trigger incidents with the HDD state at trigger time.
+        if ("hdd-healer".equals(def.id()) && !hdd.status().connected()) {
+            log.warn("event=task.trigger.hdd-healer.hdd-absent actor={} task={} outcome=allowed reason=hdd-disconnected-at-trigger-time action=healer-will-skip-restarts-itself",
+                    actor, def.id());
+        }
         CronJob cj = k8s.getCronJob(def.cronJobName())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "CronJob not found"));
         boolean suspended = Boolean.TRUE.equals(cj.getSpec().getSuspend());
